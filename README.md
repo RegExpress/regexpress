@@ -5,8 +5,8 @@ Amber-storm
 ## Team
 
   - __Product Owner__: Tess Myers
-  - __Scrum Master__: Tyler Garret
-  - __Development Team Members__: Mike Howard, Shan Swamithan
+  - __Scrum Master__: Tyler Garrett
+  - __Development Team Members__: Mike Howard, Shan Swaminathan
 
 ## Table of Contents
 
