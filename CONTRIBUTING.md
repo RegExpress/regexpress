@@ -22,7 +22,7 @@
    reviews is to help keep the codebase clean and of high quality and, equally
    as important, to help you grow as a programmer. If your code reviewer
    requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
+1. Fix any issues raised by your code reviewer, and push your fixes as a single
    new commit.
 1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
 
@@ -30,10 +30,10 @@
 
 ### Fork the repo
 
-Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
+Use github’s interface to make a fork of the repo, then add the repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/hackreactor-labs/<NAME_OF_REPO>.git
+git remote add upstream https://github.com/amber-storm/amber-storm.git
 ```
 
 ### Cut a namespaced feature branch from master
@@ -153,7 +153,7 @@ Thanks for contributing!
 
 This is just to help you organize your process
 
-- [ ] Did I cut my work branch off of master (don't cut new branches from existing feature brances)?
+- [ ] Did I cut my work branch off of master (don't cut new branches from existing feature branches)?
 - [ ] Did I follow the correct naming convention for my branch?
 - [ ] Is my branch focused on a single main change?
  - [ ] Do all of my changes directly relate to this change?
