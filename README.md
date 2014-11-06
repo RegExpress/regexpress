@@ -21,13 +21,16 @@ Amber-storm
 ## Usage
 
 > Some usage instructions
- navigate to root directory
+
+navigate to root directory
 
     $ npm install
+
     $ bower install
+
     $ nodemon tempServer.js
 
-Go to http://localhost:3000/ and bask in the glory
+Go to http://localhost:3000/ and bask in the glory.
 
 ## Requirements
 
