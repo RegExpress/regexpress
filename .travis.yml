@@ -1,0 +1,10 @@
+after_success:
+  - tar -zcvf amber-$TRAVIS_BRANCH.tar.gz
+deploy:
+  provider: releases
+  api_key:
+    secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM=
+  file: temp.tar.gz
+  on:
+    repo: amber-storm/amber-storm
+    all_branches: true
