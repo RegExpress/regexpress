@@ -1,5 +1,3 @@
-var parseRegex, rx2rr;
-
 var parse = require("regexp");
 
 var railroad = require('./railroad-diagrams');
@@ -15,15 +13,16 @@ var Comment = railroad['Comment'];
 var Skip = railroad['Skip'];
 var Group = railroad['Group'];
 
+//Might have some problems
 var makeLiteral = function(text) {
-  var part, parts, sequence, _i, _len;
   if (text === " ") {
     return NonTerminal("SP");
   } else {
-    parts = text.split(/(^ +| {2,}| +$)/);
-    sequence = [];
-    for (_i = 0, _len = parts.length; _i < _len; _i++) {
-      part = parts[_i];
+    var parts = text.split(/(^ +| {2,}| +$)/);
+    var sequence = [];
+    for (var i = 0; i < parts.length; i++) {
+      var part = parts[i];
+      //DOUBLE CHECK IF THIS IF STATEMENT IS CORRECT
       if (!part.length) {
         continue;
       }
@@ -45,27 +44,25 @@ var makeLiteral = function(text) {
   }
 };
 
-rx2rr = function(node, options) {
-  var alternatives, body, char, charset, i, list, literal, max, min, n, sequence, x, _i, _j, _len, _len1, _ref1, _ref2;
+var rx2rr = function(node, options) {
   switch (node.type) {
     case "match":
-      literal = null;
-      sequence = [];
-      _ref1 = node.body;
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        n = _ref1[_i];
-        if (n.type === "literal" && !n.escaped) {
+      var literal = null;
+      var sequence = [];
+      for (var i = 0; i <  node.body.length; i++) {
+        var currentNode = node.body[i];
+        if (currentNode.type === "literal" && !currentNode.escaped) {
           if (literal != null) {
-            literal += n.body;
+            literal += currentNode.body;
           } else {
-            literal = n.body;
+            literal = currentNode.body;
           }
         } else {
           if (literal != null) {
             sequence.push(makeLiteral(literal));
             literal = null;
           }
-          sequence.push(rx2rr(n, options));
+          sequence.push(rx2rr(currentNode, options));
         }
       }
       if (literal != null) {
@@ -78,19 +75,22 @@ rx2rr = function(node, options) {
       }
       break;
     case "alternate":
-      alternatives = [];
+      var alternatives = [];
       while (node.type === "alternate") {
         alternatives.push(rx2rr(node.left, options));
         node = node.right;
       }
       alternatives.push(rx2rr(node, options));
-      return new Choice(Math.floor(alternatives.length / 2) - 1, alternatives);
+      return new Choice(Math.ceil(alternatives.length / 2) - 1, alternatives);
     case "quantified":
-      _ref2 = node.quantifier, min = _ref2.min, max = _ref2.max;
-      body = rx2rr(node.body, options);
+      var quantifier = node.quantifier; 
+      var min = quantifier.min; 
+      var max = quantifier.max;
+      var body = rx2rr(node.body, options);
       if (!(min <= max)) {
-        throw new Error("Minimum quantifier (" + min + ") must be lower than ", +("maximum quantifier (" + max + ")"));
+        throw new Error("Minimum quantifier (" + min + ") must be lower than maximum quantifier (" + max + ")");
       }
+      //NEEDS TO HANDLE NO MIN INPUT
       switch (min) {
         case 0:
           if (max === 1) {
@@ -129,15 +129,18 @@ rx2rr = function(node, options) {
     case "non-capture-group":
       return Group(rx2rr(node.body, options));
     case "positive-lookahead":
+      return Group(rx2rr(node.body, options), Comment(node.type));
     case "negative-lookahead":
+      return Group(rx2rr(node.body, options), Comment(node.type));
     case "positive-lookbehind":
+      return Group(rx2rr(node.body, options), Comment(node.type));
     case "negative-lookbehind":
       return Group(rx2rr(node.body, options), Comment(node.type));
     case "back-reference":
       return NonTerminal("ref " + node.index);
     case "literal":
       if (node.escaped) {
-        return Terminal("\\" + node.body);
+        return Terminal(node.body);
       } else {
         return makeLiteral(node.body);
       }
@@ -161,20 +164,15 @@ rx2rr = function(node, options) {
     case "range":
       return Terminal(node.text);
     case "charset":
-      charset = (function() {
-        var _j, _len1, _ref3, _results;
-        _ref3 = node.body;
-        _results = [];
-        for (_j = 0, _len1 = _ref3.length; _j < _len1; _j++) {
-          x = _ref3[_j];
-          _results.push(x.text);
-        }
-        return _results;
-      })();
+      var charNodes = node.body;
+      var charset = [];
+      for(var i = 0; i < charNodes.length; i++){
+        charset.push(charNodes[i].body);
+      }
+
       if (charset.length === 1) {
-        char = charset[0];
-        if (char === " ") {
-          char = "SP";
+        if (charset[0] === " ") {
+          charset[0] = "SP";
         }
         if (node.invert) {
           return NonTerminal("not " + charset[0]);
@@ -182,10 +180,10 @@ rx2rr = function(node, options) {
           return Terminal(charset[0]);
         }
       } else {
-        list = charset.slice(0, -1).join(", ");
-        for (i = _j = 0, _len1 = list.length; _j < _len1; i = ++_j) {
-          x = list[i];
-          if (x === " ") {
+        //For []. Doesn't represent it as a choice block
+        var list = charset.slice(0, -1).join(", ");
+        for (var i = 0; i < list.length; i++) {
+          if (list[i] === " ") {
             list[i] = "SP";
           }
         }
@@ -197,7 +195,9 @@ rx2rr = function(node, options) {
       }
       break;
     case "hex":
+      return Terminal(node.text);
     case "octal":
+      return Terminal(node.text);
     case "unicode":
       return Terminal(node.text);
     default:
@@ -205,7 +205,7 @@ rx2rr = function(node, options) {
   }
 };
 
-parseRegex = function(regex) {
+var parseRegex = function(regex) {
   if (regex instanceof RegExp) {
     regex = regex.source;
   }
@@ -214,7 +214,7 @@ parseRegex = function(regex) {
 
 module.exports = {
   Regex2RailRoadDiagram: function(regex, parent, opts) {
-    return Diagram(rx2rr(parseRegex(regex), opts)).addTo(parent);
+    return Diagram(rx2rr(parseRegex(regex)));
   },
   ParseRegex: parseRegex
 };
