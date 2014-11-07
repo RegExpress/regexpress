@@ -2,11 +2,11 @@
   'use strict';
 
   angular
-    .module('regexApp', [])
+    .module('baseApp')
     .controller('Railroad', Railroad);
 
 
   function Railroad($scope) {
-    $scope.railroad = { 'road':"put railroad here, obvi");
+    $scope.railroad = { 'road':"put railroad here, obvi"};
   }
 })();
