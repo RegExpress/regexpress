@@ -4,7 +4,8 @@
   "description": "Albrey's bicep",
   "main": "tempServer.js",
   "scripts": {
-    "test": ""
+    "prestart": "npm install",
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,8 @@
     "chai": "^1.9.2",
     "express": "^4.10.1",
     "mocha": "^2.0.1",
-    "nodemon": "^1.2.1"
+    "nodemon": "^1.2.1",
+    "karma-junit-reporter": "^0.2.2",
+    "karma": "~0.10"
   }
 }

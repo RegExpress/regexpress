@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('regexApp', [])
+    .module('baseApp')
     .controller('Regex', Regex);
 
 

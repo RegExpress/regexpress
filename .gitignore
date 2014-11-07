@@ -1,5 +1,5 @@
 node_modules/
-bower_components/# Created by https://www.gitignore.io
+bower_components/
 
 ### OSX ###
 .DS_Store
@@ -7,7 +7,8 @@ bower_components/# Created by https://www.gitignore.io
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
