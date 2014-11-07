@@ -11,3 +11,6 @@ deploy:
   on:
     repo: amber-storm/amber-storm
     all_branches: true
+notifications:
+    slack: amber-storm:qFPnNCzTvbORuaKEWArQ8Vw0
+    email: none
