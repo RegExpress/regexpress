@@ -13,3 +13,4 @@ deploy:
     all_branches: true
 notifications:
     slack: amber-storm:qFPnNCzTvbORuaKEWArQ8Vw0
+    email: none
