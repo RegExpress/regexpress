@@ -46,8 +46,10 @@ var makeLiteral = function(text) {
 };
 
 /*
-*Recursive function to convert a parsed regular expression to railroad blocks
-*node: The current object in the parsed regular expression tree to be evaluated
+* Recursive function to convert a parsed regular expression to railroad blocks.
+* The parsed regular expression will be a bunch of nested objects, and the type property
+* determines how the object needs to be handled and which railroad block format will be used.
+* node: The current object in the parsed regular expression tree to be evaluated
 */
 var rx2rr = function(node) {
   switch (node.type) {
@@ -165,13 +167,18 @@ var rx2rr = function(node) {
       return Terminal("0-9");
     case "white-space":
       return NonTerminal("WS");
-    case "range": //Handles ranges, NOT WORKING. NOT EVEN GETTING HERE. PROBLEM IS IN CHARSET
+    case "range":
       return Terminal(node.text);
     case "charset": //Handles [...] blocks
       var charNodes = node.body;
       var charset = [];
       for(var i = 0; i < charNodes.length; i++){
-        charset.push(charNodes[i].body);
+        if(charNodes[i].type === "range"){
+          //Need to use text for these to display the whole range
+          charset.push(charNodes[i].text);
+        } else {
+          charset.push(charNodes[i].body);
+        }
       }
 
       if (charset.length === 1) {
