@@ -29,6 +29,8 @@
     "karma-junit-reporter": "^0.2.2",
     "mocha": "^2.0.1",
     "nodemon": "^1.2.1",
+    "karma-junit-reporter": "^0.2.2",
+    "karma": "~0.10",
     "stylus": "^0.49.3"
   }
 }
