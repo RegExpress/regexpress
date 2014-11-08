@@ -223,7 +223,7 @@ var parseRegex = function(regex) {
 
 module.exports = {
   Regex2RailRoadDiagram: function(regex) {
-    return Diagram(rx2rr(parseRegex(regex)));
+    return Diagram(rx2rr(parseRegex(regex))).format();
   },
   ParseRegex: parseRegex
 };
