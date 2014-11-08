@@ -3,38 +3,41 @@
 <head>
   <meta charset="utf-8">
   <title>Albrey's Bicep</title>
-  <!-- <link rel="stylesheet" href="css/app.css"> -->
+  <link rel="stylesheet" href="styles/teststyles.css">
+  <link rel="stylesheet" href="styles/app.css">
+  <!-- there must be a better way to load all these files -->
   <script src="bower_components/angular/angular.js"></script>
 
   <script src="app/main/main.js"></script>
 
-  <script src="components/regex/regex.controller.js"></script>
-  <script src="components/railroad/railroad.controller.js"></script>
-  <script src="components/workspace/workspace.controller.js"></script>
-  <script src="components/test-string/test-string.controller.js"></script>
+  <script src="components/regex/regex.directive.js"></script>
+  <script src="components/regex/regex.service.js"></script>
+  <script src="components/railroad/railroad.directive.js"></script>
+  <script src="components/workspace/workspace.directive.js"></script>
+  <script src="components/test-string/test-string.directive.js"></script>
 
 </head>
-<body>
-
-  <div ng-controller="Regex">
-    <h5>Regex View view</h5>
-    <span>{{ regex.re }}</span>
-  </div>
-
-  <div ng-controller="TestString">
-    <h5>Test string view</h5>
-    <span>{{ string.str }}</span>
-  </div>
-
-  <div ng-controller="Workspace">
-    <h5>Workspace view</h5>
-    <span>{{ workspace.space }}</span>
-  </div>
-
-  <div ng-controller="Railroad">
-    <h5>Railroad view</h5>
-    <span>{{ railroad.road }}</span>
-  </div>
-
-</body>
+  <body ng-controller="MainController">
+    <div class="test">
+      <h2>Test string: {{ string }}</h2>
+    </div>
+    <div class="work">
+      <h4>workspace</h4>
+      <div><place-workspace/></div>
+      <div><place-railroad/></div>
+    </div>
+    <div class="container">
+      <span class="cell" id="one">
+        <div class="one">
+          <input type="text" ng-model="regex"/>
+          <button ng-click="">click</button>
+        </div>
+        <div class="one"></div>
+        <div class="one"></div>
+        <div class="one"></div>
+      </span>
+      <span class="cell" id="two"><p>hi</p></span>
+      <span class="cell" id="three"><p>hi</p></span>
+    </div>
+  </body>
 </html>
