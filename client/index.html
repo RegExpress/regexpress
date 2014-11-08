@@ -2,7 +2,7 @@
 <html lang="en" ng-app="baseApp">
 <head>
   <meta charset="utf-8">
-  <title>Albrey's Bicep</title>
+  <title>RegExpress</title>
   <link rel="stylesheet" href="styles/teststyles.css">
   <link rel="stylesheet" href="styles/app.css">
   <!-- there must be a better way to load all these files -->
@@ -19,25 +19,28 @@
 </head>
   <body ng-controller="MainController">
     <div class="test">
-      <h2>Test string: {{ string }}</h2>
+      <p>Test string: {{ string }}</p>
+      <p> Matches: {{ match }}</p>
     </div>
     <div class="work">
-      <h4>workspace</h4>
-      <div><place-workspace/></div>
+<!--       <div><place-workspace/></div> -->
       <div><place-railroad/></div>
+      <input type="string" ng-model="regexBody" placeholder="Write a regex"/>
+      <input type="string" ng-model="regexTags" placeholder="Tags"/>
+      <!-- regex directive -->
+      <div><regex-runner/></div>
     </div>
+
     <div class="container">
       <span class="cell" id="one">
         <div class="one">
-          <input type="text" ng-model="regex"/>
-          <button ng-click="">click</button>
         </div>
         <div class="one"></div>
         <div class="one"></div>
         <div class="one"></div>
       </span>
-      <span class="cell" id="two"><p>hi</p></span>
-      <span class="cell" id="three"><p>hi</p></span>
+      <span class="cell" id="two"><p></p></span>
+      <span class="cell" id="three"><p></p></span>
     </div>
   </body>
 </html>
