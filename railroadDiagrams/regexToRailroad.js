@@ -47,7 +47,7 @@ var makeLiteral = function(text) {
 
 /*
 *Recursive function to convert a parsed regular expression to railroad blocks
-*node: The current node of the parsed regular expression tree to be evaluated
+*node: The current object in the parsed regular expression tree to be evaluated
 */
 var rx2rr = function(node) {
   switch (node.type) {
@@ -101,7 +101,7 @@ var rx2rr = function(node) {
             return Optional(body);
           } else {
             if (max === 0) {
-              return ZeroOrMore(body, Comment("" + max + " times")); // WTF???
+              return Sequence();
             } else if (max !== Infinity) {
               return ZeroOrMore(body, Comment("0 to " + max + " times"));
             } else {
@@ -111,7 +111,7 @@ var rx2rr = function(node) {
           break;
         case 1:
           if (max === 1) {
-            return OneOrMore(body, Comment("once")); //WHY DO ONEORMORE HERE???
+            return Sequence(body);
           } else if (max !== Infinity) {
             return OneOrMore(body, Comment("1 to " + max + " times"));
           } else {
@@ -212,7 +212,7 @@ var rx2rr = function(node) {
 /*
 * Parses the given regex using the regexp module
 * regex: the regular expression to parse
-* returns the top node in the parsed regular expression tree
+* returns the entire regular expression tree (a bunch of nested objects)
 */
 var parseRegex = function(regex) {
   if (regex instanceof RegExp) {
