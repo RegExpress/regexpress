@@ -6,8 +6,10 @@
     .controller('MainController', MainController);
 
     function MainController($scope) {
-      $scope.string = '\"some words here that are going to be regexe\'d so hard\"';
-      $scope.regex = '/\w+/';
+      $scope.string = 'Here are some words. Hooray 123456 !.';
+      $scope.regexBody = '';
+      $scope.regexTags = '';
+      $scope.match = '';
     }
 
 })();
