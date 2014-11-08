@@ -1,5 +1,6 @@
-var parse = require("regexp");
+var parse = require("regexp"); //Used to parse a regular expression
 
+//Functions for drawing the different railroad blocks
 var railroad = require('./railroad-diagrams');
 var Diagram = railroad['Diagram'];
 var Sequence = railroad['Sequence'];
@@ -44,7 +45,11 @@ var makeLiteral = function(text) {
   }
 };
 
-var rx2rr = function(node, options) {
+/*
+*Recursive function to convert a parsed regular expression to railroad blocks
+*node: The current node of the parsed regular expression tree to be evaluated
+*/
+var rx2rr = function(node) {
   switch (node.type) {
     case "match":
       var literal = null;
@@ -62,7 +67,7 @@ var rx2rr = function(node, options) {
             sequence.push(makeLiteral(literal));
             literal = null;
           }
-          sequence.push(rx2rr(currentNode, options));
+          sequence.push(rx2rr(currentNode));
         }
       }
       if (literal != null) {
@@ -74,30 +79,29 @@ var rx2rr = function(node, options) {
         return new Sequence(sequence);
       }
       break;
-    case "alternate":
+    case "alternate": //Handles (a|b|c) blocks
       var alternatives = [];
       while (node.type === "alternate") {
-        alternatives.push(rx2rr(node.left, options));
+        alternatives.push(rx2rr(node.left));
         node = node.right;
       }
-      alternatives.push(rx2rr(node, options));
+      alternatives.push(rx2rr(node));
       return new Choice(Math.ceil(alternatives.length / 2) - 1, alternatives);
-    case "quantified":
+    case "quantified": //Handles multiples (+, *, {4}, etc.) of an expression
       var quantifier = node.quantifier; 
       var min = quantifier.min; 
       var max = quantifier.max;
-      var body = rx2rr(node.body, options);
+      var body = rx2rr(node.body);
       if (!(min <= max)) {
         throw new Error("Minimum quantifier (" + min + ") must be lower than maximum quantifier (" + max + ")");
       }
-      //NEEDS TO HANDLE NO MIN INPUT
       switch (min) {
         case 0:
           if (max === 1) {
             return Optional(body);
           } else {
             if (max === 0) {
-              return ZeroOrMore(body, Comment("" + max + " times"));
+              return ZeroOrMore(body, Comment("" + max + " times")); // WTF???
             } else if (max !== Infinity) {
               return ZeroOrMore(body, Comment("0 to " + max + " times"));
             } else {
@@ -107,7 +111,7 @@ var rx2rr = function(node, options) {
           break;
         case 1:
           if (max === 1) {
-            return OneOrMore(body, Comment("once"));
+            return OneOrMore(body, Comment("once")); //WHY DO ONEORMORE HERE???
           } else if (max !== Infinity) {
             return OneOrMore(body, Comment("1 to " + max + " times"));
           } else {
@@ -124,21 +128,21 @@ var rx2rr = function(node, options) {
           }
       }
       break;
-    case "capture-group":
-      return Group(rx2rr(node.body, options), Comment("capture " + node.index));
+    case "capture-group": //Handles (...) blocks
+      return Group(rx2rr(node.body), Comment("capture " + node.index));
     case "non-capture-group":
-      return Group(rx2rr(node.body, options));
+      return Group(rx2rr(node.body));
     case "positive-lookahead":
-      return Group(rx2rr(node.body, options), Comment(node.type));
+      return Group(rx2rr(node.body), Comment(node.type));
     case "negative-lookahead":
-      return Group(rx2rr(node.body, options), Comment(node.type));
+      return Group(rx2rr(node.body), Comment(node.type));
     case "positive-lookbehind":
-      return Group(rx2rr(node.body, options), Comment(node.type));
+      return Group(rx2rr(node.body), Comment(node.type));
     case "negative-lookbehind":
-      return Group(rx2rr(node.body, options), Comment(node.type));
+      return Group(rx2rr(node.body), Comment(node.type));
     case "back-reference":
       return NonTerminal("ref " + node.index);
-    case "literal":
+    case "literal": //Handles individual characters
       if (node.escaped) {
         return Terminal(node.body);
       } else {
@@ -161,9 +165,9 @@ var rx2rr = function(node, options) {
       return Terminal("0-9");
     case "white-space":
       return NonTerminal("WS");
-    case "range":
+    case "range": //Handles ranges, NOT WORKING. NOT EVEN GETTING HERE. PROBLEM IS IN CHARSET
       return Terminal(node.text);
-    case "charset":
+    case "charset": //Handles [...] blocks
       var charNodes = node.body;
       var charset = [];
       for(var i = 0; i < charNodes.length; i++){
@@ -180,7 +184,7 @@ var rx2rr = function(node, options) {
           return Terminal(charset[0]);
         }
       } else {
-        //For []. Doesn't represent it as a choice block
+        //For multiple chars. Doesn't represent it as a choice block. Doesn't convert ending space to 'SP'
         var list = charset.slice(0, -1).join(", ");
         for (var i = 0; i < list.length; i++) {
           if (list[i] === " ") {
@@ -205,6 +209,11 @@ var rx2rr = function(node, options) {
   }
 };
 
+/*
+* Parses the given regex using the regexp module
+* regex: the regular expression to parse
+* returns the top node in the parsed regular expression tree
+*/
 var parseRegex = function(regex) {
   if (regex instanceof RegExp) {
     regex = regex.source;
@@ -213,7 +222,7 @@ var parseRegex = function(regex) {
 };
 
 module.exports = {
-  Regex2RailRoadDiagram: function(regex, parent, opts) {
+  Regex2RailRoadDiagram: function(regex) {
     return Diagram(rx2rr(parseRegex(regex)));
   },
   ParseRegex: parseRegex
