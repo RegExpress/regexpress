@@ -11,7 +11,7 @@ module.exports = function(config){
 
       'client/app/main/main.js',
 
-      'client/components/**/*.controller.js',
+      'client/components/**/*.directive.js',
       'client/components/**/*.specs.js'
 
     ],
