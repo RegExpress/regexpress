@@ -3,11 +3,6 @@ node_js:
 - '0.10'
 notifications:
   email: false
-before_install:
-- openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv
-  -in regex.azure.key.enc -out .travis/regex.azure.key -d
-before_script:
-  - echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
 # - test $TRAVIS_BRANCH != "develop"
 #   && gulp build && cp package.json dist/package.json
@@ -16,10 +11,13 @@ after_success:
 #   && npm install --production
 #   && cd $TRAVIS_BUILD_DIR
 #   && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
-- test $TRAVIS_BRANCH == "develop" && echo "on develop"
-  && chmod 600 .travis/regex.azure.key
+- test $TRAVIS_BRANCH == "develop"
+  && test $TRAVIS_PULL_REQUEST = false
+  && echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  && openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d
+  && chmod 600 .travis/k.key
   && eval $(ssh-agent)
-  && ssh-add .travis/regex.azure.key
+  && ssh-add .travis/k.key
   && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/amber-storm.git
   && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH
 # deploy:
