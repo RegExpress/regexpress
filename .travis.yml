@@ -4,7 +4,6 @@ node_js:
 notifications:
   email: false
 before_install:
-- mkdir .travis
 - openssl aes-256-cbc -K $encrypted_d97f125b9303_key -iv $encrypted_d97f125b9303_iv
   -in .travis/regex.azure.key.enc -out .travis/regex.azure.key -d
 before_script:
