@@ -16,13 +16,26 @@
       replace: true,
       template: '<button>click me</button>',
       link: function(scope, element, attrs) {
-        element.on('click', function($scope){
-          scope.$apply(function(scope){
+        // element.on('click', matchString)
+        element.on('click', displayRailroad)
+
+        function matchString(){
+          scope.$apply(function(){
             // convert regexString to real regex
-            var re = new RegExp(scope.regexBody, scope.regexTags);
-            scope.match = scope.string.match(re);
-        });
-        })
+            var re = new RegExp(scope.regexBody, scope.regexTags)
+            scope.match = scope.string.match(re).join(' ');
+          });
+        }
+
+        function displayRailroad(){
+          scope.displayRR();
+          // var re = new RegExp(scope.regexBody, scope.regexTags)
+          // var result = Regex2RailRoadDiagramCopy(re);
+
+          // // there must be a better way to do this.
+          // console.log(element);
+        }
+
       }
     }
   }

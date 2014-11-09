@@ -11,7 +11,7 @@
     return {
       restrict: "E",
       replace: true,
-      templateUrl: 'components/railroad/railroad.html',
+      template: '<div class="railroadtemp"></div>',
       link: function(scope, element, attrs) {
 
       }

@@ -234,3 +234,8 @@ module.exports = {
   },
   ParseRegex: parseRegex
 };
+
+// THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
+window.Regex2RailRoadDiagramCopy = function(regex) {
+  return Diagram(rx2rr(parseRegex(regex))).format();
+}
