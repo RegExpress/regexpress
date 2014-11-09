@@ -1,16 +1,12 @@
 language: node_js
 node_js:
-  - "0.10"
-after_success:
-  - tar -zcvf amber-$TRAVIS_BRANCH.tar.gz
-deploy:
-  provider: releases
-  api_key:
-    secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM=
-  file: temp.tar.gz
-  on:
-    repo: amber-storm/amber-storm
-    all_branches: true
+- '0.10'
 notifications:
-    slack: amber-storm:qFPnNCzTvbORuaKEWArQ8Vw0
-    email: none
+  email: false
+before_script:
+- echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+after_success:
+- test $TRAVIS_BRANCH == "develop" && test $TRAVIS_PULL_REQUEST = false && openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d && echo "on develop" && chmod 600 .travis/regex.azure.key
+  && eval $(ssh-agent) && ssh-add .travis/regex.azure.key && git remote add deploy-server
+  git@regexpress-test.cloudapp.net:/home/git/amber-storm.git && git push --force deploy-server
+  $TRAVIS_BRANCH:$TRAVIS_BRANCH
