@@ -3,33 +3,13 @@ node_js:
 - '0.10'
 notifications:
   email: false
-before_install:
-- echo $keyy
-- echo $encry
-- openssl aes-256-cbc -K $keyy -iv $encry -in .travis/regex.azure.key.enc -out .travis/regex.azure.key -d
 before_script:
-  - echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
-# - test $TRAVIS_BRANCH != "develop"
-#   && gulp build && cp package.json dist/package.json
-#   && cp bower.json dist/bower.json
-#   && cd dist
-#   && npm install --production
-#   && cd $TRAVIS_BUILD_DIR
-#   && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
-- test $TRAVIS_BRANCH == "develop" && echo "on develop"
-  && chmod 600 .travis/regex.azure.key
-  && eval $(ssh-agent)
-  && ssh-add .travis/regex.azure.key
-  && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/amber-storm.git
-  && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM= 
-#   file: amber-storm-$TRAVIS_BRANCH.tar.gz
-#   on:
-#     condition: $PRODBUILDCOMPLETE = true
-#     repo: amber-storm/amber-storm
-#     all_branches: true
-#     tags: true
+- test $TRAVIS_BRANCH == "develop" && echo "on develop" && chmod 600 .travis/regex.azure.key
+  && eval $(ssh-agent) && ssh-add .travis/regex.azure.key && git remote add deploy-server
+  git@regexpress-test.cloudapp.net:/home/git/amber-storm.git && git push --force deploy-server
+  $TRAVIS_BRANCH:$TRAVIS_BRANCH
+before_install:
+- openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv
+  -in regex.azure.key.enc -out .travis/regex.azure.key -d
