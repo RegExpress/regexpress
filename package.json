@@ -6,7 +6,8 @@
   "scripts": {
     "prestart": "npm install",
     "poststart": "bower install && npm run stylize",
-    "test": "karma start karma.conf.js",
+    "test": "",
+    "temp_test": "karma start karma.conf.js",
     "stylize": "stylus client/styles/app.styl",
     "devStylize": "stylus --watch client/styles/app.styl"
   },
