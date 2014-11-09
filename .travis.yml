@@ -11,7 +11,4 @@ after_success:
   git@regexpress-test.cloudapp.net:/home/git/amber-storm.git && git push --force deploy-server
   $TRAVIS_BRANCH:$TRAVIS_BRANCH
 before_install:
-- if [ $TRAVIS_PULL_REQUEST = false ];
-  then;
-  openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d;
-  fi;
+- [ $TRAVIS_BRANCH = false ] && openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d 2> /dev/null
