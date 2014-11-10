@@ -12,7 +12,7 @@
       $scope.string = '';
       $scope.regexBody = '';
       $scope.regexTags = '';
-      $scope.regex = '';
+      $scope.regex = /(?:)/;
       $scope.match = '';
       $scope.railroad = '';
 
@@ -22,20 +22,17 @@
         } catch (err) {
           $scope.regex = oldVal;
         }
-        console.log($scope.regex)
       })
 
       // triggered when user clicks submit button
       $scope.submitRegex = function(){
 
         // takes in user's regex and sets $scope.railroad to the railroad diagram for that regex
-        var newRR = createRailroad.RR($scope.regexBody, $scope.regexTags);
+        var newRR = createRailroad.RR($scope.regex);
         $scope.railroad = $sce.trustAsHtml(newRR.toString());
 
         // update match string through test-string directive TODO
 
-        // display railroad diagram through railroad directive
-        //$scope.displayRailroad();
 
       }
 
