@@ -5,7 +5,7 @@
   <title>RegExpress</title>
   <link rel="stylesheet" href="styles/teststyles.css">
   <link rel="stylesheet" href="styles/app.css">
-  <!-- there must be a better way to load all these files -->
+  <!-- so many files -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="railroadDiagrams/bundle.js"></script>
 
@@ -26,21 +26,11 @@
     <div class="work">
 
       <!-- input boxes allows the user to change $scope variables -->
-      <input type="string" ng-model="regexBody" placeholder="Write a regex"/>
-      <input type="string" ng-model="regexTags" placeholder="Tags"/>
+      <input type="string" ng-keyup="submitRegex()" ng-model="regexBody" placeholder="Write a regex"/>
+      <input type="string" ng-keyup="submitRegex()" ng-model="regexTags" placeholder="Tags"/>
 
-      <button ng-click="submitRegex()">SUBMIT</button>
+      <div ng-bind-html="railroad"></div>
 
-      <!-- regex directive -->
-      <!-- <div><regex-runner/></div> -->
-      <!--  end regex directive -->
-
-      <!-- railroad directive displays RR diagram -->
-      <div><railroad/></div>
-      <!-- end railroad directive -->
-
-      <!-- this is not really being used right now -->
-      <div><test-string/></div>
     </div>
 
     <div class="container">

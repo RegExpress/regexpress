@@ -7,10 +7,16 @@
     function createRailroad(){
       // takes regex parts, returns railroad html snippet
       function RR(rBody, rTags){
+        var re, snippet;
+        // create the new regex if valid, make snippet
+        try {
+          re = new RegExp(rBody, rTags);
+          snippet = Regex2RailRoadDiagramCopy(re);
+        } catch (err) {
+          // nobody gives a crap about your error
+          snippet = 'invalid regex';
+        }
 
-        // create the new regex, make snippet
-        var re = new RegExp(rBody, rTags)
-        var snippet = Regex2RailRoadDiagramCopy(re);
         return snippet;
       }
 
