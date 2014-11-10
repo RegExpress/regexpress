@@ -24,12 +24,22 @@
       <p> Matches: {{ match }}</p>
     </div>
     <div class="work">
-<!--       <div><place-workspace/></div> -->
-      <div><place-railroad/></div>
+
+      <!-- input boxes allof the user to change $scope variables -->
       <input type="string" ng-model="regexBody" placeholder="Write a regex"/>
       <input type="string" ng-model="regexTags" placeholder="Tags"/>
+
+      <button ng-click="submitRegex()">SUBMIT</button>
+
       <!-- regex directive -->
-      <div><regex-runner/></div>
+      <!-- <div><regex-runner/></div> -->
+      <!--  end regex directive -->
+
+      <!-- railroad directive displays RR diagram -->
+      <div><railroad/></div>
+      <!-- end railroad directive -->
+
+      <!-- this is not really being used right now -->
       <div><test-string/></div>
     </div>
 

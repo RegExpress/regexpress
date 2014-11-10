@@ -5,17 +5,13 @@
     .module('baseApp')
     .directive('testString', testString);
 
-
+// NOT BEING USED CURRENTLY
   function testString() {
     return {
       restrict: "E",
       replace: true,
-      template: '<button>test String click</button>',
+      template: '<p></p>',
       link: function(scope, element, attrs) {
-        element.on('click', function(){
-          console.log('checkshit')
-          scope.checkShit();
-        })
 
       }
     }

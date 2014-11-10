@@ -5,20 +5,16 @@
     .factory('createRailroad', createRailroad);
 
     function createRailroad(){
-      // takes regex, returns railroad html snippet
+      // takes regex parts, returns railroad html snippet
       function RR(rBody, rTags){
-        // stub regex
-        // var re = /[a-z]+/ig;
+
+        // create the new regex, make snippet
         var re = new RegExp(rBody, rTags)
-        console.log('new regex is', re)
-
         var snippet = Regex2RailRoadDiagramCopy(re);
-
-        // return snippet;
-        console.log('snippet created');
         return snippet;
       }
 
+      // makes this function accessible by the controller
       return {
         RR : RR
       }

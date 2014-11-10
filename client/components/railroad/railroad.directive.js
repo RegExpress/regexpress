@@ -3,23 +3,22 @@
 
   angular
     .module('baseApp')
-    .directive('placeRailroad', placeRailroad);
+    .directive('railroad', railroad);
 
+  function railroad() {
 
-  // directive renders railroad html
-  function placeRailroad() {
     return {
       restrict: "E",
       replace: true,
-      template: '<div>.</div>',
+      template: '<div></div>',
       link: function(scope, element, attrs) {
 
-        element.on('click', function(){
+        // takes railroad diagram and appends to DOM
+        scope.displayRailroad = function(){
           var rr = scope.railroad;
-
           element.empty();
-          element.append(''+rr)
-        })
+          element.append( '<div>'+rr+'</div>');
+        }
 
       }
     }
