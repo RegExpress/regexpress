@@ -5,6 +5,7 @@
     .module('baseApp')
     .directive('railroad', railroad);
 
+ // COMPLETELY USELESS RIGHT NOW
   function railroad() {
 
     return {
