@@ -3,16 +3,22 @@
 
   angular
     .module('baseApp')
-    .directive('placeRailroad', placeRailroad);
+    .directive('railroad', railroad);
 
+  function railroad() {
 
-  // directive renders railroad html from railroad.html into the main index.html. No idea what "restrict: E" means.
-  function placeRailroad() {
     return {
       restrict: "E",
       replace: true,
-      templateUrl: 'components/railroad/railroad.html',
+      template: '<div></div>',
       link: function(scope, element, attrs) {
+
+        // takes railroad diagram and appends to DOM
+        scope.displayRailroad = function(){
+          var rr = scope.railroad;
+          element.empty();
+          element.append( '<div>'+rr+'</div>');
+        }
 
       }
     }

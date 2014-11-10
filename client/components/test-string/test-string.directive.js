@@ -3,10 +3,17 @@
 
   angular
     .module('baseApp')
-    .directive('TestString', TestString);
+    .directive('testString', testString);
 
+// NOT BEING USED CURRENTLY
+  function testString() {
+    return {
+      restrict: "E",
+      replace: true,
+      template: '<p></p>',
+      link: function(scope, element, attrs) {
 
-  function TestString($scope) {
-    return {};
+      }
+    }
   }
 })();
