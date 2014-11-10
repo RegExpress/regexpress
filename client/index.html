@@ -5,7 +5,7 @@
   <title>RegExpress</title>
   <link rel="stylesheet" href="styles/teststyles.css">
   <link rel="stylesheet" href="styles/app.css">
-  <!-- so many files -->
+  <!-- Loads angular source and railroad bundle -->
   <script src="bower_components/angular/angular.js"></script>
   <script src="railroadDiagrams/bundle.js"></script>
 
@@ -18,18 +18,28 @@
   <script src="components/test-string/test-string.directive.js"></script>
 
 </head>
+  <!-- Main controller controls body of page -->
   <body ng-controller="MainController">
+    <!-- end main controller element -->
+
     <div class="test">
-      <p>Test string: {{ string }}</p>
+      <h5>REGEXPRESS LIKE YOU JUST DON'T CARE</h5>
+      <!-- input for test string and temp matches element-->
+       <input class="teststring" type="string" ng-model="string" placeholder="Write your test string here"/>
       <p> Matches: {{ match }}</p>
+       <!-- end test string and matches (can be split up) -->
+
     </div>
     <div class="work">
 
-      <!-- input boxes allows the user to change $scope variables -->
+      <!-- input boxes allows the user to change $scope variables to make regex -->
       <input type="string" ng-keyup="submitRegex()" ng-model="regexBody" placeholder="Write a regex"/>
       <input type="string" ng-keyup="submitRegex()" ng-model="regexTags" placeholder="Tags"/>
+      <!-- end input boxes. tags currently useless -->
 
+      <!-- displays railroad html snippet -->
       <div ng-bind-html="railroad"></div>
+      <!-- end railroad -->
 
     </div>
 
