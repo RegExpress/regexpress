@@ -17,7 +17,7 @@
           snippet = 'invalid regex';
         }
 
-        return snippet;
+        return '<div class="RR">'+ snippet + '</dvi>';
       }
 
       // makes this function accessible by the controller
