@@ -2,6 +2,9 @@ node_modules/
 bower_components/
 npm-debug.log
 
+client/styles/app.css
+client/railroadDiagrams/bundle.js
+
 *.key
 
 ### OSX ###
