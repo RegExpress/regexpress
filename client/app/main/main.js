@@ -16,6 +16,7 @@
       $scope.match = '';
       $scope.railroad = '';
 
+      // updates regex object from input strings. TODO watch tags too
       $scope.$watch('regexBody', function(newVal, oldVal){
         try {
           $scope.regex = new RegExp(newVal);
