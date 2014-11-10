@@ -28,12 +28,7 @@
         }
 
         function displayRailroad(){
-          scope.displayRR();
-          // var re = new RegExp(scope.regexBody, scope.regexTags)
-          // var result = Regex2RailRoadDiagramCopy(re);
-
-          // // there must be a better way to do this.
-          // console.log(element);
+          scope.fuckshitup();
         }
 
       }

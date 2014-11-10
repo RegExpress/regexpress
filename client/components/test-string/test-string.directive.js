@@ -3,10 +3,21 @@
 
   angular
     .module('baseApp')
-    .directive('TestString', TestString);
+    .directive('testString', testString);
 
 
-  function TestString($scope) {
-    return {};
+  function testString() {
+    return {
+      restrict: "E",
+      replace: true,
+      template: '<button>test String click</button>',
+      link: function(scope, element, attrs) {
+        element.on('click', function(){
+          console.log('checkshit')
+          scope.checkShit();
+        })
+
+      }
+    }
   }
 })();

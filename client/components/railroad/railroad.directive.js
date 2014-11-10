@@ -6,13 +6,20 @@
     .directive('placeRailroad', placeRailroad);
 
 
-  // directive renders railroad html from railroad.html into the main index.html. No idea what "restrict: E" means.
+  // directive renders railroad html
   function placeRailroad() {
     return {
       restrict: "E",
       replace: true,
-      template: '<div class="railroadtemp"></div>',
+      template: '<div>.</div>',
       link: function(scope, element, attrs) {
+
+        element.on('click', function(){
+          var rr = scope.railroad;
+
+          element.empty();
+          element.append(''+rr)
+        })
 
       }
     }
