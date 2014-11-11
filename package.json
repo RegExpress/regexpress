@@ -2,7 +2,7 @@
   "name": "amber-storm",
   "version": "0.1.0",
   "description": "Albrey's bicep",
-  "main": "tempServer.js",
+  "main": "server.js",
   "scripts": {
     "prestart": "npm install",
     "poststart": "bower install && npm run stylize",
