@@ -3,6 +3,9 @@ node_js:
 - '0.10'
 notifications:
   email: false
+  slack:
+      rooms:
+        - amber-storm:S9TLKv9RGbsA2nTeZx6rJzJE#notifications
 after_success:
 - test $TRAVIS_PULL_REQUEST = false
   && echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
