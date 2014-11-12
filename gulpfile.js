@@ -60,7 +60,9 @@ var options = {
 
 // Dev tasks - wont 'build' anything aka doesn't dump into dist folder.
 //==================================
-gulp.task('default', $.sequence('stylus', 'browserify', 'wire:dev', 'inject:dev', 'server:dev', 'watch:dev'));
+gulp.task('default', $.sequence('build:local','server:dev', 'watch:dev'));
+// just builds files locally
+gulp.task('build:local', $.sequence('stylus', 'browserify', 'wire:dev', 'inject:dev'));
 // serves stuff in the client folder
 gulp.task('server:dev', startServerDev);
 // watches for changes in client folder
@@ -78,7 +80,7 @@ gulp.task('wire:dev', wireBower);
 //===================================
 
 // builds from client folder -> dist folder
-gulp.task('build', $.sequence('clean', 'stylus', 'browserify', 'copy:all'));
+gulp.task('build:dist', $.sequence('clean', 'build:local', 'copy:all'));
 // gulp.task('build', $.sequence('clean','copy', 'stylus', 'browserify', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'wire:dist', 'inject:dist'));
 // default dist task: builds, serves & watches
 gulp.task('dist', $.sequence('build', 'server:dist', 'watch:dist'));
