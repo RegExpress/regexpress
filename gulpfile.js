@@ -78,7 +78,8 @@ gulp.task('wire:dev', wireBower);
 //===================================
 
 // builds from client folder -> dist folder
-gulp.task('build', $.sequence('clean','copy', 'stylus', 'browserify', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'wire:dist', 'inject:dist'));
+gulp.task('build', $.sequence('clean', 'stylus', 'browserify', 'copy:all'));
+// gulp.task('build', $.sequence('clean','copy', 'stylus', 'browserify', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'wire:dist', 'inject:dist'));
 // default dist task: builds, serves & watches
 gulp.task('dist', $.sequence('build', 'server:dist', 'watch:dist'));
 // serve up files from the dist directory
@@ -93,8 +94,6 @@ gulp.task('styles:dist', stylesDist);
 gulp.task('bower:dist', bowerFilesDist);
 // copies node_modueles stuff into dist folder
 gulp.task('nodemodules:dist', nodeModulesDist);
-// copies package.json
-gulp.task('packagejson:dist', packageJsonDist);
 // injects our css and js files into index.html
 gulp.task('inject:dist', injectDist);
 // does stuff to our js
@@ -103,6 +102,14 @@ gulp.task('scripts:dist', scriptsDist);
 gulp.task('image:dist', imagesDist);
 // copies all other files into the dist folder
 gulp.task('copy',copyFiles);
+// copy all client files 
+gulp.task('copy:client', copyAllClientFiles);
+// Copy package.json
+gulp.task('copy:packagejson', copyPackageJson);
+// copy server file
+gulp.task('copy:server', copyServer);
+// copy all files
+gulp.task('copy:all', $.sequence(['copy:client', 'copy:packagejson', 'copy:server']));
 // creates a giant folder of all of our angular partials
 gulp.task('templates:dist', templatesDist);
 // empties out the entire dist folder, with the exception of any git files (cuz dist is a git repo as well)
@@ -229,17 +236,32 @@ function copyFiles() {
   return gulp.src(['!index.html', paths.root + '/*.*'])
     .pipe(gulp.dest(dist.client));
 }
+// Copy all files. used instead of build
+// ========================================
+function copyAllClientFiles() {
+  return gulp.src(paths.root + '/**/*')
+    .pipe(gulp.dest(dist.client));
+}
+
+// copy package.json into dist folder
+function copyPackageJson() {
+  return gulp.src(paths.packageJson)
+    .pipe(gulp.dest(dist.root));
+}
+
+// copy server file
+function copyServer() {
+  return gulp.src(paths.server)
+    .pipe(gulp.dest(dist.root));
+}
+
 // Move all of our bower files over to dist
 //======================================
 function bowerFilesDist() {
   return $.bower(paths.bower)
   .pipe(gulp.dest(dist.bower));
 }
-// copy package.json into dist folder
-function packageJsonDist() {
-  return gulp.src(paths.packageJson)
-    .pipe(gulp.dest(dist.root));
-}
+
 // Move all node_modules over to dist
 function nodeModulesDist() {
   return gulp.src(paths.nodeModules)
