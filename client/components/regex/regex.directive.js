@@ -3,23 +3,27 @@
 
   angular
     .module('baseApp')
-    .directive('regexRunner', regexRunner);
+    .directive('trackRegex', trackRegex);
 
-
-  function regexRunner() {
-
+  // watches changing user regex input and changes scope variable regexp to reflect this
+  function trackRegex() {
 
     return {
       restrict: "E",
-      replace: true,
-      template: '<button>click me</button>',
+      template: '<div>regex directive</div>',
       link: function(scope, element, attrs) {
-        // element.on('click', matchString)
-        // element.on('click', displayRailroad)
 
-        // function displayRailroad(){
-        //   scope.fuckshitup();
-        // }
+        scope.$watchGroup(['main.regexBody', 'main.regexTags'], function(newValues, oldValues){
+          try {
+            scope.main.regexp = new RegExp(newValues[0], newValues[1]);
+            element.empty();
+            element.append('<div>' + scope.main.regexp + '</div>');
+          } catch (err) {
+          }
+
+        })
+
+
 
       }
     }
