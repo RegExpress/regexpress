@@ -15,8 +15,9 @@ var paths = {
   styles: './client/**/*.css',
   bower: './client/bower_components',
   images: './client/assets/**/*',
-  templates: ['./client/**/*.html', '!./client/bower_components/**/*.html'],
+  templates: ['./client/**/*.html', '!./client/index.html','!./client/bower_components/**/*.html'],
   server: './server.js',
+  railroadDiagrams: './client/railroadDiagrams/regexToRailroad.js',
   packageJson: './package.json',
   nodeModules: './node_modules'
 };
@@ -31,8 +32,6 @@ var dist = {
   bower: './dist/client/bower_components',
   images: './dist/client/assets',
   templates: './dist/client/scripts',
-  // server: './dist/server.js',
-  // packageJson: './dist/package.json',
   nodeModules: './dist/node_modules'
 };
 
@@ -61,13 +60,15 @@ var options = {
 
 // Dev tasks - wont 'build' anything aka doesn't dump into dist folder.
 //==================================
-gulp.task('default', $.sequence('styles:dev', 'inject:dev', 'wire:dev', 'server:dev', 'watch:dev'));
+gulp.task('default', $.sequence('stylus', 'browserify', 'wire:dev', 'inject:dev', 'server:dev', 'watch:dev'));
 // serves stuff in the client folder
 gulp.task('server:dev', startServerDev);
 // watches for changes in client folder
 gulp.task('watch:dev', startWatchDev);
+// browserify stuff
+gulp.task('browserify', browserify);
 // compiles stylus to css
-gulp.task('styles:dev', stylesDev);
+gulp.task('stylus', stylus);
 // injects our css & js into index.html
 gulp.task('inject:dev', injectDev);
 // injects bower stuff into index.html
@@ -77,7 +78,7 @@ gulp.task('wire:dev', wireBower);
 //===================================
 
 // builds from client folder -> dist folder
-gulp.task('build', $.sequence('clean','copy', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'inject:dist', 'wire:dist'));
+gulp.task('build', $.sequence('clean','copy', 'stylus', 'browserify', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'wire:dist', 'inject:dist'));
 // default dist task: builds, serves & watches
 gulp.task('dist', $.sequence('build', 'server:dist', 'watch:dist'));
 // serve up files from the dist directory
@@ -148,12 +149,19 @@ function startWatchDist(){
   gulp.watch(paths.root + '/**/*.html', $.livereload.changed);
 
 }
+// browserify
+function browserify(){
+  return gulp.src(paths.railroadDiagrams)
+    .pipe($.browserify({insertGlobals : true}))
+    .pipe($.rename('bundle.js'))
+    .pipe(gulp.dest('./client/bundle'));
+}
 //inject functions
 //===============================
 function injectDev(){
   var target  = gulp.src( paths.index );
-  var scripts = gulp.src( paths.scripts, {read:false} );
-  var styles  = gulp.src( paths.styles, {read:false} );
+  var scripts = gulp.src( ['!/**/bower_components/**/*', '!/**/railroadDiagrams/**/*','!/**/*.specs.js', '!/**/*.min.js', paths.scripts], {read:false} );
+  var styles  = gulp.src( ['!/**/bower_components/**/*', paths.styles], {read:false} );
 
   return target
     .pipe( $.inject( scripts,  options.inject.scripts ) )
@@ -163,8 +171,8 @@ function injectDev(){
 
 function injectDist(){
   var target = gulp.src( dist.index ) ;
-  var scripts = gulp.src( dist.scripts + '/*.js' );
-  var styles = gulp.src( dist.styles + '/*.css' );
+  var scripts = gulp.src( dist.scripts , {read: false});
+  var styles = gulp.src( dist.styles, {read: false});
 
   return target
     .pipe( $.inject( scripts,  options.inject.scripts ) )
@@ -176,7 +184,9 @@ function injectDist(){
 function wireBower(){
   var wire = wiredep.stream;
   return gulp.src(paths.index)
-    .pipe(wire({directory: paths.bower}))
+    .pipe(wire({
+      directory: paths.bower
+    }))
     .pipe(gulp.dest(paths.root));
 
 }
@@ -188,7 +198,7 @@ function wireBowerDist(){
 
 }
 // compile styl into css
-function stylesDev() {
+function stylus() {
   return gulp.src(paths.stylesStylus)
     .pipe($.stylus())
     .pipe(gulp.dest('./client/styles'));
@@ -196,10 +206,6 @@ function stylesDev() {
 // Styles 4 Dist
 // ============================
 function stylesDist() {
-  gulp.src(paths.stylesStylus)
-      .pipe($.stylus())
-      .pipe(gulp.dest('./client/styles'));
-
   return gulp.src(paths.styles)
     .pipe($.concat('app.min.css'))
     .pipe($.cssmin())
@@ -220,7 +226,7 @@ function scriptsDist() {
 // Task that copies all files in our client root folder (not anything inside a folder)
 // ====================================
 function copyFiles() {
-  return gulp.src(paths.root + '/*.*')
+  return gulp.src(['!index.html', paths.root + '/*.*'])
     .pipe(gulp.dest(dist.client));
 }
 // Move all of our bower files over to dist

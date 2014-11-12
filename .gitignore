@@ -1,6 +1,7 @@
 node_modules/
 bower_components/
 npm-debug.log
+bundle.js
 dist
 
 client/styles/app.css
