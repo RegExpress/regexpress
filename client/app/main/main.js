@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('baseApp', ['ValuesModule', 'makeRRModule'])
+    .module('baseApp', ['ValuesModule', 'makeRRModule', 'ngMaterial'])
 
     .controller('MainController', [ '$scope','trackValues', 'makeRR', MainController ]);
 
