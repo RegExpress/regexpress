@@ -5,7 +5,6 @@
     .module('baseApp')
     .directive('railroad', railroad);
 
- // COMPLETELY USELESS RIGHT NOW
   function railroad() {
 
     return {
@@ -14,13 +13,12 @@
       template: '<div></div>',
       link: function(scope, element, attrs) {
 
-        // takes railroad diagram and appends to DOM
-        scope.displayRailroad = function(){
-          var rr = scope.railroad;
+        // makes railroad diagram and appends to DOM
+        scope.$watch('main.regexp', function(newVal, oldVal, scope){
+          var newRR = scope.rr.createRailroad(scope.main.regexp);
           element.empty();
-          element.append( '<div>'+rr+'</div>');
-        }
-
+          element.append( '<div>'+ newRR+'</div>');
+        })
       }
     }
   }

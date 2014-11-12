@@ -9,13 +9,18 @@
   <script src="bower_components/angular/angular.js"></script>
   <script src="railroadDiagrams/bundle.js"></script>
 
+  <script src="app/main/main.service.js"></script>
+
   <script src="app/main/main.js"></script>
 
   <script src="components/regex/regex.directive.js"></script>
   <script src="components/regex/regex.service.js"></script>
   <script src="components/railroad/railroad.directive.js"></script>
+  <script src="components/railroad/railroad.service.js"></script>
   <script src="components/workspace/workspace.directive.js"></script>
   <script src="components/test-string/test-string.directive.js"></script>
+  <script src="components/matches/matches.directive.js"></script>
+
 
 </head>
   <!-- Main controller controls body of page -->
@@ -24,21 +29,28 @@
 
     <div class="test">
       <h5>REGEXPRESS LIKE YOU JUST DON'T CARE</h5>
+
       <!-- input for test string and temp matches element-->
-       <input class="teststring" type="string" ng-model="string" placeholder="Write your test string here"/>
-      <p> Matches: {{ matches }}</p>
-       <!-- end test string and matches (can be split up) -->
+       <input class="teststring" type="string" ng-model="main.string" placeholder="Write your test string here"/>
+
+       <!-- matches directive -->
+      <div><track-matches/></div>
+      <!-- end matches directive -->
+
+      <!-- regex directive -->
+      <div><track-regex/></div>
+      <!-- end regex directive -->
 
     </div>
     <div class="work">
 
       <!-- input boxes allows the user to change $scope variables to make regex -->
-      <input type="string" ng-keyup="submitRegex()" ng-model="regexBody" placeholder="Write a regex"/>
-      <input type="string" ng-keyup="submitRegex()" ng-model="regexTags" placeholder="Tags"/>
-      <!-- end input boxes. tags currently useless -->
+      <input type="string" ng-keyup="submitRegex()" ng-model="main.regexBody" placeholder="Write a regex"/>
+      <input type="string" ng-keyup="submitRegex()" ng-model="main.regexTags" placeholder="Tags"/>
+      <!-- end input boxes -->
 
-      <!-- displays railroad html snippet -->
-      <div ng-bind-html="railroad"></div>
+      <!-- railroad -->
+      <railroad/>
       <!-- end railroad -->
 
     </div>
