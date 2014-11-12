@@ -4,7 +4,11 @@
   <meta charset="utf-8">
   <title>RegExpress</title>
   <link rel="stylesheet" href="styles/app.css">
+<<<<<<< HEAD
   <link rel="stylesheet" href="styles/railroad.css">
+=======
+  <link rel="stylesheet" href="styles/teststyles.css">
+>>>>>>> updates md styling and rr diagram styling
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
   <link rel="stylesheet" href="bower_components/angular-material/themes/orange-theme.css">
   <link rel="stylesheet" href="bower_components/angular-material/themes/green-theme.css">
@@ -50,10 +54,10 @@
         </div>
       </form>
       <!-- matches directive -->
-      <div><track-matches/></div>
+      <div layout="horizontal" layout-align="center"><track-matches/></div>
       <!-- end matches directive -->
       <!-- regex directive -->
-      <div><track-regex/></div>
+      <div layout="horizontal" layout-align="center"><track-regex/></div>
       <!-- end regex directive -->
     </md-content>
 
@@ -70,9 +74,8 @@
           <!-- end input boxes. tags currently useless -->
 
         </div>
-
-      <railroad/>
       </form>
+      <railroad layout="horizontal" layout-align="center"/>
     </md-content>
 
     <!-- <div class="container"> -->
