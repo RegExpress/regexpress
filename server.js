@@ -13,5 +13,5 @@ server.use(express.static(path.join(__dirname,'/client')));
 console.log(__dirname);
 
 server.listen(port, function(){
-  console.log('listening on 3000, biatch');
-})
+  console.log('listening on ' + port);
+});
