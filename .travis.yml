@@ -6,6 +6,8 @@ notifications:
   slack:
       rooms:
         - amber-storm:S9TLKv9RGbsA2nTeZx6rJzJE#notifications
+before_install:
+  - npm update -g npm
 after_success:
 - test $TRAVIS_PULL_REQUEST = false
   && echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
