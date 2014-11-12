@@ -17,22 +17,21 @@ after_success:
   && test $TRAVIS_PULL_REQUEST = false
   && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/amber-storm.git
   && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH
-# - test $TRAVIS_BRANCH != "develop"
-#   && gulp build && cp package.json dist/package.json
-#   && cp bower.json dist/bower.json
-#   && cd dist
-#   && npm install --production
-#   && cd $TRAVIS_BUILD_DIR
-#   && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
-# deploy:
-#   provider: releases
-#   api_key:
-#     secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM= 
-#   file: amber-storm-$TRAVIS_BRANCH.tar.gz
-#   on:
-#     condition: $PRODBUILDCOMPLETE = true
-#     repo: amber-storm/amber-storm
-#     all_branches: true
-#     tags: true
-# after_deploy:
-#   - ssh git@regexpress.cloudapp.net "./deploy.sh $TRAVIS_BRANCH"
+- test $TRAVIS_BRANCH != "develop"
+  && gulp build
+  && cd dist
+  && npm install --prod --ignore-scripts
+  && cd $TRAVIS_BUILD_DIR
+  && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
+deploy:
+  provider: releases
+  api_key:
+    secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM= 
+  file: amber-storm-$TRAVIS_BRANCH.tar.gz
+  on:
+    condition: $PRODBUILDCOMPLETE = true
+    repo: amber-storm/amber-storm
+    all_branches: true
+    tags: true
+after_deploy:
+  - ssh git@regexpress.cloudapp.net "./deploy.sh $TRAVIS_BRANCH"
