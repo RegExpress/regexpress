@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>RegExpress</title>
   <link rel="stylesheet" href="styles/app.css">
+  <link rel="stylesheet" href="styles/railroad.css">
   <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
   <link rel="stylesheet" href="bower_components/angular-material/themes/orange-theme.css">
   <link rel="stylesheet" href="bower_components/angular-material/themes/green-theme.css">
@@ -23,7 +24,6 @@
   <script src="app/main/main.js"></script>
 
   <script src="components/regex/regex.directive.js"></script>
-  <script src="components/regex/regex.service.js"></script>
   <script src="components/railroad/railroad.directive.js"></script>
   <script src="components/railroad/railroad.service.js"></script>
   <script src="components/workspace/workspace.directive.js"></script>
@@ -65,14 +65,14 @@
 
       <!-- input boxes allows the user to change $scope variables to make regex -->
         <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Write a regex" ng-keyup="submitRegex()" ng-model="regexBody"></md-text-float>
-          <md-text-float label="Tags" ng-keyup="submitRegex()" ng-model="regexTags"></md-text-float>
+          <md-text-float label="Write a regex" ng-keyup="submitRegex()" ng-model="main.regexBody"></md-text-float>
+          <md-text-float label="Tags" ng-keyup="submitRegex()" ng-model="main.regexTags"></md-text-float>
           <!-- end input boxes. tags currently useless -->
 
         </div>
 
-      </form>
       <railroad/>
+      </form>
     </md-content>
 
     <!-- <div class="container"> -->
