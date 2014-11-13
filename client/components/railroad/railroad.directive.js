@@ -18,7 +18,12 @@
           var newRR = scope.rr.createRailroad(scope.main.regexp);
           element.empty();
           element.append( '<div>'+ newRR+'</div>');
-        })
+        });
+
+        element.on('click', function(event){
+          console.log('value', event.path[0].innerHTML);
+          console.log('path', event.path)
+        });
       }
     }
   }

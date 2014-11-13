@@ -52,6 +52,7 @@ var makeLiteral = function(text) {
 * node: The current object in the parsed regular expression tree to be evaluated
 */
 var rx2rr = function(node) {
+  console.log('node from rx2rr', JSON.stringify(node));
   switch (node.type) {
     case "match":
       var literal = null;
