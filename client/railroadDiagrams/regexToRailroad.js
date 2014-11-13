@@ -17,7 +17,7 @@ var Group = railroad['Group'];
 //Might have some problems
 var makeLiteral = function(text, id) {
   if (text === " ") {
-    return NonTerminal("SP");
+    return NonTerminal("SP", id);
   } else {
     var parts = text.split(/(^ +| {2,}| +$)/);
     var sequence = [];
@@ -29,12 +29,12 @@ var makeLiteral = function(text, id) {
       }
       if (/^ +$/.test(part)) {
         if (part.length === 1) {
-          sequence.push(NonTerminal("SP"));
+          sequence.push(NonTerminal("SP", id));
         } else {
-          sequence.push(OneOrMore(NonTerminal("SP"), Comment("" + part.length + " times")));
+          sequence.push(OneOrMore(NonTerminal("SP", id), Comment("" + part.length + " times")));
         }
       } else {
-        sequence.push(Terminal(part));
+        sequence.push(Terminal(part, id));
       }
     }
     // if (sequence.length === 1) {
@@ -57,6 +57,7 @@ var idNum = 0;
 */
 var rx2rr = function(node) {
   node.idNum = node.idNum || idNum++;
+  console.log('NODE: ' + JSON.stringify(node));
   switch (node.type) {
     case "match":
       var literal = null;
@@ -69,7 +70,7 @@ var rx2rr = function(node) {
           } else {
             literal = currentNode.body;
           }
-          currentNode.idNum = idNum++;
+          currentNode.idNum = idNum;
         } else {
           if (literal != null) {
             sequence.push(makeLiteral(literal, idNum++));
@@ -89,12 +90,13 @@ var rx2rr = function(node) {
       break;
     case "alternate": //Handles (a|b|c) blocks
       var alternatives = [];
+      var startNode = node;
       while (node.type === "alternate") {
         alternatives.push(rx2rr(node.left));
         node = node.right;
       }
       alternatives.push(rx2rr(node));
-      return new Choice(Math.ceil(alternatives.length / 2) - 1, node.idNum, alternatives);
+      return new Choice(Math.ceil(alternatives.length / 2) - 1, startNode.idNum, alternatives);
     case "quantified": //Handles multiples (+, *, {4}, etc.) of an expression
       var quantifier = node.quantifier; 
       var min = quantifier.min; 
