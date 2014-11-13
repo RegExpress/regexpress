@@ -47,6 +47,7 @@ var options = {
     }
   }
 
+  //DO I NEED ID HERE???
   function wrapString(value) {
     return ((typeof value) == 'string') ? new Terminal(value) : value;
   }
@@ -225,9 +226,9 @@ var options = {
     return this.$super.toString.call(this);
   }
 
-  function Sequence(items) {
-    if(!(this instanceof Sequence)) return new Sequence([].slice.call(arguments));
-    FakeSVG.call(this, 'g', {class: 'sequence'});
+  function Sequence(id, items) {
+    if(!(this instanceof Sequence)) return new Sequence(id, [].slice.call(arguments, 1));
+    FakeSVG.call(this, 'g', {class: 'sequence', id: id});
     this.items = items.map(wrapString);
     this.width = this.items.reduce(function(sofar, el) { return sofar + el.width + (el.needsSpace?20:0)}, 0);
     this.up = this.items.reduce(function(sofar,el) { return Math.max(sofar, el.up)}, 0);
@@ -257,9 +258,9 @@ var options = {
     return this;
   }
 
-  function Choice(normal, items) {
-    if(!(this instanceof Choice)) return new Choice(normal, [].slice.call(arguments,1));
-    FakeSVG.call(this, 'g', {class: 'choice'});
+  function Choice(normal, id, items) {
+    if(!(this instanceof Choice)) return new Choice(normal, id, [].slice.call(arguments,2));
+    FakeSVG.call(this, 'g', {class: 'choice', id: id});
     if( typeof normal !== "number" || normal !== Math.floor(normal) ) {
       throw new TypeError("The first argument of Choice() must be an integer.");
     } else if(normal < 0 || normal >= items.length) {
@@ -320,18 +321,18 @@ var options = {
     return this;
   }
 
-  function Optional(item, skip) {
+  function Optional(item, id, skip) {
     if( skip === undefined )
-      return Choice(1, Skip(), item);
+      return Choice(1, id, Skip(), item);
     else if ( skip === "skip" )
-      return Choice(0, Skip(), item);
+      return Choice(0, id, Skip(), item);
     else
       throw "Unknown value for Optional()'s 'skip' argument.";
   }
 
-  function Group(item, caption) {
-    if(!(this instanceof Group)) return new Group(item, caption);
-    FakeSVG.call(this, 'g', {class: 'group'});
+  function Group(item, id, caption) {
+    if(!(this instanceof Group)) return new Group(item, id, caption);
+    FakeSVG.call(this, 'g', {class: 'group', id: id});
     caption = caption || (new Skip);
     this.item = wrapString(item);
     this.caption = caption;
@@ -370,9 +371,9 @@ var options = {
     return this;
   }
 
-  function OneOrMore(item, rep) {
-    if(!(this instanceof OneOrMore)) return new OneOrMore(item, rep);
-    FakeSVG.call(this, 'g', {class: 'oneormore'});
+  function OneOrMore(item, id, rep) {
+    if(!(this instanceof OneOrMore)) return new OneOrMore(item, id, rep);
+    FakeSVG.call(this, 'g', {class: 'oneormore', id: id});
     rep = rep || (new Skip);
     this.item = wrapString(item);
     this.rep = wrapString(rep);
@@ -403,8 +404,9 @@ var options = {
     return this;
   }
 
-  function ZeroOrMore(item, rep, skip) {
-    return Optional(OneOrMore(item, rep), skip);
+  //DO WE NEED THE ID ON THE ONEORMORE, OR THE OPTIONAL
+  function ZeroOrMore(item, id, rep, skip) {
+    return Optional(OneOrMore(item, id, rep), null, skip);
   }
 
   function Start() {
@@ -433,9 +435,9 @@ var options = {
     return this;
   }
 
-  function Terminal(text) {
-    if(!(this instanceof Terminal)) return new Terminal(text);
-    FakeSVG.call(this, 'g', {class: 'terminal'});
+  function Terminal(text, id) {
+    if(!(this instanceof Terminal)) return new Terminal(text, id);
+    FakeSVG.call(this, 'g', {class: 'terminal', id: id});
     this.text = text;
     this.width = text.length * 8 + 20; /* Assume that each char is .5em, and that the em is 16px */
     this.up = 11;
@@ -455,9 +457,9 @@ var options = {
     return this;
   }
 
-  function NonTerminal(text) {
-    if(!(this instanceof NonTerminal)) return new NonTerminal(text);
-    FakeSVG.call(this, 'g', {class: 'non-terminal'});
+  function NonTerminal(text, id) {
+    if(!(this instanceof NonTerminal)) return new NonTerminal(text, id);
+    FakeSVG.call(this, 'g', {class: 'non-terminal', id: id});
     this.text = text;
     this.width = text.length * 8 + 20;
     this.up = 11;
