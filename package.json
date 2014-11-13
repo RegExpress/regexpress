@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Albrey's bicep",
   "main": "server.js",
-  "scripts": { 
+  "scripts": {
     "test": "",
     "temp_test": "karma start karma.conf.js",
     "devStylize": "stylus --watch client/styles/app.styl",

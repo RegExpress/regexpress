@@ -10,9 +10,11 @@
     return {
       restrict: "E",
       replace: true,
-      template: '<p></p>',
+      template: '<div>HEY NOW<div>ok</div></div>',
       link: function(scope, element, attrs) {
-
+        element.on('click', function(event){
+          // Currently useless!
+        });
       }
     }
   }
