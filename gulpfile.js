@@ -101,7 +101,7 @@ gulp.task('inject:dist', injectDist);
 // does stuff to our js
 gulp.task('scripts:dist', scriptsDist);
 // minifyt & moves images
-gulp.task('image:dist', imagesDist);
+// gulp.task('image:dist', imagesDist);
 // copies all other files into the dist folder
 gulp.task('copy',copyFiles);
 // copy all client files 
@@ -271,11 +271,11 @@ function nodeModulesDist() {
 }
 // Minify and move all images over
 //=====================================
-function imagesDist() {
-  return gulp.src(paths.images)
-    .pipe($.image())
-    .pipe(gulp.dest(dist.images));
-}
+// function imagesDist() {
+//   return gulp.src(paths.images)
+//     .pipe($.image())
+//     .pipe(gulp.dest(dist.images));
+// }
 // Take all of our angular partials, and put them all in one 'template script'
 //=======================================
 function templatesDist() {
