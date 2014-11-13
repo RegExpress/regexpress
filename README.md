@@ -28,9 +28,9 @@ navigate to root directory
 
     $ bower install
 
-    $ nodemon tempServer.js
+    $ nodemon server.js
 
-Go to http://localhost:3000/ and bask in the glory.
+Go to http://localhost:8000/ and bask in the glory.
 
 ## Requirements
 
