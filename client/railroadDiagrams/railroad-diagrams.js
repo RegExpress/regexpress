@@ -227,7 +227,7 @@ var options = {
 
   function Sequence(items) {
     if(!(this instanceof Sequence)) return new Sequence([].slice.call(arguments));
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'sequence'});
     this.items = items.map(wrapString);
     this.width = this.items.reduce(function(sofar, el) { return sofar + el.width + (el.needsSpace?20:0)}, 0);
     this.up = this.items.reduce(function(sofar,el) { return Math.max(sofar, el.up)}, 0);
@@ -259,7 +259,7 @@ var options = {
 
   function Choice(normal, items) {
     if(!(this instanceof Choice)) return new Choice(normal, [].slice.call(arguments,1));
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'choice'});
     if( typeof normal !== "number" || normal !== Math.floor(normal) ) {
       throw new TypeError("The first argument of Choice() must be an integer.");
     } else if(normal < 0 || normal >= items.length) {
@@ -331,7 +331,7 @@ var options = {
 
   function Group(item, caption) {
     if(!(this instanceof Group)) return new Group(item, caption);
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'group'});
     caption = caption || (new Skip);
     this.item = wrapString(item);
     this.caption = caption;
@@ -372,7 +372,7 @@ var options = {
 
   function OneOrMore(item, rep) {
     if(!(this instanceof OneOrMore)) return new OneOrMore(item, rep);
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'oneormore'});
     rep = rep || (new Skip);
     this.item = wrapString(item);
     this.rep = wrapString(rep);
@@ -409,7 +409,7 @@ var options = {
 
   function Start() {
     if(!(this instanceof Start)) return new Start();
-    FakeSVG.call(this, 'path');
+    FakeSVG.call(this, 'path', {class: 'start'});
     this.width = 20;
     this.up = 10;
     this.down = 10;
@@ -422,7 +422,7 @@ var options = {
 
   function End() {
     if(!(this instanceof End)) return new End();
-    FakeSVG.call(this, 'path');
+    FakeSVG.call(this, 'path', {class: 'end'});
     this.width = 20;
     this.up = 10;
     this.down = 10;
@@ -435,7 +435,7 @@ var options = {
 
   function Terminal(text) {
     if(!(this instanceof Terminal)) return new Terminal(text);
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'terminal'});
     this.text = text;
     this.width = text.length * 8 + 20; /* Assume that each char is .5em, and that the em is 16px */
     this.up = 11;
@@ -457,7 +457,7 @@ var options = {
 
   function NonTerminal(text) {
     if(!(this instanceof NonTerminal)) return new NonTerminal(text);
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'non-terminal'});
     this.text = text;
     this.width = text.length * 8 + 20;
     this.up = 11;
@@ -479,7 +479,7 @@ var options = {
 
   function Comment(text) {
     if(!(this instanceof Comment)) return new Comment(text);
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'comment'});
     this.text = text;
     this.width = text.length * 7 + 10;
     this.up = 11;
@@ -500,7 +500,7 @@ var options = {
 
   function Skip() {
     if(!(this instanceof Skip)) return new Skip();
-    FakeSVG.call(this, 'g');
+    FakeSVG.call(this, 'g', {class: 'skip'});
     this.width = 0;
     this.up = 0;
     this.down = 0;
