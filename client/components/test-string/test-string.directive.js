@@ -13,9 +13,8 @@
       template: '<div>HEY NOW<div>ok</div></div>',
       link: function(scope, element, attrs) {
         element.on('click', function(event){
-          console.log(event);
-        })
-
+          // Currently useless!
+        });
       }
     }
   }

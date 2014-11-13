@@ -21,8 +21,8 @@
         });
 
         element.on('click', function(event){
-          console.log('value', event.path[0].innerHTML);
-          console.log('path', event.path)
+          console.log('closest element of class .RR',$(element).closest('.RR'))
+
         });
       }
     }
