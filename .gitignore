@@ -1,9 +1,10 @@
 node_modules/
 bower_components/
 npm-debug.log
-bundle.js
 dist
 
+# Specific files to ignore
+bundle.js
 client/styles/app.css
 client/railroadDiagrams/bundle.js
 
