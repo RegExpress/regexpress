@@ -4,10 +4,10 @@
   angular
     .module('baseApp', ['ValuesModule', 'makeRRModule', 'ngMaterial'])
 
-    .controller('MainController', [ '$scope','trackValues', 'makeRR', MainController ]);
+    .controller('MainController', [ '$scope','values', 'makeRR', MainController ]);
 
-    function MainController($scope, trackValues, makeRR) {
-      $scope.main = trackValues;
+    function MainController($scope, values, makeRR) {
+      $scope.main = values;
       $scope.rr = makeRR;
     };
 
