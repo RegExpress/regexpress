@@ -35,7 +35,6 @@
     "gulp-browserify": "^0.5.0",
     "gulp-concat": "^2.4.1",
     "gulp-cssmin": "^0.1.6",
-    "gulp-image": "^0.5.1",
     "gulp-inject": "^1.0.2",
     "gulp-livereload": "^2.1.1",
     "gulp-load-plugins": "^0.7.1",
