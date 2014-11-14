@@ -22,7 +22,8 @@ after_success:
   && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/amber-storm.git
   && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH
 - test $TRAVIS_BRANCH != "develop"
-  && gulp build
+  && ./node_modules/.bin/bower install
+  && gulp build:dist
   && cd dist
   && npm install --prod --ignore-scripts
   && cd $TRAVIS_BUILD_DIR
