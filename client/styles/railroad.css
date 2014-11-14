@@ -3,7 +3,7 @@ svg.railroad-diagram {
     color: black;
 }
 svg.railroad-diagram path {
-    stroke-width: 3;
+    stroke-width: 4;
     stroke: black;
     fill: rgba(0,0,0,0);
 }
@@ -18,7 +18,15 @@ svg.railroad-diagram text.comment {
     font: italic 12px monospace;
 }
 svg.railroad-diagram rect {
-    stroke-width: 3;
+    stroke-width: 4;
     stroke: black;
-    fill: hsl(120,100%,90%);
+    fill: hsl(187, 52%, 80%);
 }
+
+svg.railroad-diagram rect:hover, g.match > path:hover {
+    stroke: #FF00BF;
+};
+
+/*g.match > path:hover {
+    stroke: red;
+};*/

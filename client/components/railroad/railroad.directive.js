@@ -3,15 +3,17 @@
 
   angular
     .module('baseApp')
-    .directive('railroad', railroad);
+    .directive('railroad', ['handlerHelpers', railroad]);
 
-  function railroad() {
+  function railroad(handlerHelpers) {
 
     return {
       restrict: "E",
       replace: true,
       template: '<div></div>',
       link: function(scope, element, attrs) {
+
+        var item, location;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -22,10 +24,16 @@
           element.append( '<div>'+ newRR+'</div>');
         });
 
-        element.on('click', function(event){
-          console.log('closest element of class .RR',$(element).closest('.RR'))
+        // set selected item
+        element.on('mousedown',function(event){ item = $(event.toElement).closest('.match').attr('id');})
 
+        element.on('mouseup', function(event) {
+          if (handlerHelpers.checkLocation(event) != 'svg') {
+            console.log('remove ', item);
+            // trigger removal
+          }
         });
+
       }
     }
   }
