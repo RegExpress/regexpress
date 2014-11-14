@@ -6,7 +6,7 @@
     .directive('testString', testString);
 
 
-// literally fuck this
+// we probably do not need this any more, here for posterity
   function testString() {
     return {
       restrict: "E",
@@ -14,7 +14,7 @@
       template: '<div>HEY NOW<div>ok</div></div>',
       link: function(scope, element, attrs) {
         element.on('click', function(event){
-          
+
         });
       }
     }
