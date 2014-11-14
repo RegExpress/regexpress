@@ -7,6 +7,7 @@
 
   // watches changing user regex input and changes scope variable regexp to reflect this
   function trackRegex() {
+    
 
     return {
       restrict: "E",
@@ -21,9 +22,9 @@
           } catch (err) {
           }
 
-        })
+        });
       }
-    }
+    };
   }
 
 })();

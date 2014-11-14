@@ -229,21 +229,22 @@ var rx2rr = function(node) {
 * regex: the regular expression to parse
 * returns the entire regular expression tree (a bunch of nested objects)
 */
-var parseRegex = function(regex) {
+window.parseRegex = function(regex) {
   if (regex instanceof RegExp) {
     regex = regex.source;
   }
   return parse(regex);
 };
 
-module.exports = {
-  Regex2RailRoadDiagram: function(regex) {
-    return Diagram(rx2rr(parseRegex(regex))).format();
-  },
-  ParseRegex: parseRegex
-};
 
 // THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
-window.Regex2RailRoadDiagramCopy = function(regex) {
-  return Diagram(rx2rr(parseRegex(regex))).format();
-}
+window.Regex2RailRoadDiagramCopy = function(regexTree) {
+  return Diagram(rx2rr(regexTree)).format();
+};
+
+// module.exports = {
+//   Regex2RailRoadDiagram: function(regex) {
+//     return Diagram(rx2rr(parseRegex(regex))).format();
+//   },
+//   ParseRegex: parseRegex
+// };

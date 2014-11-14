@@ -18,6 +18,7 @@ var paths = {
   templates: ['./client/**/*.html', '!./client/index.html','!./client/bower_components/**/*.html'],
   server: './server.js',
   railroadDiagrams: './client/railroadDiagrams/regexToRailroad.js',
+  browserify: './client/railroadDiagrams',
   packageJson: './package.json',
   nodeModules: './node_modules'
 };
@@ -142,6 +143,7 @@ function startWatchDev(){
   $.livereload.listen();
   // watch for changes in these files and let livereload know something happened
   gulp.watch(paths.root + '/**/*.styl', ['stylus']);
+  gulp.watch(paths.browserify + '/**/*.js', ['browserify'] );
   gulp.watch(paths.root + '/**/*.css', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.js', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.html', $.livereload.changed);

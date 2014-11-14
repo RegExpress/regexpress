@@ -15,7 +15,9 @@
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
-          var newRR = scope.rr.createRailroad(scope.main.regexp);
+          console.log("parsing regex");
+          scope.main.regexTree = parseRegex(scope.main.regexp);
+          var newRR = scope.rr.createRailroad(scope.main.regexTree);
           element.empty();
           element.append( '<div>'+ newRR+'</div>');
         });

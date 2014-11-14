@@ -6,15 +6,15 @@
 
     function makeRR(){
 
-      // takes regex, returns railroad html snippet
-      function createRailroad(regex){
-        var snippet = Regex2RailRoadDiagramCopy(regex);
+      // takes regex tree, returns railroad html snippet
+      function createRailroad(regexTree){
+        var snippet = Regex2RailRoadDiagramCopy(regexTree);
         return '<div class="RR">'+ snippet + '</dvi>';
       }
 
       return {
         createRailroad: createRailroad,
-      }
+      };
     }
 
 })();

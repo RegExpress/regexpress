@@ -2,12 +2,12 @@
   'use strict';
 
   angular.module('ValuesModule', [])
-    .factory('trackValues', trackValues);
+    .factory('values', values);
 
 
-    function trackValues(){
+    function values(){
 
-      var string, regexBody, regexTags, matches;
+      var string, regexBody, regexTags, regexTree, matches;
       var regexp = /.+/;
 
       return {
@@ -15,8 +15,9 @@
         regexBody: regexBody,
         regexTags: regexTags,
         regexp: regexp,
+        regexTree: regexTree,
         matches: matches
-      }
+      };
     }
 
 })();
