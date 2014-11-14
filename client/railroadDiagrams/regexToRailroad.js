@@ -17,7 +17,7 @@ var Group = railroad['Group'];
 //Might have some problems
 var makeLiteral = function(text, id) {
   if (text === " ") {
-    return NonTerminal("SP", id);
+    return NonTerminal("SP", id, 'space');
   } else {
     var parts = text.split(/(^ +| {2,}| +$)/);
     var sequence = [];
@@ -29,12 +29,12 @@ var makeLiteral = function(text, id) {
       }
       if (/^ +$/.test(part)) {
         if (part.length === 1) {
-          sequence.push(NonTerminal("SP", id));
+          sequence.push(NonTerminal("SP", id, 'space'));
         } else {
-          sequence.push(OneOrMore(NonTerminal("SP", id), Comment("" + part.length + " times")));
+          sequence.push(OneOrMore(NonTerminal("SP", id, 'spaces'), Comment("" + part.length + " times")));
         }
       } else {
-        sequence.push(Terminal(part, id));
+        sequence.push(Terminal(part, id, 'literal'));
       }
     }
     // if (sequence.length === 1) {
@@ -43,7 +43,7 @@ var makeLiteral = function(text, id) {
     //   return new Sequence(sequence);
     // }
 
-      return new Sequence(id, sequence);
+      return new Sequence(id, 'literal-sequence', sequence);
   }
 };
 
@@ -57,7 +57,7 @@ var idNum = 0;
 */
 var rx2rr = function(node) {
   node.idNum = node.idNum || idNum++;
-  console.log('NODE: ' + JSON.stringify(node));
+  // console.log('NODE: ' + JSON.stringify(node));
   switch (node.type) {
     case "match":
       var literal = null;
@@ -85,7 +85,7 @@ var rx2rr = function(node) {
       // if (sequence.length === 1) {
       //   return sequence[0];
       // } else {
-        return new Sequence(node.idNum, sequence);
+        return new Sequence(node.idNum, node.type, sequence);
       // }
       break;
     case "alternate": //Handles (a|b|c) blocks
@@ -96,7 +96,7 @@ var rx2rr = function(node) {
         node = node.right;
       }
       alternatives.push(rx2rr(node));
-      return new Choice(Math.ceil(alternatives.length / 2) - 1, startNode.idNum, alternatives);
+      return new Choice(Math.ceil(alternatives.length / 2) - 1, startNode.idNum, startNode.type, alternatives);
     case "quantified": //Handles multiples (+, *, {4}, etc.) of an expression
       var quantifier = node.quantifier; 
       var min = quantifier.min; 
@@ -108,76 +108,75 @@ var rx2rr = function(node) {
       switch (min) {
         case 0:
           if (max === 1) {
-            return Optional(body, node.idNum);
+            return Optional(body, node.idNum, node.type);
           } else {
             if (max === 0) {
               return Sequence();
             } else if (max !== Infinity) {
-              return ZeroOrMore(body, node.idNum, Comment("0 to " + max + " times"));
+              return ZeroOrMore(body, node.idNum, node.type, Comment("0 to " + max + " times"));
             } else {
-              return ZeroOrMore(body, node.idNum);
+              return ZeroOrMore(body, node.idNum, node.type);
             }
           }
           break;
         case 1:
           if (max === 1) {
-            return Sequence(node.idNum, body);
+            return Sequence(node.idNum, 'quantified', body);
           } else if (max !== Infinity) {
-            return OneOrMore(body, node.idNum, Comment("1 to " + max + " times"));
+            return OneOrMore(body, node.idNum, node.type, Comment("1 to " + max + " times"));
           } else {
-            return OneOrMore(body, node.idNum);
+            return OneOrMore(body, node.idNum, node.type);
           }
           break;
         default:
           if (max === min) {
-            return OneOrMore(body, node.idNum, Comment("" + max + " times"));
+            return OneOrMore(body, node.idNum, node.type, Comment("" + max + " times"));
           } else if (max !== Infinity) {
-            return OneOrMore(body, node.idNum, Comment("" + min + " to " + max + " times"));
+            return OneOrMore(body, node.idNum, node.type, Comment("" + min + " to " + max + " times"));
           } else {
-            return OneOrMore(body, node.idNum, Comment("at least " + min + " times"));
+            return OneOrMore(body, node.idNum, node.type, Comment("at least " + min + " times"));
           }
       }
       break;
     case "capture-group": //Handles (...) blocks
-      return Group(rx2rr(node.body), node.idNum, Comment("capture " + node.index));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment("capture " + node.index));
     case "non-capture-group":
-      return Group(rx2rr(node.body), node.idNum);
+      return Group(rx2rr(node.body), node.idNum, node.type);
     case "positive-lookahead":
-      return Group(rx2rr(node.body), node.idNum, Comment(node.type));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment(node.type));
     case "negative-lookahead":
-      return Group(rx2rr(node.body), node.idNum, Comment(node.type));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment(node.type));
     case "positive-lookbehind":
-      return Group(rx2rr(node.body), node.idNum, Comment(node.type));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment(node.type));
     case "negative-lookbehind":
-      return Group(rx2rr(node.body), node.idNum, Comment(node.type));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment(node.type));
     case "back-reference":
-      return NonTerminal("ref " + node.index, node.idNum);
+      return NonTerminal("ref " + node.index, node.idNum, node.type);
     case "literal": //Handles individual characters
       if (node.escaped) {
-        return Terminal(node.body, node.idNum);
+        return Terminal(node.body, node.idNum, node.type);
       } else {
-        //NEED TO PUT IN ID
         return makeLiteral(node.body, node.idNum);
       }
       break;
     case "word":
-      return NonTerminal("word-character", node.idNum);
+      return NonTerminal("word-character", node.idNum, node.type);
     case "non-word":
-      return NonTerminal("non-word-character", node.idNum);
+      return NonTerminal("non-word-character", node.idNum, node.type);
     case "line-feed":
-      return NonTerminal("LF", node.idNum);
+      return NonTerminal("LF", node.idNum, node.type);
     case "carriage-return":
-      return NonTerminal("CR", node.idNum);
+      return NonTerminal("CR", node.idNum, node.type);
     case "form-feed":
-      return NonTerminal("FF", node.idNum);
+      return NonTerminal("FF", node.idNum, node.type);
     case "back-space":
-      return NonTerminal("BS", node.idNum);
+      return NonTerminal("BS", node.idNum, node.type);
     case "digit":
-      return Terminal("0-9", node.idNum);
+      return Terminal("0-9", node.idNum, node.type);
     case "white-space":
-      return NonTerminal("WS", node.idNum);
+      return NonTerminal("WS", node.idNum, node.type);
     case "range":
-      return Terminal(node.text, node.idNum);
+      return Terminal(node.text, node.idNum, node.type);
     case "charset": //Handles [...] blocks
       var charNodes = node.body;
       var charset = [];
@@ -195,9 +194,9 @@ var rx2rr = function(node) {
           charset[0] = "SP";
         }
         if (node.invert) {
-          return NonTerminal("not " + charset[0], node.idNum);
+          return NonTerminal("not " + charset[0], node.idNum, node.type);
         } else {
-          return Terminal(charset[0], node.idNum);
+          return Terminal(charset[0], node.idNum, node.type);
         }
       } else {
         //For multiple chars. Doesn't represent it as a choice block. Doesn't convert ending space to 'SP'
@@ -208,20 +207,20 @@ var rx2rr = function(node) {
           }
         }
         if (node.invert) {
-          return NonTerminal("not " + list + " and " + charset.slice(-1), node.idNum);
+          return NonTerminal("not " + list + " and " + charset.slice(-1), node.idNum, node.type);
         } else {
-          return NonTerminal("" + list + " or " + charset.slice(-1), node.idNum);
+          return NonTerminal("" + list + " or " + charset.slice(-1), node.idNum, node.type);
         }
       }
       break;
     case "hex":
-      return Terminal(node.text, node.idNum);
+      return Terminal(node.text, node.idNum, node.type);
     case "octal":
-      return Terminal(node.text, node.idNum);
+      return Terminal(node.text, node.idNum, node.type);
     case "unicode":
-      return Terminal(node.text, node.idNum);
+      return Terminal(node.text, node.idNum, node.type);
     default:
-      return NonTerminal(node.type, node.idNum);
+      return NonTerminal(node.type, node.idNum, node.type);
   }
 };
 
