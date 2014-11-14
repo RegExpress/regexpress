@@ -141,7 +141,7 @@ function startServerProd(){
 function startWatchDev(){
   $.livereload.listen();
   // watch for changes in these files and let livereload know something happened
-  gulp.watch(paths.root + '/**/*.styl', ['styles:dev']);
+  gulp.watch(paths.root + '/**/*.styl', ['stylus']);
   gulp.watch(paths.root + '/**/*.css', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.js', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.html', $.livereload.changed);
@@ -152,7 +152,7 @@ function startWatchDist(){
   // NOTE THIS CURRENTLY DOESNT WORK
   // it watches the main folder but nothing actually builds :(
   $.livereload.listen();
-  gulp.watch(paths.root + '/**/*.styl', ['styles:dev']);
+  gulp.watch(paths.root + '/**/*.styl', ['stylus']);
   gulp.watch(paths.root + '/**/*.css', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.js', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.html', $.livereload.changed);
