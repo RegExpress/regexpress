@@ -5,7 +5,8 @@
     .module('baseApp')
     .directive('testString', testString);
 
-// NOT BEING USED CURRENTLY
+
+// literally fuck this
   function testString() {
     return {
       restrict: "E",
@@ -13,7 +14,7 @@
       template: '<div>HEY NOW<div>ok</div></div>',
       link: function(scope, element, attrs) {
         element.on('click', function(event){
-          // Currently useless!
+          
         });
       }
     }
