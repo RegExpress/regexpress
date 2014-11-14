@@ -2,8 +2,13 @@
   'use strict';
 
   angular
-    .module('baseApp', ['ValuesModule', 'makeRRModule', 'modifyTreeModule', 'ngMaterial'])
-
+    .module('baseApp',[
+      'ValuesModule',
+      'makeRRModule',
+      'ngMaterial',
+      'clickHelpers',
+      'modifyTreeModule'
+    ])
     .controller('MainController', [ '$scope','values', 'makeRR', 'modifyTree', MainController ]);
 
     function MainController($scope, values, makeRR, modifyTree) {
