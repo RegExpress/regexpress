@@ -27,6 +27,29 @@ svg.railroad-diagram g.capture-group > rect:hover, g.charset > rect:hover, g.lit
     stroke: #FF00BF;
 };
 
-/*g.match > path:hover {
-    stroke: red;
-};*/
+/* ghost css */
+
+.copy {
+    background-color: #333;
+    color: black;
+}
+.copy path {
+    stroke-width: 4;
+    stroke: black;
+    fill: rgba(0,0,0,0);
+}
+.copy text {
+    font: bold 14px monospace;
+    text-anchor: middle;
+}
+.copy text.label {
+    text-anchor: start;
+}
+.copy text.comment {
+    font: italic 12px monospace;
+}
+.copy rect {
+    stroke-width: 4;
+    stroke: black;
+    fill: hsl(187, 52%, 80%);
+}

@@ -20,7 +20,7 @@
         modifyTree.removeNode(toRemoveInt, $scope.main.regexTree);
         $scope.main.treeChanged++;
       };
-
+      //console.log(modifyTree.removeNode(null, $scope.main.regexTree));
     }
 
 })();
