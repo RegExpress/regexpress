@@ -6,7 +6,7 @@
 
     function modifyTree(){
       // parent node is needed for subsequent recursive calls
-      var getNode = function(node, id, parent){
+      var getNode = function(id, node, parent){
         if(node.idNum === id){
           return [node, parent];
         }
@@ -14,15 +14,15 @@
           case 'match':
             return searchArray(node, id);
           case 'capture-group':
-            return getNode(node.body, id, node);
+            return getNode(id, node.body, node);
           case 'alternate':
-            var left = getNode(node.left, id, node);
+            var left = getNode(id, node.left, node);
             if(left){
               return left;
             }
-            return getNode(node.right, id, node);
+            return getNode(id, node.right, node);
           case 'quantified':
-            return getNode(node.body, id, node);
+            return getNode(id, node.body, node);
           case 'charset':
             return searchArray(node, id);
           default:
@@ -32,7 +32,7 @@
 
       var searchArray = function(node, id){
         for(var i = 0; i < node.body.length; i++){
-          var child = getNode(node.body[i], id, node);
+          var child = getNode(id, node.body[i], node);
           if(child){
             return child;
           }
@@ -42,17 +42,32 @@
 
       function removeNode(idToRemove, regexTree) {
         // console.log("yo",regexTree);
-        var nodeAndParent = getNode(regexTree, idToRemove);
+        var nodeAndParent = getNode(idToRemove, regexTree);
         var node = nodeAndParent[0];
         var parent = nodeAndParent[1];
-        console.log(nodeAndParent);
         // if body is array, splice
         // handle checking of group types here
-        if (parent.type === "match" || parent.type ==="capture-group") {
+        if (parent.type === 'match' || parent.type ==='capture-group') {
           var indexOfNode = parent.body.indexOf(node);
           parent.body.splice(indexOfNode,1);
+          // this is for if the body is now empty
+          // it removes the object that has the empty body array.
+          // not 100% sure this works for capture groups as well
+          if (parent.body.length === 0) {
+            removeNode(parent.idNum, regexTree);
+          }
         }
-        
+        if (parent.type === 'alternate') {
+          var parentAndSuperParent = getNode(parent.idNum, regexTree);
+          var superParent = parentAndSuperParent[1];
+          if (node === parent.right) {
+            superParent.right = parent.left;
+          }
+          if (node === parent.left) {
+            superParent.left = parent.right;
+          }
+
+        } 
         // if thing we need to remove is in a alternate, do other stuff
       }
       // for testing only
