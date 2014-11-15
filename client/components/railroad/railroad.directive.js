@@ -19,6 +19,8 @@
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
           console.log("parsing regex");
           scope.main.regexTree = parseRegex(scope.main.regexp);
+          // this below is just for testing purposes.
+          window.regexpTree = scope.main.regexTree;
           var newRR = scope.rr.createRailroad(scope.main.regexTree);
           element.empty();
           element.append( '<div>'+ newRR+'</div>');

@@ -14,7 +14,8 @@
     function MainController($scope, values, makeRR, modifyTree) {
       $scope.main = values;
       $scope.rr = makeRR;
-      console.log(modifyTree.removeNode(null, $scope.main.regexTree));
+      // console.log($scope.main.regexTree);
+      // console.log(modifyTree.removeNode(1, $scope.main.regexTree));
 
     }
 
