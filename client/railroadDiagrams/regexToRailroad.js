@@ -57,7 +57,6 @@ var idNum = 0;
 */
 var rx2rr = function(node) {
   node.idNum = node.idNum || idNum++;
-  // console.log('NODE: ' + JSON.stringify(node));
   switch (node.type) {
     case "match":
       var literal = null;
@@ -242,6 +241,7 @@ window.parseRegex = function(regex) {
 
 // THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
 window.Regex2RailRoadDiagramCopy = function(regexTree) {
+  idNum = 0;
   return Diagram(rx2rr(regexTree)).format();
 };
 
