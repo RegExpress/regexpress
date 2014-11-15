@@ -94,6 +94,9 @@ var rx2rr = function(node) {
       while (node.type === "alternate") {
         alternatives.push(rx2rr(node.left));
         node = node.right;
+        if (node.type === "alternate") {
+          node.idNum = idNum++;
+        }
       }
       alternatives.push(rx2rr(node));
       return new Choice(Math.ceil(alternatives.length / 2) - 1, startNode.idNum, startNode.type, alternatives);

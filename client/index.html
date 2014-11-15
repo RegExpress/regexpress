@@ -46,11 +46,14 @@
 </head>
   <!-- Main controller controls body of page -->
   <body ng-controller="MainController" layout="vertical">
+    
     <!-- end main controller element -->
     <md-toolbar md-theme="orange">
       <div class="md-toolbar-tools" layout-align="center">
         <h3>
           <span>RegExpress Like You Just Don't Care</span>
+          <input ng-model="idToRemove"></input>
+          <button ng-click="callRemove()">remove</button>
         </h3>
       </div>
     </md-toolbar>
@@ -74,7 +77,7 @@
 
 
     <!-- This is the second element of the page, the workspace-->
-    <md-content flex class="work" md-theme="light-blue-dark" layout-align="center">
+    <md-content class="work" md-theme="light-blue-dark" layout-align="center">
       <form style="padding: 20px;">
 
       <!-- input boxes allows the user to change $scope variables to make regex -->

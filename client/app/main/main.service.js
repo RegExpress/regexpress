@@ -8,6 +8,7 @@
     function values(){
 
       var string, regexBody, regexTags, regexTree, matches;
+      var treeChanged = 0;
       var regexp = /.+/;
 
       return {
@@ -16,7 +17,8 @@
         regexTags: regexTags,
         regexp: regexp,
         regexTree: regexTree,
-        matches: matches
+        matches: matches,
+        treeChanged: treeChanged
       };
     }
 
