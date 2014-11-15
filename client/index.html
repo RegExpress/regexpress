@@ -57,7 +57,7 @@
     <md-content md-theme="light-blue-dark" class="test" layout-align="center">
       <form style="padding: 20px;">
         <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Test String" ng-model="main.string"></md-text-float>
+          <md-text-float label="Test String" class="highlighter" ng-model="main.string"></md-text-float>
         </div>
       </form>
       <!-- matches expression -->
@@ -75,7 +75,8 @@
 
 
     <!-- This is the second element of the page, the workspace-->
-    <md-content class="work" md-theme="light-blue-dark" layout-align="center">
+
+    <md-content flex visibility="collapse" class="work" md-theme="light-blue-dark" layout-align="center">
       <form style="padding: 20px;">
 
       <!-- input boxes allows the user to change $scope variables to make regex -->
@@ -94,16 +95,15 @@
     <!-- <div class="container"> -->
     <div flex layout="horizontal">
       <md-content flex class="cell" id="one" md-theme="light-blue-dark"><p></p>
-
       <div layout="horizontal" layout-align="center"><capture-group-template/></div>
       <!-- <div layout="horizontal" layout-align="center"><terminal-template/></div> -->
-
       </md-content>
 
       <md-content flex class="cell" id="two" md-theme="light-blue-dark">
       </md-content>
 
       <md-content flex class="cell" id="three" md-theme="light-blue-dark"><p></p></md-content>
+
     </div>
   </div>
   </body>
