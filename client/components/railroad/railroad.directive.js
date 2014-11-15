@@ -32,7 +32,10 @@
         });
 
         // set selected item
-        element.on('mousedown',function(event){ item = $(event.toElement).closest('.match').attr('id');})
+        element.on('mousedown',function(event){
+          item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset').attr('id');
+          console.log('class is', $(event.toElement).closest('.literal-sequence, .captureGroup, .charset').attr('class'))
+        })
 
         element.on('mouseup', function(event) {
           if (handlerHelpers.checkLocation(event) != 'svg') {

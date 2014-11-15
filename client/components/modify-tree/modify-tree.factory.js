@@ -80,12 +80,12 @@
           if (node === parent.left) {
             superParent.left = parent.right;
           }
-        } 
+        }
         // if thing we need to remove is in a alternate, do other stuff
       }
       // for testing only
-      window.globalRemoveNode = removeNode;
-      
+      // window.globalRemoveNode = removeNode;
+
       return {
         removeNode: removeNode,
       };
