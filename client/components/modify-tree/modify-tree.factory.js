@@ -47,7 +47,12 @@
         var parent = nodeAndParent[1];
         console.log(nodeAndParent);
         // if body is array, splice
-
+        // handle checking of group types here
+        if (parent.type === "match" || parent.type ==="capture-group") {
+          var indexOfNode = parent.body.indexOf(node);
+          parent.body.splice(indexOfNode,1);
+        }
+        
         // if thing we need to remove is in a alternate, do other stuff
       }
       // for testing only
