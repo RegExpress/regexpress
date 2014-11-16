@@ -64,8 +64,10 @@
         var node = nodeAndParent[0];
         var parent = nodeAndParent[1];
         // handle checking of group types here
-        // Is match 
-        if (parent.type === 'match' ) {
+        // charsets are handled by default because their parents are always a type that we have already handled.
+        // they can never be a parent.
+        // Is match
+        if (parent.type === 'match') {
           var indexOfNode = parent.body.indexOf(node);
           parent.body.splice(indexOfNode,1);
           // this is for if the body is now empty
@@ -103,10 +105,6 @@
               superParent.body = parent.right;
             }
           }
-        }
-        // charsets
-        if (parent.type === 'charset') {
-          console.log('charset');
         }
       }
       // for testing only
