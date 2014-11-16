@@ -16,6 +16,7 @@
         return loc;
       }
 
+
       return {
         checkLocation: checkLocation
       }
