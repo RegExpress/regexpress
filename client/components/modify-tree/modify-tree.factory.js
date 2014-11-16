@@ -80,8 +80,8 @@
             removeNode(idToRemove, regexTree);
           }
         }
-        // capture group
-        if (parent.type === 'capture-group') {
+        // capture groups && quantifieds
+        if (parent.type === 'capture-group' || parent.type === 'quantified') {
           removeNode(parent.idNum, regexTree);
         }
         /// alternates
@@ -104,7 +104,10 @@
             }
           }
         }
-        // if thing we need to remove is in a alternate, do other stuff
+        // charsets
+        if (parent.type === 'charset') {
+          console.log('charset');
+        }
       }
       // for testing only
       // window.globalRemoveNode = removeNode;
