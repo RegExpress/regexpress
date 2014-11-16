@@ -33,10 +33,9 @@
           element.append( '<div>'+ newRR+'</div>');
         });
 
-        // set selected item
+        // set selected item and itemID
         element.on('mousedown',function(event){
           item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
-          console.log(item);
           itemID = item.attr('id');
           // // create clone and append to DOM
           // var copy = $(item).clone()
@@ -63,10 +62,11 @@
           if (handlerHelpers.checkLocation(event) != 'svg') {
             console.log('calling remove', itemID)
             var intID = parseInt(itemID)
+
             modifyTree.removeNode(intID, scope.main.regexTree);
-            console.log('before', scope.main.treeChanged );
-            scope.main.treeChanged++;
-            console.log('after', scope.main.treeChanged );
+            scope.$apply(function(){
+              scope.main.treeChanged++;
+            });
           }
         });
       }
