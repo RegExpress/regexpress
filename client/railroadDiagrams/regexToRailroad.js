@@ -241,7 +241,6 @@ window.parseRegex = function(regex) {
 
 // THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
 window.Regex2RailRoadDiagramCopy = function(regexTree) {
-  idNum = 0;
   return Diagram(rx2rr(regexTree)).format();
 };
 
