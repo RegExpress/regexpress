@@ -62,7 +62,9 @@
         var parent = nodeAndParent[1];
 
         // handle checking of group types here
-        if (parent.type === 'match' || parent.type ==='capture-group') {
+
+        // Is match 
+        if (parent.type === 'match' ) {
           var indexOfNode = parent.body.indexOf(node);
           parent.body.splice(indexOfNode,1);
           // this is for if the body is now empty
@@ -72,6 +74,11 @@
             removeNode(parent.idNum, regexTree);
           }
         }
+        // capture group
+        if (parent.type === 'capture-group') {
+          var indexOfNode = parent.body.indexOf(node); 
+        }
+        /// alternates
         if (parent.type === 'alternate') {
           var parentAndSuperParent = getNode(parent.idNum, regexTree);
           var superParent = parentAndSuperParent[1];

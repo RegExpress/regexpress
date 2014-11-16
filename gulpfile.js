@@ -127,14 +127,14 @@ gulp.task('clean', del.bind(null, ['./dist/**/*']));
 function startServerDev(){
   // set dev env so dist folder isnt served
   process.env.NODE_ENV = 'development';
-  require('./server');
+  require('./gulpServer');
 
 }
 
 function startServerProd(){
   // set prod env so dist folder is served
   process.env.NODE_ENV = 'production';
-  require('./server');
+  require('./gulpServer');
 
 }
 // Watch functions

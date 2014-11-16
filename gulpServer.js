@@ -1,8 +1,11 @@
 var path = require('path');
 var express = require('express');
 var app = express();
+var reloader = require('connect-livereload');
+
 var port = 8000;
 
+app.use(reloader());
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, '/client/index.html'));
  });
