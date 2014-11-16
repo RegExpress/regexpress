@@ -39,6 +39,7 @@ g.match > path:hover {
     stroke: #FF00BF;
 };
 
+
 /* ghost css */
 
 .copy {
@@ -65,3 +66,7 @@ g.match > path:hover {
     stroke: black;
     fill: hsl(187, 52%, 80%);
 }
+
+/*g.match > path:hover {
+    stroke: red;
+};*/

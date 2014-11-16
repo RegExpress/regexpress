@@ -7,7 +7,8 @@
       'makeRRModule',
       'ngMaterial',
       'clickHelpers',
-      'modifyTreeModule'
+      'modifyTreeModule',
+      'ui.highlight'
     ])
     .controller('MainController', [ '$scope','values', 'makeRR', 'modifyTree', MainController ]);
 

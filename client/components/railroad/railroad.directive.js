@@ -17,6 +17,7 @@
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
+
           scope.main.regexTree = parseRegex(scope.main.regexp);
           scope.main.treeChanged++;
         });

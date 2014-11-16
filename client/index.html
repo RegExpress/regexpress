@@ -11,6 +11,7 @@
   <!-- Loads angular source and railroad bundle -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-utils/highlight.min.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/hammerjs/hammer.js"></script>
@@ -43,8 +44,7 @@
 
 </head>
   <!-- Main controller controls body of page -->
-  <body ng-controller="MainController" layout="vertical">
-
+  <body flex ng-controller="MainController" layout="vertical">
     <!-- end main controller element -->
     <md-toolbar md-theme="light-blue-dark">
       <div class="md-toolbar-tools" layout-align="center">
@@ -57,11 +57,11 @@
     <md-content md-theme="light-blue-dark" class="test" layout-align="center">
       <form style="padding: 20px;">
         <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Test String" class="highlighter" ng-model="main.string"></md-text-float>
+          <md-text-float label="Test String" ng-model="main.string" ng-bind-html-unsafe="highlight:shan"></md-text-float>
         </div>
       </form>
       <!-- matches expression -->
-      <div layout="horizontal" layout-align="center"><track-matches/></div>
+      <div layout="horizontal" layout-align="center" ><track-matches ng-bind-html-unsafe="highlight:main.string"/></div>
       <!-- end matches expressison -->
 
       <!-- <input type="text" ng-model="addObject"> -->

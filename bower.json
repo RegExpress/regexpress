@@ -20,7 +20,8 @@
     "angular-loader": "~1.3.1",
     "angular-mocks": "~1.3.1",
     "angular-material": "~0.5.1",
-    "jquery": "~2.1.1"
+    "jquery": "~2.1.1",
+    "angular-ui-utils": "bower-highlight"
   },
   "resolutions": {
     "angular": "~1.3.2"
