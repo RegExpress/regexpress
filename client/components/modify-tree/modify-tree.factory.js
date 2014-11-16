@@ -76,7 +76,7 @@
         }
         // capture group
         if (parent.type === 'capture-group') {
-          var indexOfNode = parent.body.indexOf(node); 
+          removeNode(parent.idNum, regexTree);
         }
         /// alternates
         if (parent.type === 'alternate') {
