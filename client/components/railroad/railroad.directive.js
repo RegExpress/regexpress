@@ -10,8 +10,9 @@
     return {
       restrict: "E",
       replace: true,
-      template: '<div></div>',
+      template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
+        console.log(element.attr('class'))
 
         var item, itemID, location, oldClass;
 
@@ -38,21 +39,21 @@
           item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
           itemID = item.attr('id');
 
+          console.log(event)
+          console.log(event.pageY)
+
           // create clone and append to DOM
-          // var copy = $(item).clone()
-          //   .attr('fill', 'black')
-          //   .wrap('<svg class="copy" style="position: absolute; top:20"></svg>')
-          //   .parent();
+          var copy = $(item).clone()
+            .attr('fill', 'black')
+            .wrap('<svg class="copy" style="position: absolute;"></svg>')
+            .parent();
 
-          // $(copy).css({
-          //   top: 10,
-          //   left: 10
-          // })
-          // console.log($(copy).offset().top)
+          $(copy).css({
+            top: event.pageY,
+            left: event.pageX
+          })
 
-
-          // $('.testing').empty();
-          // $('.testing').append(copy);
+          $('body').append(copy);
 
           // gray out the selected item
           oldClass = $(item).attr('class');
@@ -65,12 +66,12 @@
           if (handlerHelpers.checkLocation(event) != 'svg') {
             console.log('calling remove', itemID)
             var intID = parseInt(itemID)
-
             modifyTree.removeNode(intID, scope.main.regexTree);
             scope.$apply(function(){
               scope.main.treeChanged++;
             });
           } else {
+            // un-gray the dropped item
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
           }

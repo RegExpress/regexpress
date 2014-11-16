@@ -56,7 +56,7 @@
       * regexTree: the regex tree
       */ 
       function removeNode(idToRemove, regexTree) {
-        console.log("yo",regexTree);
+        // console.log("yo",regexTree);
         var nodeAndParent = getNode(idToRemove, regexTree);
         var node = nodeAndParent[0];
         var parent = nodeAndParent[1];
