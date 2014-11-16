@@ -6,7 +6,7 @@
     .directive('trackMatches', trackMatches);
 
   function trackMatches() {
-    // currently useless!
+
     return {
       restrict: "E",
       template: '<div>matches</div>',

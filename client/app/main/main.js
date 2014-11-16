@@ -15,12 +15,13 @@
       $scope.main = values;
       $scope.rr = makeRR;
 
-      $scope.callRemove = function() {
-        var toRemoveInt = parseInt($scope.idToRemove);
-        modifyTree.removeNode(toRemoveInt, $scope.main.regexTree);
-        $scope.main.treeChanged++;
-      };
-
+      // console.log($scope.main.regexTree);
+      // $scope.callRemove = function(targetId) {
+      //   var toRemoveInt = parseInt(targetId);
+      //   console.log('now removing', targetId)
+      //   modifyTree.removeNode(toRemoveInt, $scope.main.regexTree);
+      //   $scope.main.treeChanged++;
+      // };
     }
 
 })();
