@@ -10,10 +10,11 @@
     return {
       restrict: "E",
       replace: true,
-      template: '<div></div>',
+      template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
+        console.log(element.attr('class'))
 
-        var item, itemID, location;
+        var item, itemID, location, oldClass;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -37,24 +38,27 @@
         element.on('mousedown',function(event){
           item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
           itemID = item.attr('id');
-          // // create clone and append to DOM
-          // var copy = $(item).clone()
-          //   .attr('fill', 'black')
-          //   .wrap('<svg class="copy" style="position: absolute; top:20"></svg>')
-          //   .parent();
 
-          // $(copy).css({
-          //   top: 10,
-          //   left: 10
-          // })
-          // console.log($(copy).offset().top)
+          console.log(event)
+          console.log(event.pageY)
 
+          // create clone and append to DOM
+          var copy = $(item).clone()
+            .attr('fill', 'black')
+            .wrap('<svg class="copy" style="position: absolute;"></svg>')
+            .parent();
 
-          // $('.testing').empty();
-          // $('.testing').append(copy);
+          $(copy).css({
+            top: event.pageY,
+            left: event.pageX
+          })
 
-          // // gray out the selected item
-          // $(item).attr('class', 'ghost');
+          $('body').append(copy);
+
+          // gray out the selected item
+          oldClass = $(item).attr('class');
+          $(item).attr('class','ghost '+ oldClass);
+          $('g.ghost rect').css('stroke', 'gray');
         })
 
         // removed item from tree on mouseup if off the RR
@@ -62,11 +66,14 @@
           if (handlerHelpers.checkLocation(event) != 'svg') {
             console.log('calling remove', itemID)
             var intID = parseInt(itemID)
-
             modifyTree.removeNode(intID, scope.main.regexTree);
             scope.$apply(function(){
               scope.main.treeChanged++;
             });
+          } else {
+            // un-gray the dropped item
+            $('g.ghost rect').css('stroke', 'black');
+            $(item).attr('class', oldClass);
           }
         });
       }
