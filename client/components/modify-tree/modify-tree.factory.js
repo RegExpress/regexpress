@@ -58,11 +58,12 @@
       function removeNode(idToRemove, regexTree) {
         console.log("yo",regexTree);
         var nodeAndParent = getNode(idToRemove, regexTree);
+        if (nodeAndParent === null) {
+          return;
+        }
         var node = nodeAndParent[0];
         var parent = nodeAndParent[1];
-
         // handle checking of group types here
-
         // Is match 
         if (parent.type === 'match' ) {
           var indexOfNode = parent.body.indexOf(node);
@@ -72,6 +73,11 @@
           // not 100% sure this works for capture groups as well
           if (parent.body.length === 0) {
             removeNode(parent.idNum, regexTree);
+          }
+          // if more of same id , delete those also
+          // while in body, there exists more nodes with same idNum, delete them.
+          if (parent.body.length) {
+            removeNode(idToRemove, regexTree);
           }
         }
         // capture group
