@@ -13,7 +13,7 @@
       template: '<div></div>',
       link: function(scope, element, attrs) {
 
-        var item, itemID, location;
+        var item, itemID, location, oldClass;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -37,7 +37,8 @@
         element.on('mousedown',function(event){
           item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
           itemID = item.attr('id');
-          // // create clone and append to DOM
+
+          // create clone and append to DOM
           // var copy = $(item).clone()
           //   .attr('fill', 'black')
           //   .wrap('<svg class="copy" style="position: absolute; top:20"></svg>')
@@ -53,8 +54,10 @@
           // $('.testing').empty();
           // $('.testing').append(copy);
 
-          // // gray out the selected item
-          // $(item).attr('class', 'ghost');
+          // gray out the selected item
+          oldClass = $(item).attr('class');
+          $(item).attr('class','ghost '+ oldClass);
+          $('g.ghost rect').css('stroke', 'gray');
         })
 
         // removed item from tree on mouseup if off the RR
@@ -67,6 +70,9 @@
             scope.$apply(function(){
               scope.main.treeChanged++;
             });
+          } else {
+            $('g.ghost rect').css('stroke', 'black');
+            $(item).attr('class', oldClass);
           }
         });
       }
