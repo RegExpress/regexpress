@@ -58,13 +58,16 @@
       function removeNode(idToRemove, regexTree) {
         console.log("yo",regexTree);
         var nodeAndParent = getNode(idToRemove, regexTree);
+        if (nodeAndParent === null) {
+          return;
+        }
         var node = nodeAndParent[0];
         var parent = nodeAndParent[1];
-
         // handle checking of group types here
-
-        // Is match 
-        if (parent.type === 'match' ) {
+        // charsets are handled by default because their parents are always a type that we have already handled.
+        // they can never be a parent.
+        // Is match
+        if (parent.type === 'match') {
           var indexOfNode = parent.body.indexOf(node);
           parent.body.splice(indexOfNode,1);
           // this is for if the body is now empty
@@ -73,10 +76,15 @@
           if (parent.body.length === 0) {
             removeNode(parent.idNum, regexTree);
           }
+          // if more of same id , delete those also
+          // while in body, there exists more nodes with same idNum, delete them.
+          if (parent.body.length) {
+            removeNode(idToRemove, regexTree);
+          }
         }
-        // capture group
-        if (parent.type === 'capture-group') {
-          var indexOfNode = parent.body.indexOf(node); 
+        // capture groups && quantifieds
+        if (parent.type === 'capture-group' || parent.type === 'quantified') {
+          removeNode(parent.idNum, regexTree);
         }
         /// alternates
         if (parent.type === 'alternate') {
@@ -98,7 +106,6 @@
             }
           }
         }
-        // if thing we need to remove is in a alternate, do other stuff
       }
       // for testing only
       // window.globalRemoveNode = removeNode;
