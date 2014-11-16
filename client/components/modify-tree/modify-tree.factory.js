@@ -74,11 +74,20 @@
         if (parent.type === 'alternate') {
           var parentAndSuperParent = getNode(parent.idNum, regexTree);
           var superParent = parentAndSuperParent[1];
-          if (node === parent.right) {
-            superParent.right = parent.left;
-          }
-          if (node === parent.left) {
-            superParent.left = parent.right;
+          if (superParent.type === 'alternate') {
+            if (node === parent.right) {
+              superParent.right = parent.left;
+            }
+            if (node === parent.left) {
+              superParent.right = parent.right;
+            } 
+          } else if (superParent.type === 'capture-group') {
+            if (node === parent.right) {
+              superParent.body = parent.left;
+            }
+            if (node === parent.left) {
+              superParent.body = parent.right;
+            }
           }
         } 
         // if thing we need to remove is in a alternate, do other stuff
