@@ -128,6 +128,14 @@
             parentNode.body.unshift(nodeToAdd);
           }
         }
+        if (parentNode.type === 'alternate') {
+          if (parentNode.right.type === 'alternate') {
+            addNode(siblingId, parentNode.right.idNum, nodeToAdd, regexTree);
+            return;
+          }
+          var oldRight = parentNode.right;
+          parentNode.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
+        }
       }
 
       return {
