@@ -32,6 +32,7 @@
   <script src="components/modify-tree/modify-tree.factory.js"></script>
   <script src="components/matches/matches.directive.js"></script>
 
+
   <!-- all those damn template directives -->
   <script src="components/workspace/captureGroup.directive.js"></script>
   <script src="components/workspace/terminal.directive.js"></script>
@@ -57,11 +58,11 @@
     <md-content md-theme="light-blue-dark" class="test" layout-align="center">
       <form style="padding: 20px;">
         <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Test String" ng-model="main.string" ng-bind-html-unsafe="highlight:shan"></md-text-float>
+          <md-text-float label="Test String" ng-model="main.string"></md-text-float>
         </div>
       </form>
       <!-- matches expression -->
-      <div layout="horizontal" layout-align="center" ><track-matches ng-bind-html-unsafe="highlight:main.string"/></div>
+      <div layout="horizontal" layout-align="center" ><track-matches/></div>
       <!-- end matches expressison -->
 
       <!-- <input type="text" ng-model="addObject"> -->

@@ -18,7 +18,7 @@
             var stuff = scope.main.string.match(scope.main.regexp);
             element.empty();
             element.append('<p>' + scope.main.matches + '</p>');
-
+            console.log(stuff)
             //
             // $scope.highlight = function(text, search) {
             //   if (!search) {
