@@ -136,6 +136,11 @@
           var oldRight = parentNode.right;
           parentNode.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
         }
+        if (parentNode.type === 'capture-group') {
+          // if capture group, just call addNode on the match inside of it
+          // in theory this shouldnt really happen as itll default to 'match', but this is here just in case.
+          addNode(siblingId, parentNode.body.idNum, nodeToAdd, regexTree);
+        }
       }
 
       return {
