@@ -15,6 +15,13 @@
       $scope.main = values;
       $scope.rr = makeRR;
 
+      $scope.callAdd = function() {
+        var bigObject = {"sib": 11,"parent": 6,"node": {"type": "literal","body": "c"}};
+        // bigObject = JSON.parse(bigObject);
+        modifyTree.addNode(bigObject.sib, bigObject.parent, bigObject.node, $scope.main.regexTree);
+        $scope.main.treeChanged++;
+      };
+
       // console.log($scope.main.regexTree);
       // $scope.callRemove = function(targetId) {
       //   var toRemoveInt = parseInt(targetId);

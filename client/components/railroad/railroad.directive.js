@@ -35,9 +35,11 @@
 //AAAAAAAAAAAAAAAAAAAAAAAAAA
         // set selected item and itemID
         element.on('mousedown',function(event){
-          item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
-          itemID = item.attr('id');
-          console.log($(item).closest('g'))
+          if (event.which === 1) {
+            item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset');
+            itemID = item.attr('id');
+            console.log($(item).closest('g')); 
+          }
 
           // if (event.which === 1) {
           //   // create clone and append to DOM

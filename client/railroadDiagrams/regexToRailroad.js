@@ -69,7 +69,7 @@ var rx2rr = function(node) {
           } else {
             literal = currentNode.body;
           }
-          currentNode.idNum = idNum;
+          currentNode.idNum = currentNode.idNum || idNum;
         } else {
           if (literal != null) {
             sequence.push(makeLiteral(literal, idNum++));

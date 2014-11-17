@@ -13,7 +13,7 @@
       */
       var getNode = function(id, node, parent){
         if(node.idNum === id){
-          return [node, parent];
+          return {node: node, parent: parent};
         }
         switch(node.type){
           case 'match':
@@ -58,11 +58,11 @@
       function removeNode(idToRemove, regexTree) {
         // console.log("yo",regexTree);
         var nodeAndParent = getNode(idToRemove, regexTree);
-        if (nodeAndParent === null) {
+        if (nodeAndParent === null || nodeAndParent.parent === undefined) {
           return;
         }
-        var node = nodeAndParent[0];
-        var parent = nodeAndParent[1];
+        var node = nodeAndParent.node;
+        var parent = nodeAndParent.parent;
         // handle checking of group types here
         // charsets are handled by default because their parents are always a type that we have already handled.
         // they can never be a parent.
@@ -89,7 +89,7 @@
         /// alternates
         if (parent.type === 'alternate') {
           var parentAndSuperParent = getNode(parent.idNum, regexTree);
-          var superParent = parentAndSuperParent[1];
+          var superParent = parentAndSuperParent.parent;
           if (superParent.type === 'alternate') {
             if (node === parent.right) {
               superParent.right = parent.left;
@@ -107,11 +107,32 @@
           }
         }
       }
-      // for testing only
-      // window.globalRemoveNode = removeNode;
+      // we probably need an actually complete node to be passed in, and the place to add it.
+      function addNode(siblingId, parentId, nodeToAdd, regexTree) {
+        console.log('adding node');
+        // different cases depending on parent type
+        var siblingAndParent, siblingNode, parentNode;
+        if (siblingId) {
+          siblingAndParent = getNode(siblingId, regexTree);
+          siblingNode = siblingAndParent.node;
+          parentNode = siblingAndParent.parent;
+        } else {
+          parentNode = getNode(parentId, regexTree).node; 
+        }
+        if (parentNode.type === 'match') { 
+          // do this is sibling node is defined
+          if (siblingNode !== undefined) {
+            var indexOfSibling = parentNode.body.indexOf(siblingNode);
+            parentNode.body.splice(indexOfSibling+1,0,nodeToAdd);
+          } else {
+            parentNode.body.unshift(nodeToAdd);
+          }
+        }
+      }
 
       return {
         removeNode: removeNode,
+        addNode: addNode
       };
     }
 })();
