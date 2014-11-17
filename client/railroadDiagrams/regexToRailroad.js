@@ -61,25 +61,30 @@ var rx2rr = function(node) {
     case "match":
       var literal = null;
       var sequence = [];
+      var currentNode;
       for (var i = 0; i <  node.body.length; i++) {
-        var currentNode = node.body[i];
+        currentNode = node.body[i];
         if (currentNode.type === "literal" && !currentNode.escaped) {
           if (literal != null) {
             literal += currentNode.body;
           } else {
             literal = currentNode.body;
           }
+          // currentNode id is set to currentNode id to keep literals grouped together
           currentNode.idNum = currentNode.idNum || idNum;
         } else {
           if (literal != null) {
-            sequence.push(makeLiteral(literal, idNum++));
+            // 
+            sequence.push(makeLiteral(literal, currentNode.idNum));
+            idNum++;
             literal = null;
           }
           sequence.push(rx2rr(currentNode));
         }
       }
       if (literal != null) {
-        sequence.push(makeLiteral(literal, idNum++));
+        sequence.push(makeLiteral(literal, currentNode.idNum));
+        idNum++;
       }
       // if (sequence.length === 1) {
       //   return sequence[0];
