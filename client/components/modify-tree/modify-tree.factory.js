@@ -111,35 +111,39 @@
       function addNode(siblingId, parentId, nodeToAdd, regexTree) {
         console.log('adding node');
         // different cases depending on parent type
-        var siblingAndParent, siblingNode, parentNode;
+        var siblingAndParent, sibling, parent;
         if (siblingId) {
           siblingAndParent = getNode(siblingId, regexTree);
-          siblingNode = siblingAndParent.node;
-          parentNode = siblingAndParent.parent;
+          sibling = siblingAndParent.node;
+          parent = siblingAndParent.parent;
         } else {
-          parentNode = getNode(parentId, regexTree).node; 
+          parent = getNode(parentId, regexTree).node; 
         }
-        if (parentNode.type === 'match') { 
+        if (parent.type === 'match') { 
           // do this is sibling node is defined
-          if (siblingNode !== undefined) {
-            var indexOfSibling = parentNode.body.indexOf(siblingNode);
-            parentNode.body.splice(indexOfSibling+1,0,nodeToAdd);
+          if (sibling !== undefined) {
+            var indexOfSibling = parent.body.indexOf(sibling);
+            parent.body.splice(indexOfSibling+1,0,nodeToAdd);
           } else {
-            parentNode.body.unshift(nodeToAdd);
+            parent.body.unshift(nodeToAdd);
           }
         }
-        if (parentNode.type === 'alternate') {
-          if (parentNode.right.type === 'alternate') {
-            addNode(siblingId, parentNode.right.idNum, nodeToAdd, regexTree);
+        if (parent.type === 'alternate') {
+          if (parent.right.type === 'alternate') {
+            addNode(siblingId, parent.right.idNum, nodeToAdd, regexTree);
             return;
           }
-          var oldRight = parentNode.right;
-          parentNode.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
+          var oldRight = parent.right;
+          parent.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
         }
-        if (parentNode.type === 'capture-group') {
+        if (parent.type === 'capture-group') {
           // if capture group, just call addNode on the match inside of it
           // in theory this shouldnt really happen as itll default to 'match', but this is here just in case.
-          addNode(siblingId, parentNode.body.idNum, nodeToAdd, regexTree);
+          addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
+        }
+        if (parent.type === 'quantified') {
+          // if its a literal character, the body will just be a literal node
+          // if (parent)
         }
       }
 
