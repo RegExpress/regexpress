@@ -143,7 +143,19 @@
         }
         if (parent.type === 'quantified') {
           // if its a literal character, the body will just be a literal node
-          // if (parent)
+          if (parent.body.type === 'literal') {
+            // make parent .body into a capture group w/ a literal
+            var oldBody = parent.body;
+            parent.body = {type: 'capture-group', body: {type: 'match', body: [oldBody]}};
+            // if sibling, after else before
+            if (sibling !== undefined) {
+              // parent -> capture group -> match -> match's body
+              parent.body.body.body.push(nodeToAdd);
+            } else {
+              parent.body.body.body.unshift(nodeToAdd);
+            }
+
+          }
         }
       }
 
