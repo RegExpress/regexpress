@@ -16,8 +16,8 @@
       template: '<div>tree to input directive</div>',
       link: function(scope, element, attrs) {
         /*
-        * Traverses a regex tree and builds the equivalent regex string. 
-        * node: the current node in the regex tree to be evaluated. 
+        * Traverses a regex tree and builds the equivalent regex string.
+        * node: the current node in the regex tree to be evaluated.
         */
         var buildRegexString = function(node){
           var regex = '';
@@ -43,7 +43,7 @@
               return buildRegexString(node.left) + '|' + buildRegexString(node.right);
             case 'quantified':
               var body = buildRegexString(node.body);
-              
+
               //MIGHT NOT BE NECESSARY
               //Only add () if the text length is greater than 1, the first character is not (, and its not a single escaped character
               if(body.length > 1 && body[0] !== '(' && (body.length !== 2 || body[0] !== '\\')){
@@ -139,7 +139,7 @@
 
         scope.$watch('main.treeChanged', function(newValues, oldValues){
           console.log(scope.main.treeChanged);
-          console.log(buildRegexString(scope.main.regexTree));
+          // console.log(buildRegexString(scope.main.regexTree));
           scope.main.regexBody = buildRegexString(scope.main.regexTree);
         });
       }

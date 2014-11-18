@@ -30,69 +30,73 @@
           element.append( '<div>'+ newRR+'</div>');
         });
 
+        ////////// jQuery click handlers ///////////
+
         // set selected item and itemID
-        element.on('mousedown',function(event){
+        element.on('mousedown','.railroad-diagram',function(event){
+
+          // finds the closest element that matches the accepted classes, captures it as "item", and dentifies the ID of the node to be removed.
+          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ')
+          itemID = item.attr('id');
 
           if (event.which === 1) {
-            item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ')
-            itemID = item.attr('id');
-            console.log(item.attr('class'))
+            // create clone and append to DOM
+            copy = $(item).clone()
+              .attr('fill', 'black')
+              .wrap('<svg class="copy" draggable:"true" style="position: absolute;"></svg>')
+              .parent();
 
-            if (event.which === 1) {
-              // create clone and append to DOM
-              copy = $(item).clone()
-                .attr('fill', 'black')
-                .wrap('<svg class="copy" style="position: absolute;"></svg>')
-                .parent();
+            // appends the clone to the DOM
+            $('.work').append(copy);
 
-              $('.work').append(copy);
+            // find out the offset of the rect from the svg
+            var target = $(copy).find('rect');
+            top = $(copy).offset().top;
+            left = ($(target).position().left) + ($(target).attr('width')/2);
 
+            // sets the top and left coords of the clone to appear under the mouse
+            $(copy).css({
+              top: event.pageY - 250,
+              left: event.pageX - left
+            })
 
-              // find out the offset of the rect from the svg
-              var target = $(copy).find('rect');
-              top = $(copy).offset().top;
-              left = ($(target).position().left) + ($(target).attr('width')/2);
+            // gray out the selected item
+            oldClass = $(item).attr('class');
+            $(item).attr('class','ghost '+ oldClass);
+            $('g.ghost rect').css('stroke', 'gray');
 
-              $(copy).css({
-                top: event.pageY - 250,
-                left: event.pageX - left
-              })
-
-              // gray out the selected item
-              oldClass = $(item).attr('class');
-              $(item).attr('class','ghost '+ oldClass);
-              $('g.ghost rect').css('stroke', 'gray');
-            } else if (event.which === 3) {
-              console.log($(item))
-            }
+          // DEV only: left clicking on an item logs the captured node to the console/
+          } else if (event.which === 3) {
+            console.log($(item))
           }
-
         })
 
         // removed item from tree on mouseup if off the RR
-        $('body').on('mouseup', function(event) {
+        $('.work').on('mouseup', function(event) {
+          if (item){
+            console.log('mouseup is on', handlerHelpers.checkUnder(event));
+            if (handlerHelpers.checkUnder(event) === 'RR-dir') {
+              var intID = parseInt(itemID)
+              try {
+                modifyTree.removeNode(intID, scope.main.regexTree);
+                console.log('removed node', item)
+              } catch (err) { console.log('error caught', err); }
+              scope.$apply(function(){
+                scope.main.treeChanged++;
+              });
 
-          if (handlerHelpers.checkUnder(event) === 'RR-dir') {
-            var intID = parseInt(itemID)
-            try {
-              modifyTree.removeNode(intID, scope.main.regexTree);
-            } catch (err) { console.log('error caught', err); }
-            scope.$apply(function(){
-              scope.main.treeChanged++;
-            });
+            } else {
+              // un-gray the dropped item
+              $('g.ghost rect').css('stroke', 'black');
+              $(item).attr('class', oldClass);
+            }
 
-          } else {
-            // un-gray the dropped item
-            $('g.ghost rect').css('stroke', 'black');
-            $(item).attr('class', oldClass);
+            item = undefined;
+            $(copy).remove();
           }
-
-          item = undefined;
-          $(copy).remove();
-          console.log('removed node', item)
         });
 
-        $('body').on('mousemove', function(event){
+        $('.work').on('mousemove', function(event){
           if (item) {
             $(copy).css({
               top:  event.pageY - 250,

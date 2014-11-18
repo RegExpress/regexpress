@@ -40,7 +40,9 @@ g.match > path:hover {
 svg.railroad-diagram g.capture-group > rect:hover, g.charset > rect:hover, g.literal > rect:hover, g.match > path:hover {
     stroke: #FF00BF;
 };
-/* ghost css */
+
+/* copy css */
+
 .copy {
     background-color: #333;
     color: black;
