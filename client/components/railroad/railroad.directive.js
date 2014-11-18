@@ -34,9 +34,9 @@
         element.on('mousedown',function(event){
 
           if (event.which === 1) {
-            item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, non-digit, .word, .non-word, .whitespace, .non-whitespace, .start, .end, .space ')
+            item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ')
             itemID = item.attr('id');
-            // console.log($(item).closest('g'))
+            console.log(item.attr('class'))
 
             if (event.which === 1) {
               // create clone and append to DOM
@@ -104,15 +104,3 @@
     }
   }
 })();
-
-// '.literal-sequence,
-// .capture-group,
-// .charset,
-// .digit,
-// non-digit,
-// .word,
-// .non-word,
-// .whitespace,
-// .non-whitespace,
-// .start,
-// .end'
