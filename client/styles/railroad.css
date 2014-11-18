@@ -23,7 +23,19 @@ svg.railroad-diagram rect {
     fill: hsl(187, 52%, 80%);
 }
 
-svg.railroad-diagram g.capture-group > rect:hover, g.charset > rect:hover, g.literal > rect:hover, g.match > path:hover {
+svg.railroad-diagram g.capture-group > rect:hover,
+g.charset > rect:hover,
+g.literal > rect:hover,
+g.digit > rect:hover,
+g.non-digit > rect:hover,
+g.word > rect:hover,
+g.non-word > rect:hover,
+g.white-space > rect:hover,
+g.non-white-space > rect:hover,
+g.start > rect:hover,
+g.end > rect:hover,
+g.space > rect:hover,
+g.match > path:hover {
     stroke: #FF00BF;
 };
 

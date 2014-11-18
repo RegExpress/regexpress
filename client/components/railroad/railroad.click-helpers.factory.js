@@ -9,16 +9,26 @@
       function checkLocation(event){
         var loc;
         try {
-          loc = $(event.toElement).closest('.railroad-diagram')[0].tagName || undefined;
+          console.log('event on', event.toElement)
+          loc = $(event.toElement).closest('.railroad-diagram')[0];
+          loc = loc.tagname;
         } catch (err) {
           loc = 'off';
         }
         return loc;
       }
 
+      function checkUnder(event){
+        $(event.target).hide();
+        var elem = document.elementFromPoint(event.pageX, event.pageY);
+        $(event.target).show();
+        return $(elem).attr('class');
+      }
+
 
       return {
-        checkLocation: checkLocation
+        checkLocation: checkLocation,
+        checkUnder: checkUnder
       }
     }
 
