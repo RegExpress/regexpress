@@ -144,7 +144,7 @@
         }
         if (parent.type === 'quantified') {
           // if its a literal character, the body will just be a literal node
-          if (parent.body.type === 'literal') {
+          if (parent.body.type === 'literal' || parent.body.type === 'charset') {
             // make parent .body into a capture group w/ a literal
             var oldBody = parent.body;
             parent.body = {type: 'capture-group', body: {type: 'match', body: [oldBody]}};
@@ -155,10 +155,18 @@
             } else {
               parent.body.body.body.unshift(nodeToAdd);
             }
-
-          }
-          if (parent.body.type === 'capture-group')  {
+          } else if (parent.body.type === 'capture-group')  {
             addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
+          }
+        }
+        if (parent.type === 'charset') {
+          if (nodeToAdd.type === 'charset') {
+            for (var i = 0; i < nodeToAdd.body.length; i++) {
+              parent.body.push(nodeToAdd.body[i]);
+            }
+          }
+          if (nodeToAdd.type === 'literal') {
+            parent.body.push(nodeToAdd);
           }
         }
       }
