@@ -15,8 +15,9 @@
       $scope.main = values;
       $scope.rr = makeRR;
 
+      // for testing purposes
       $scope.callAdd = function() {
-        var bigObject = {"sib": 11,"parent": 6,"node": {"type": "literal","body": "c"}};
+        var bigObject = {"sib": null,"parent": 8,"node": {"type": "literal", "body": "s"}};
         // bigObject = JSON.parse(bigObject);
         modifyTree.addNode(bigObject.sib, bigObject.parent, bigObject.node, $scope.main.regexTree);
         $scope.main.treeChanged++;
