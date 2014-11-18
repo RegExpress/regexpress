@@ -6,10 +6,14 @@
 
 
     function values(){
-
-      var string, regexBody, regexTags, regexTree, matches;
-      var treeChanged = 0;
-      var regexp = /.+/;
+      // initialize all values to equivalient empties, so $watch doesnt freak out.
+      var string = '',
+          regexBody = '',
+          regexTags = '',
+          matches,
+          regexp = '',
+          regexTree = {"type": "match", "body": []},
+          treeChanged = 0;
 
       return {
         string: string,

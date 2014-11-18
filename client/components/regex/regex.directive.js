@@ -20,7 +20,6 @@
             element.append('<div>' + scope.main.regexp + '</div>');
           } catch (err) {
           }
-
         });
       }
     };
