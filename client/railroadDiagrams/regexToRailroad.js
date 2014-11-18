@@ -48,6 +48,7 @@ var makeLiteral = function(text, id) {
 };
 
 var idNum = 0;
+var captureCounter = 1;
 
 /*
 * Recursive function to convert a parsed regular expression to railroad blocks.
@@ -146,7 +147,7 @@ var rx2rr = function(node) {
       }
       break;
     case "capture-group": //Handles (...) blocks
-      return Group(rx2rr(node.body), node.idNum, node.type, Comment("capture " + node.index));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment("capture " + captureCounter++));
     case "non-capture-group":
       return Group(rx2rr(node.body), node.idNum, node.type);
     case "positive-lookahead":
@@ -246,6 +247,8 @@ window.parseRegex = function(regex) {
 
 // THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
 window.Regex2RailRoadDiagramCopy = function(regexTree) {
+  // reset capture counter so every new tree starts at 0
+  captureCounter = 1;
   return Diagram(rx2rr(regexTree)).format();
 };
 
