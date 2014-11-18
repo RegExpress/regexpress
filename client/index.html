@@ -21,6 +21,7 @@
   <script src="app/main/main.service.js"></script>
 
   <script src="app/main/main.js"></script>
+  <script src="components/tree-to-input/treeToInput.directive.js"></script>
   <script src="components/regex/regex.directive.js"></script>
   <script src="components/railroad/railroad.directive.js"></script>
   <script src="components/railroad/railroad.service.js"></script>
@@ -81,11 +82,13 @@
         <div class="row" layout="horizontal" layout-align="center">
           <md-text-float label="Write a regex" ng-keyup="submitRegex()" ng-model="main.regexBody"></md-text-float>
           <md-text-float label="Tags" ng-keyup="submitRegex()" ng-model="main.regexTags"></md-text-float>
+
           <!-- end input boxes. tags currently useless -->
 
         </div>
       </form>
       <div><railroad layout="horizontal" layout-align="center"/></div>
+    <tree-to-input></tree-to-input>
     </md-content>
 
     <!-- <div class="container"> -->
