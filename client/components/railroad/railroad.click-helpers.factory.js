@@ -22,7 +22,6 @@
         $(event.target).hide();
         var elem = document.elementFromPoint(event.pageX, event.pageY);
         $(event.target).show();
-        console.log('class?', $(elem).attr('class'))
         return $(elem).attr('class');
       }
 

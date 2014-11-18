@@ -13,7 +13,7 @@
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
 
-        var item, itemID, location, oldClass, copy;
+        var item, itemID, location, oldClass, copy, top, left;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -40,19 +40,23 @@
               // create clone and append to DOM
               copy = $(item).clone()
                 .attr('fill', 'black')
-                .attr('draggable', true)
                 .wrap('<svg class="copy" style="position: absolute;"></svg>')
                 .parent();
 
               $('.work').append(copy);
 
-              $(copy).css({
-                top: event.pageY - 220,
-                left: event.pageX -20
-              })
 
-              $(copy).bind('drag', function(event){
-                console.log('DRAGG!')
+
+              // find out the offset of the rect from the svg
+              var target = $(copy).find('rect');
+              top = $(copy).offset().top;
+              console.log($(target))
+              left = ($(target).position().left) + ($(target).attr('width')/2);
+              console.log('top', top);
+
+              $(copy).css({
+                top: event.pageY - 250,
+                left: event.pageX - left
               })
 
               // gray out the selected item
@@ -68,14 +72,10 @@
         $('body').on('mouseup', function(event) {
 
           if (handlerHelpers.checkUnder(event) === 'RR-dir') {
-            console.log('fail', handlerHelpers.checkUnder(event))
-
             var intID = parseInt(itemID)
-
             try {
               modifyTree.removeNode(intID, scope.main.regexTree);
             } catch (err) { console.log('error caught', err); }
-
             scope.$apply(function(){
               scope.main.treeChanged++;
             });
@@ -87,19 +87,17 @@
           }
 
           item = undefined;
-          console.log('removing copy');
           $(copy).remove();
         });
 
         $('body').on('mousemove', function(event){
           if (item) {
             $(copy).css({
-              top: event.pageY -220,
-              left: event.pageX - 20
+              top:  event.pageY - 250,
+              left: event.pageX - left
              })
           }
         })
-
       }
     }
   }
