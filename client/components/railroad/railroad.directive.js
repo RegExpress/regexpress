@@ -31,8 +31,9 @@
 
         // set selected item and itemID
         element.on('mousedown',function(event){
+
           if (event.which === 1) {
-            item = $(event.toElement).closest('.literal-sequence, .capture-group, .charset')
+            item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, non-digit, .word, .non-word, .whitespace, .non-whitespace, .start, .end, .space ')
             itemID = item.attr('id');
             // console.log($(item).closest('g'))
 
@@ -46,13 +47,10 @@
               $('.work').append(copy);
 
 
-
               // find out the offset of the rect from the svg
               var target = $(copy).find('rect');
               top = $(copy).offset().top;
-              console.log($(target))
               left = ($(target).position().left) + ($(target).attr('width')/2);
-              console.log('top', top);
 
               $(copy).css({
                 top: event.pageY - 250,
@@ -66,6 +64,8 @@
             } else if (event.which === 3) {
               console.log($(item))
             }
+          }
+
         })
 
         // removed item from tree on mouseup if off the RR
@@ -88,6 +88,7 @@
 
           item = undefined;
           $(copy).remove();
+          console.log('removed node', item)
         });
 
         $('body').on('mousemove', function(event){
@@ -102,3 +103,15 @@
     }
   }
 })();
+
+// '.literal-sequence, 
+// .capture-group, 
+// .charset, 
+// .digit, 
+// non-digit, 
+// .word, 
+// .non-word, 
+// .whitespace, 
+// .non-whitespace, 
+// .start, 
+// .end'
