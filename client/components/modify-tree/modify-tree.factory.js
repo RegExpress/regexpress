@@ -41,7 +41,7 @@
       * id: the id we are looking for
       */
       var searchArray = function(id, node){
-        for(var i = 0; i < node.body.length; i++){
+        for(var i = node.body.length-1; i >= 0; i--){
           var child = getNode(id, node.body[i], node);
           if(child){
             return child;
@@ -140,6 +140,7 @@
           // if capture group, just call addNode on the match inside of it
           // in theory this shouldnt really happen as itll default to 'match', but this is here just in case.
           addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
+          return;
         }
         if (parent.type === 'quantified') {
           // if its a literal character, the body will just be a literal node
@@ -155,6 +156,9 @@
               parent.body.body.body.unshift(nodeToAdd);
             }
 
+          }
+          if (parent.body.type === 'capture-group')  {
+            addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
           }
         }
       }
