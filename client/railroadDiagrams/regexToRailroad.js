@@ -48,6 +48,7 @@ var makeLiteral = function(text, id) {
 };
 
 var idNum = 0;
+var captureCounter = 1;
 
 /*
 * Recursive function to convert a parsed regular expression to railroad blocks.
@@ -61,25 +62,30 @@ var rx2rr = function(node) {
     case "match":
       var literal = null;
       var sequence = [];
+      var currentNode;
       for (var i = 0; i <  node.body.length; i++) {
-        var currentNode = node.body[i];
+        currentNode = node.body[i];
         if (currentNode.type === "literal" && !currentNode.escaped) {
           if (literal != null) {
             literal += currentNode.body;
           } else {
             literal = currentNode.body;
           }
-          currentNode.idNum = idNum;
+          // currentNode id is set to currentNode id to keep literals grouped together
+          currentNode.idNum = currentNode.idNum || idNum;
         } else {
           if (literal != null) {
-            sequence.push(makeLiteral(literal, idNum++));
+            // 
+            sequence.push(makeLiteral(literal, currentNode.idNum));
+            idNum++;
             literal = null;
           }
           sequence.push(rx2rr(currentNode));
         }
       }
       if (literal != null) {
-        sequence.push(makeLiteral(literal, idNum++));
+        sequence.push(makeLiteral(literal, currentNode.idNum));
+        idNum++;
       }
       // if (sequence.length === 1) {
       //   return sequence[0];
@@ -141,7 +147,7 @@ var rx2rr = function(node) {
       }
       break;
     case "capture-group": //Handles (...) blocks
-      return Group(rx2rr(node.body), node.idNum, node.type, Comment("capture " + node.index));
+      return Group(rx2rr(node.body), node.idNum, node.type, Comment("capture " + captureCounter++));
     case "non-capture-group":
       return Group(rx2rr(node.body), node.idNum, node.type);
     case "positive-lookahead":
@@ -241,6 +247,8 @@ window.parseRegex = function(regex) {
 
 // THIS IS NOT THE RIGHT WAY TO DO THIS. WE SHOULD BE ASHAMED OF OURSELVES
 window.Regex2RailRoadDiagramCopy = function(regexTree) {
+  // reset capture counter so every new tree starts at 0
+  captureCounter = 1;
   return Diagram(rx2rr(regexTree)).format();
 };
 

@@ -13,7 +13,7 @@
       */
       var getNode = function(id, node, parent){
         if(node.idNum === id){
-          return [node, parent];
+          return {node: node, parent: parent};
         }
         switch(node.type){
           case 'match':
@@ -41,7 +41,7 @@
       * id: the id we are looking for
       */
       var searchArray = function(id, node){
-        for(var i = 0; i < node.body.length; i++){
+        for(var i = node.body.length-1; i >= 0; i--){
           var child = getNode(id, node.body[i], node);
           if(child){
             return child;
@@ -58,11 +58,11 @@
       function removeNode(idToRemove, regexTree) {
         // console.log("yo",regexTree);
         var nodeAndParent = getNode(idToRemove, regexTree);
-        if (nodeAndParent === null) {
+        if (nodeAndParent === null || nodeAndParent.parent === undefined) {
           return;
         }
-        var node = nodeAndParent[0];
-        var parent = nodeAndParent[1];
+        var node = nodeAndParent.node;
+        var parent = nodeAndParent.parent;
         // handle checking of group types here
         // charsets are handled by default because their parents are always a type that we have already handled.
         // they can never be a parent.
@@ -89,7 +89,7 @@
         /// alternates
         if (parent.type === 'alternate') {
           var parentAndSuperParent = getNode(parent.idNum, regexTree);
-          var superParent = parentAndSuperParent[1];
+          var superParent = parentAndSuperParent.parent;
           if (superParent.type === 'alternate') {
             if (node === parent.right) {
               superParent.right = parent.left;
@@ -107,11 +107,73 @@
           }
         }
       }
-      // for testing only
-      // window.globalRemoveNode = removeNode;
+      // we probably need an actually complete node to be passed in, and the place to add it.
+      function addNode(siblingId, parentId, nodeToAdd, regexTree) {
+        console.log('adding node');
+        // different cases depending on parent type
+        var siblingAndParent, sibling, parent;
+        if (siblingId) {
+          siblingAndParent = getNode(siblingId, regexTree);
+          sibling = siblingAndParent.node;
+          parent = siblingAndParent.parent;
+        } else {
+          parent = getNode(parentId, regexTree).node; 
+        }
+        if (parent.type === 'match') { 
+          // do this is sibling node is defined
+          if (sibling !== undefined) {
+            var indexOfSibling = parent.body.indexOf(sibling);
+            parent.body.splice(indexOfSibling+1,0,nodeToAdd);
+          } else {
+            parent.body.unshift(nodeToAdd);
+          }
+        }
+        if (parent.type === 'alternate') {
+          if (parent.right.type === 'alternate') {
+            addNode(siblingId, parent.right.idNum, nodeToAdd, regexTree);
+            return;
+          }
+          var oldRight = parent.right;
+          parent.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
+        }
+        if (parent.type === 'capture-group') {
+          // if capture group, just call addNode on the match inside of it
+          // in theory this shouldnt really happen as itll default to 'match', but this is here just in case.
+          addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
+          return;
+        }
+        if (parent.type === 'quantified') {
+          // if its a literal character, the body will just be a literal node
+          if (parent.body.type === 'literal' || parent.body.type === 'charset') {
+            // make parent .body into a capture group w/ a literal
+            var oldBody = parent.body;
+            parent.body = {type: 'capture-group', body: {type: 'match', body: [oldBody]}};
+            // if sibling, after else before
+            if (sibling !== undefined) {
+              // parent -> capture group -> match -> match's body
+              parent.body.body.body.push(nodeToAdd);
+            } else {
+              parent.body.body.body.unshift(nodeToAdd);
+            }
+          } else if (parent.body.type === 'capture-group')  {
+            addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
+          }
+        }
+        if (parent.type === 'charset') {
+          if (nodeToAdd.type === 'charset') {
+            for (var i = 0; i < nodeToAdd.body.length; i++) {
+              parent.body.push(nodeToAdd.body[i]);
+            }
+          }
+          if (nodeToAdd.type === 'literal') {
+            parent.body.push(nodeToAdd);
+          }
+        }
+      }
 
       return {
         removeNode: removeNode,
+        addNode: addNode
       };
     }
 })();
