@@ -171,9 +171,14 @@
         }
       }
 
+      function editText() {
+
+      }
+
       return {
         removeNode: removeNode,
-        addNode: addNode
+        addNode: addNode,
+        editText: editText
       };
     }
 })();
