@@ -24,7 +24,7 @@
           window.regexpTree = scope.main.regexTree;
         });
 
-        // watches tree counter, which is tripped everytime the tree is DONE changing.
+        // watches tree counter, which is tripped every time the tree is DONE changing.
         // Creates and appends new Railroad diagram
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
           var newRR = scope.rr.createRailroad(scope.main.regexTree);
@@ -51,12 +51,12 @@
 
             // find out the offset of the rect from the svg
             var target = $(copy).find('rect');
-            top = $(copy).offset().top;
+            top = ($(target).position().top) + ($(target).attr('height')/2);
             left = ($(target).position().left) + ($(target).attr('width')/2);
 
             // sets the top and left coords of the clone to appear under the mouse
             $(copy).css({
-              top: event.pageY - 250,
+              top: event.pageY - top,
               left: event.pageX - left
             })
 
@@ -68,8 +68,9 @@
         };
 
         function askToRemoveNode(event){
-          console.log('mouseup is on', handlerHelpers.checkUnder(event));
-          if (handlerHelpers.checkUnder(event) === 'RR-dir' || handlerHelpers.checkUnder(event) === 'work') {
+          var over = handlerHelpers.checkUnder(event);
+
+          if (over === 'RR' || over === 'undefined' || over === 'work') {
             var intID = parseInt(itemID)
             try {
               modifyTree.removeNode(intID, scope.main.regexTree);
@@ -118,7 +119,7 @@
         $('.work').on('mousemove', function(event){
           if (item) {
             $(copy).css({
-              top:  event.pageY - 250,
+              top:  event.pageY - top,
               left: event.pageX - left
              })
           }

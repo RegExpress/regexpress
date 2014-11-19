@@ -7,9 +7,9 @@
     function handlerHelpers(){
 
       function checkUnder(event){
-        $(event.target).hide();
+        $('.copy').hide();
         var elem = document.elementFromPoint(event.pageX, event.pageY);
-        $(event.target).show();
+        $('.copy').show();
         return $(elem).attr('class');
       }
 
