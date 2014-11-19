@@ -32,18 +32,16 @@
 
         ////////// jQuery click handlers ///////////
 
-        // set selected item and itemID
-        element.on('mousedown','.railroad-diagram',function(event){
-
-          // finds the closest element that matches the accepted classes, captures it as "item", and dentifies the ID of the node to be removed.
-          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ')
+        // finds the closest element that matches the accepted classes, sets to "item", gets ID of the node to be removed.
+        function selectNodeToRemove(event){
+          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ');
           itemID = item.attr('id');
 
           if (event.which === 1) {
             // create clone and append to DOM
             copy = $(item).clone()
               .attr('fill', 'black')
-              .wrap('<svg class="copy" draggable:"true" style="position: absolute;"></svg>')
+              .wrap('<svg class="copy" style="position: absolute;"></svg>')
               .parent();
 
             // appends the clone to the DOM
@@ -64,8 +62,44 @@
             oldClass = $(item).attr('class');
             $(item).attr('class','ghost '+ oldClass);
             $('g.ghost rect').css('stroke', 'gray');
+          }
+        };
 
-          // DEV only: left clicking on an item logs the captured node to the console/
+        function askToRemoveNode(event){
+          console.log('mouseup is on', handlerHelpers.checkUnder(event));
+          if (handlerHelpers.checkUnder(event) === 'RR-dir') {
+            var intID = parseInt(itemID)
+            try {
+              modifyTree.removeNode(intID, scope.main.regexTree);
+              console.log('removed node', item)
+            } catch (err) { console.log('error caught', err); }
+            scope.$apply(function(){
+              scope.main.treeChanged++;
+            });
+
+          } else {
+            // un-gray the dropped item, add back old class
+            $('g.ghost rect').css('stroke', 'black');
+            $(item).attr('class', oldClass);
+          }
+
+          item = undefined;
+          $(copy).remove();
+        };
+
+        function changeTextNode(event){
+          console.log('text! about to change you, bro');
+        }
+
+        // set selected item and itemID
+        element.on('mousedown','.railroad-diagram',function(event){
+
+          if (event.which === 1) {
+            if ($(event.toElement).is('text')){
+              changeTextNode(event);
+            } else {
+              selectNodeToRemove(event);
+            };
           } else if (event.which === 3) {
             console.log($(item))
           }
@@ -74,28 +108,11 @@
         // removed item from tree on mouseup if off the RR
         $('.work').on('mouseup', function(event) {
           if (item){
-            console.log('mouseup is on', handlerHelpers.checkUnder(event));
-            if (handlerHelpers.checkUnder(event) === 'RR-dir') {
-              var intID = parseInt(itemID)
-              try {
-                modifyTree.removeNode(intID, scope.main.regexTree);
-                console.log('removed node', item)
-              } catch (err) { console.log('error caught', err); }
-              scope.$apply(function(){
-                scope.main.treeChanged++;
-              });
-
-            } else {
-              // un-gray the dropped item
-              $('g.ghost rect').css('stroke', 'black');
-              $(item).attr('class', oldClass);
-            }
-
-            item = undefined;
-            $(copy).remove();
+            askToRemoveNode(event);
           }
         });
 
+        // allows for the mouse to drag copy around
         $('.work').on('mousemove', function(event){
           if (item) {
             $(copy).css({
