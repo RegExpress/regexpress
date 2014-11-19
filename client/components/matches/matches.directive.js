@@ -15,15 +15,14 @@
         scope.$watchGroup(['main.regexp', 'main.string'], function(newVal, oldVal){
           try {
             scope.main.matches = scope.main.string.match(scope.main.regexp);
-            var stuff = scope.main.string.match(scope.main.regexp);
             element.empty();
             element.append('<p>' + scope.main.matches + '</p>');
-            // console.log(stuff, "stuff")
-            var wordMatches = stuff[0].split(' ')
 
-            console.log(wordMatches)
+            var wordMatches = scope.main.matches[0];
+
+            // console.log(wordMatches)
             $('#textarea').highlightTextarea({
-              words: wordMatches
+              words: [wordMatches]
             })
           } catch (err) {
             console.log(err)
