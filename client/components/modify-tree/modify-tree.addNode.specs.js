@@ -1,5 +1,5 @@
 describe('Modify-Tree-addNode\n', function() {
-  var $rootScope, $scope, modifyTree, tree1, tree2, tree3, tree4, tree5, tree6;
+  var $rootScope, $scope, modifyTree, tree1, tree2, tree3, tree4, tree5, tree6, tree7;
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
 
@@ -11,6 +11,7 @@ describe('Modify-Tree-addNode\n', function() {
     tree4 = {"type":"match","offset":0,"text":"abc","body":[{"type":"literal","offset":0,"text":"a","body":"a","escaped":false,"idNum":5},{"type":"literal","offset":1,"text":"b","body":"b","escaped":false,"idNum":5},{"type":"literal","offset":2,"text":"c","body":"c","escaped":false,"idNum":5}],"idNum":4};    
     tree5 = {"type":"match","offset":0,"text":"^a$","body":[{"type":"start","offset":0,"text":"^","idNum":5},{"type":"literal","offset":1,"text":"a","body":"a","escaped":false,"idNum":6},{"type":"end","offset":2,"text":"$","idNum":7}],"idNum":4};
     tree6 = {"type":"match","offset":0,"text":"a(bc)?","body":[{"type":"literal","offset":0,"text":"a","body":"a","escaped":false,"idNum":5},{"type":"quantified","offset":1,"text":"(bc)?","body":{"type":"capture-group","offset":2,"text":"bc","body":{"type":"match","offset":2,"text":"bc","body":[{"type":"literal","offset":2,"text":"b","body":"b","escaped":false,"idNum":9},{"type":"literal","offset":3,"text":"c","body":"c","escaped":false,"idNum":9}],"idNum":8},"index":1,"idNum":7},"quantifier":{"type":"quantifier","offset":5,"text":"?","min":0,"max":1,"greedy":true},"idNum":6}],"idNum":4};
+    tree7 = {"type":"match","offset":0,"text":"[abc]","body":[{"type":"charset","offset":0,"text":"[abc]","invert":false,"body":[{"type":"literal","offset":1,"text":"a","body":"a","escaped":false},{"type":"literal","offset":2,"text":"b","body":"b","escaped":false},{"type":"literal","offset":3,"text":"c","body":"c","escaped":false}],"idNum":5}],"idNum":4};
 
   }));
 
@@ -77,6 +78,18 @@ describe('Modify-Tree-addNode\n', function() {
       it('adds a literal to a capture-group inside a quantified', function(){
         modifyTree.addNode(null, 6, {"type":"literal","body":"z"}, tree6);
         expect(JSON.stringify(tree6)).toEqual('{"type":"match","offset":0,"text":"a(bc)?","body":[{"type":"literal","offset":0,"text":"a","body":"a","escaped":false,"idNum":5},{"type":"quantified","offset":1,"text":"(bc)?","body":{"type":"capture-group","offset":2,"text":"bc","body":{"type":"match","offset":2,"text":"bc","body":[{"type":"literal","body":"z"},{"type":"literal","offset":2,"text":"b","body":"b","escaped":false,"idNum":9},{"type":"literal","offset":3,"text":"c","body":"c","escaped":false,"idNum":9}],"idNum":8},"index":1,"idNum":7},"quantifier":{"type":"quantifier","offset":5,"text":"?","min":0,"max":1,"greedy":true},"idNum":6}],"idNum":4}');
+      });
+    });
+
+    describe('adds a node to a charset\n', function(){
+      it('adds a literal to a charset', function(){
+        modifyTree.addNode(null, 5, {"type":"literal","body":"z"}, tree7);
+        expect(JSON.stringify(tree7)).toEqual('{"type":"match","offset":0,"text":"[abc]","body":[{"type":"charset","offset":0,"text":"[abc]","invert":false,"body":[{"type":"literal","offset":1,"text":"a","body":"a","escaped":false},{"type":"literal","offset":2,"text":"b","body":"b","escaped":false},{"type":"literal","offset":3,"text":"c","body":"c","escaped":false},{"type":"literal","body":"z"}],"idNum":5}],"idNum":4}');
+      });
+
+      it('adds a charset to a charset', function(){
+        modifyTree.addNode(null, 5, {"type":"charset","invert":"false","body":[{"type":"literal","body":"d"},{"type":"literal","body":"e"}]}, tree7);
+        expect(JSON.stringify(tree7)).toEqual('{"type":"match","offset":0,"text":"[abc]","body":[{"type":"charset","offset":0,"text":"[abc]","invert":false,"body":[{"type":"literal","offset":1,"text":"a","body":"a","escaped":false},{"type":"literal","offset":2,"text":"b","body":"b","escaped":false},{"type":"literal","offset":3,"text":"c","body":"c","escaped":false},{"type":"literal","body":"d"},{"type":"literal","body":"e"}],"idNum":5}],"idNum":4}');
       });
     });
   });
