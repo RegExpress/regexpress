@@ -13,7 +13,8 @@
           matches,
           regexp = '',
           regexTree = {"type": "match", "body": []},
-          treeChanged = 0;
+          treeChanged = 0,
+          info = 'Drag and drop elements from the library below to build a regex diagram';
 
       return {
         string: string,
@@ -22,7 +23,8 @@
         regexp: regexp,
         regexTree: regexTree,
         matches: matches,
-        treeChanged: treeChanged
+        treeChanged: treeChanged,
+        info: info
       };
     }
 

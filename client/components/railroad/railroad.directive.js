@@ -3,9 +3,9 @@
 
   angular
     .module('baseApp')
-    .directive('railroad', ['handlerHelpers', 'modifyTree', railroad]);
+    .directive('railroad', ['handlerHelpers', 'modifyTree', 'makeRR', railroad]);
 
-  function railroad(handlerHelpers, modifyTree) {
+  function railroad(handlerHelpers, modifyTree, makeRR) {
 
     return {
       restrict: "E",
@@ -27,9 +27,9 @@
         // watches tree counter, which is tripped every time the tree is DONE changing.
         // Creates and appends new Railroad diagram
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
-          var newRR = scope.rr.createRailroad(scope.main.regexTree);
+          var newRR = makeRR.createRailroad(scope.main.regexTree);
           element.empty();
-          element.append( '<div>'+ newRR+'</div>');
+          element.append( '<div>'+ newRR +'</div>');
         });
 
         ////////// jQuery click handlers ///////////
@@ -98,17 +98,20 @@
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML;
           var width = text.split('').length * 7;
-          var textBox = '<form class="textForm" style=" position: absolute; top:0; left: 010"><input class="textBox" type="text" value="'+ text +'"></input></form>';
+          var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" value="'+ text +'" autofocus></input></form></div>';
+          // set appropriate informative text on scope
+          scope.$apply(function(){
+            // scope.main.info 
+          })
+
           $('.work').append(textBox);
 
           $('.textBox').css('width', width);
 
-          $('.textForm').css({
+          $('.textEdit').css({
             top: event.pageY - 15,
             left: event.pageX - width/2,
-          })
-          $('.textBox').focus();
-          $('.textBox').select();
+          });
 
         }
 
@@ -117,7 +120,7 @@
           var newVal = $('.textBox').val();
           console.log("here's where you call editText");
           // modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
-          $('.textForm').remove();
+          $('.textEdit').remove();
         })
 
         $('.work').on('keyup', '.textForm', function(){

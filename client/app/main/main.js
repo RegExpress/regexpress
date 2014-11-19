@@ -4,15 +4,14 @@
   angular
     .module('baseApp',[
       'ValuesModule',
-      'makeRRModule',
       'clickHelpers',
       'modifyTreeModule',
+      'makeRRModule',
     ])
-    .controller('MainController', [ '$scope','values', 'makeRR', 'modifyTree', MainController ]);
+    .controller('MainController', [ '$scope','values', 'modifyTree', 'makeRR', MainController ]);
 
     function MainController($scope, values, makeRR, modifyTree) {
       $scope.main = values;
-      $scope.rr = makeRR;
 
       // for testing purposes
       $scope.callAdd = function() {
