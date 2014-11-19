@@ -24,7 +24,6 @@
   <script src="app/main/main.js"></script>
   <script src="components/tree-to-input/treeToInput.directive.js"></script>
   <script src="components/regex/regex.directive.js"></script>
-  <script src="components/highlight/highlight-directive.js"></script>
   <script src="components/railroad/railroad.directive.js"></script>
   <script src="components/railroad/railroad.service.js"></script>
   <script src="components/railroad/railroad.click-helpers.factory.js"></script>
@@ -56,7 +55,7 @@
     <br><br><br>
     <div class="test">
         <div class="row">
-          <textarea id="textarea" label="Test String" ng-model="main.string" text-align="center"></textarea>
+          <input id="textarea" label="Test String" ng-model="main.string" text-align="center"></input>
         </div>      <!-- matches expression -->
       <div><track-matches/></div>
       <!-- end matches expressison -->
