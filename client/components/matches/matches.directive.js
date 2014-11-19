@@ -18,13 +18,13 @@
             var stuff = scope.main.string.match(scope.main.regexp);
             element.empty();
             element.append('<p>' + scope.main.matches + '</p>');
-            console.log(stuff, "stuff")
+            // console.log(stuff, "stuff")
             var wordMatches = stuff[0].split(' ')
+
             console.log(wordMatches)
             $('#textarea').highlightTextarea({
-              words: ['{wordMatches}']
+              words: wordMatches
             })
-            console.log("are we gettting here")
           } catch (err) {
             console.log(err)
           }
