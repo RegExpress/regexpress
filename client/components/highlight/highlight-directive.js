@@ -15,12 +15,12 @@
 				// watches for changes in regex, and test string, then modifies the test string to reflect the highlighted matches.
 				scope.$watch('main.matches', function(newVal, oldVal){
 					try {
-						console.log("we're getting here")
-						$(document).ready(function(){
-							$('#textarea').highlightTextarea({
-	    					words: ['Lorem ipsum', 'shan']
-	  					});
-						}
+						// console.log("we're getting here")
+						// $(document).ready(function(){
+						// 	$('#textarea').highlightTextarea({
+	    			// 		words: ['Lorem ipsum', 'shan']
+	  				// 	});
+						// }
 					} catch (err) {
 						console.log(err, "error")
 					}
