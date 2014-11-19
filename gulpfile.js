@@ -21,7 +21,8 @@ var paths = {
   railroadDiagrams: './client/railroadDiagrams/regexToRailroad.js',
   browserify: './client/railroadDiagrams',
   packageJson: './package.json',
-  nodeModules: './node_modules'
+  nodeModules: './node_modules',
+  karmaBin: './node_modules/karma/bin/karma'
 };
 
 // Set up paths hashes for paths directory
@@ -119,7 +120,7 @@ gulp.task('templates:dist', templatesDist);
 // empties out the entire dist folder, with the exception of any git files (cuz dist is a git repo as well)
 gulp.task('clean', del.bind(null, ['./dist/**/*']));
 // runs karma 
-gulp.task('karma', shell.task(['karma start']));
+gulp.task('karma', shell.task([paths.karmaBin + ' start']));
 // runs all tests
 gulp.task('test', ['karma']);
 // runs all tests and watches
