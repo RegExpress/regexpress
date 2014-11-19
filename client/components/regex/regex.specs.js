@@ -1,5 +1,3 @@
-console.log('running regex controller specs');
-
 describe('Regex', function() {
   var $rootScope, $scope;
   beforeEach(module('baseApp')); // the specific module
