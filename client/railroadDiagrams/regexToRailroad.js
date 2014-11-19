@@ -63,6 +63,7 @@ var rx2rr = function(node) {
       var literal = null;
       var sequence = [];
       var currentNode;
+      var lastId; // need to track the last id so when we hit a non-literal, we push that last id to makeLiteral().
       for (var i = 0; i <  node.body.length; i++) {
         currentNode = node.body[i];
         if (currentNode.type === "literal" && !currentNode.escaped) {
@@ -73,10 +74,11 @@ var rx2rr = function(node) {
           }
           // currentNode id is set to currentNode id to keep literals grouped together
           currentNode.idNum = currentNode.idNum || idNum;
+          lastId = currentNode.idNum;
         } else {
           if (literal != null) {
             // 
-            sequence.push(makeLiteral(literal, currentNode.idNum));
+            sequence.push(makeLiteral(literal, lastId));
             idNum++;
             literal = null;
           }
@@ -84,7 +86,7 @@ var rx2rr = function(node) {
         }
       }
       if (literal != null) {
-        sequence.push(makeLiteral(literal, currentNode.idNum));
+        sequence.push(makeLiteral(literal, lastId));
         idNum++;
       }
       // if (sequence.length === 1) {
