@@ -20,6 +20,8 @@
 
           scope.main.regexTree = parseRegex(scope.main.regexp);
           scope.main.treeChanged++;
+          // for testing purposes
+          window.regexpTree = scope.main.regexTree;
         });
 
         // watches tree counter, which is tripped everytime the tree is DONE changing.

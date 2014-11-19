@@ -4,7 +4,7 @@
   "description": "Albrey's bicep",
   "main": "server.js",
   "scripts": {
-    "test": "",
+    "test": "gulp test",
     "temp_test": "karma start karma.conf.js",
     "devStylize": "stylus --watch client/styles/app.styl",
     "browserify": "browserify client/railroadDiagrams/regexToRailroad.js -o client/bundle/bundle.js"

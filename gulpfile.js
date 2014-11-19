@@ -82,10 +82,10 @@ gulp.task('wire:dev', wireBower);
 //===================================
 
 // builds from client folder -> dist folder
-gulp.task('build:dist', $.sequence('clean', 'build:local', 'copy:all'));
+gulp.task('build:dist', $.sequence('clean', 'build:local', 'test', 'copy:all'));
 // gulp.task('build', $.sequence('clean','copy', 'stylus', 'browserify', ['templates:dist','styles:dist','scripts:dist','image:dist','bower:dist', 'packagejson:dist'], 'wire:dist', 'inject:dist'));
 // default dist task: builds, serves & watches
-gulp.task('dist', $.sequence('build', 'server:dist', 'watch:dist'));
+// gulp.task('dist', $.sequence('build', 'server:dist', 'watch:dist'));
 // serve up files from the dist directory
 gulp.task('server:dist', startServerProd);
 // wire bower deps into index.html
@@ -118,8 +118,12 @@ gulp.task('copy:all', $.sequence(['copy:client', 'copy:packagejson', 'copy:serve
 gulp.task('templates:dist', templatesDist);
 // empties out the entire dist folder, with the exception of any git files (cuz dist is a git repo as well)
 gulp.task('clean', del.bind(null, ['./dist/**/*']));
-// runs tests
+// runs karma 
 gulp.task('karma', shell.task(['karma start']));
+// runs all tests
+gulp.task('test', ['karma']);
+// runs all tests and watches
+gulp.task('test:watch', testWatch);
 
 // ===============================
 // The following are what actually happens when a specific gulp task happens
@@ -145,12 +149,17 @@ function startServerProd(){
 function startWatchDev(){
   $.livereload.listen();
   // watch for changes in these files and let livereload know something happened
+  // gulp.watch(paths.root + '/**/*.js', ['karma']);
   gulp.watch(paths.root + '/**/*.styl', ['stylus']);
   gulp.watch(paths.browserify + '/**/*.js', ['browserify'] );
   gulp.watch(paths.root + '/**/*.css', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.js', $.livereload.changed);
   gulp.watch(paths.root + '/**/*.html', $.livereload.changed);
 
+}
+// test watch
+function testWatch() {
+ gulp.watch(paths.root + '/**/*.js', ['test']);
 }
 
 function startWatchDist(){

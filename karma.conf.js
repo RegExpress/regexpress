@@ -24,7 +24,7 @@ module.exports = function(config) {
       'client/components/**/*.factory.js',
       'client/components/**/*.specs.js'
     ],
-    autoWatch : true,
+    singleRun: true,
     frameworks: ['jasmine'],
   });
 };
