@@ -13,7 +13,7 @@
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
 
-        var item, itemID, location, oldClass, copy, top, left, text;
+        var item, itemID, location, oldClass, copy, top, left, text, nodeID;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -35,36 +35,36 @@
         ////////// jQuery click handlers ///////////
 
         // finds the closest element that matches the accepted classes, sets to "item", gets ID of the node to be removed.
-        function selectNodeToRemove(event){
+        function selectNode(event){
           item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ');
           itemID = item.attr('id');
+        }
 
-          if (event.which === 1) {
-            // create clone and append to DOM
-            copy = $(item).clone()
-              .attr('fill', 'black')
-              .wrap('<svg class="copy" style="position: absolute;"></svg>')
-              .parent();
+        function createCopy(){
+          // create clone and append to DOM
+          copy = $(item).clone()
+            .attr('fill', 'black')
+            .wrap('<svg class="copy" style="position: absolute;"></svg>')
+            .parent();
 
-            // appends the clone to the DOM
-            $('.work').append(copy);
+          // appends the clone to the DOM
+          $('.work').append(copy);
 
-            // find out the offset of the rect from the svg
-            var target = $(copy).find('rect');
-            top = ($(target).position().top) + ($(target).attr('height')/2);
-            left = ($(target).position().left) + ($(target).attr('width')/2);
+          // find out the offset of the rect from the svg
+          var target = $(copy).find('rect');
+          top = ($(target).position().top) + ($(target).attr('height')/2);
+          left = ($(target).position().left) + ($(target).attr('width')/2);
 
-            // sets the top and left coords of the clone to appear under the mouse
-            $(copy).css({
-              top: event.pageY - top,
-              left: event.pageX - left
-            })
+          // sets the top and left coords of the clone to appear under the mouse
+          $(copy).css({
+            top: event.pageY - top,
+            left: event.pageX - left
+          })
 
-            // gray out the selected item
-            oldClass = $(item).attr('class');
-            $(item).attr('class','ghost '+ oldClass);
-            $('g.ghost rect').css('stroke', 'gray');
-          }
+          // gray out the selected item
+          oldClass = $(item).attr('class');
+          $(item).attr('class','ghost '+ oldClass);
+          $('g.ghost rect').css('stroke', 'gray');
         };
 
         function askToRemoveNode(event){
@@ -91,12 +91,12 @@
         };
 
         function callChangeText(node, newVal, oldVal){
-          console.log('now changing text on node:',node,'from ', oldVal , 'to ', newVal);
+          console.log('now changing text on node:', node,'from ', oldVal , 'to ', newVal);
         }
 
         function changeTextNode(event){
+          nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML;
-          console.log('text! about to change you, bro:', text);
           var textBox = '<form class="textForm" style=" position: absolute; top:0; left: 0"><input class="textBox" type="text" value="'+ text +'"></input></form>';
           $('.work').append(textBox);
 
@@ -108,10 +108,8 @@
 
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
-          var node = 'insert node here. also the left sibling. haha tomorrow self, you have to deal with this';
-          var oldVal = text;
           var newVal = $('.textBox').val();
-          callChangeText(node, newVal, oldVal);
+          callChangeText(nodeID, newVal, text);
           $('.textForm').remove();
         })
 
@@ -122,7 +120,8 @@
             if ($(event.toElement).is('text')){
               changeTextNode(event);
             } else {
-              selectNodeToRemove(event);
+              selectNode(event);
+              createCopy();
             };
           } else if (event.which === 3) {
             console.log($(item))
