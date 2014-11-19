@@ -1,4 +1,4 @@
-describe('Modify-Tree\n', function() {
+describe('Modify-Tree-removeNode\n', function() {
   var $rootScope, $scope, modifyTree, tree1, tree2, tree3, tree4, tree5;
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
@@ -20,8 +20,7 @@ describe('Modify-Tree\n', function() {
   });
 
   describe('modifyTree has the right functions\n', function(){
-    it('should have addNode and removeNode functions', function(){
-      expect(modifyTree.addNode).toEqual(jasmine.any(Function));
+    it('should have a removeNode function', function(){
       expect(modifyTree.removeNode).toEqual(jasmine.any(Function));
     });
   });
@@ -101,7 +100,7 @@ describe('Modify-Tree\n', function() {
         modifyTree.removeNode(8, tree3);
         modifyTree.removeNode(11, tree3);
         expect(JSON.stringify(tree3)).toEqual('{"type":"match","offset":0,"text":"(a|b|c)","body":[{"type":"capture-group","offset":1,"text":"a|b|c","body":{"type":"match","offset":5,"text":"c","body":[{"type":"literal","offset":5,"text":"c","body":"c","escaped":false,"idNum":13}],"idNum":12},"index":1,"idNum":5}],"idNum":4}')
-      })
+      });
 
     });
   });
