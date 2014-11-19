@@ -1,6 +1,7 @@
 svg.railroad-diagram {
-    background-color: #35404F;
+    background-color: #333;
     color: black;
+    border: 1px solid black;
 }
 svg.railroad-diagram path {
     stroke-width: 4;
@@ -8,11 +9,8 @@ svg.railroad-diagram path {
     fill: rgba(0,0,0,0);
 }
 svg.railroad-diagram text {
-    font: bold 14px monospace;
+      font: bold 14px monospace;
     text-anchor: middle;
-}
-svg.railroad-diagram g.literal > text:hover {
-    fill: #E45F56;
 }
 svg.railroad-diagram text.label {
     text-anchor: start;
@@ -23,7 +21,7 @@ svg.railroad-diagram text.comment {
 svg.railroad-diagram rect {
     stroke-width: 4;
     stroke: black;
-    fill: #A3D39C;
+    fill: hsl(187, 52%, 80%);
 }
 
 svg.railroad-diagram g.capture-group > rect:hover,
@@ -39,7 +37,7 @@ g.start > rect:hover,
 g.end > rect:hover,
 g.space > rect:hover,
 g.match > path:hover {
-    stroke: #E45F56;
+    stroke: #FF00BF;
 };
 
 /* copy css */
