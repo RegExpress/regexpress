@@ -1,3 +1,9 @@
+coral = #E45F56
+pistachio = #A3D39C
+robinEgg = #7ACCC8
+turquoise = #4AAAA5
+slate = #35404F
+
 user-select()
   -webkit-user-select none
   -moz-user-select none
@@ -5,57 +11,70 @@ user-select()
 
 body
   margin: 5px
-  color: #b1b1b1
+  color: robinEgg
   user-select()
-  background: #333
+  background: slate
   // background-image: url("../assets/zenbg.png")
   text-align: center
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial
   line-height: 1.4em
+
+input:focus {
+  outline 3pt solid coral
+}
+
 .toolbar
-  height: 10vh
+  height 10vh
 
 .test
-    border: 2px solid #b1b1b1
+    border: 2px solid robinEgg
     height: 20vh
     color #ccc
     text-align: center
     padding: 20px
     margin-left: auto
 .work
-  border: 2px solid #b1b1b1
+  border: 2px solid robinEgg
   color #ccc
   height 40vh
   padding: 5px
 
 .container
-    border: 2px solid #b1b1b1
     color #ccc
     height 30vh
     display table
 .cell
   display table-cell
   width 33.333vw
-  border: 2px solid #b1b1b1
+  border 2px solid robinEgg
 .teststring
-  margin: 0px auto 0 auto
-  width: 400px
-  height: 20px
+  margin 0px auto 0 auto
+  width 400px
+  height 20px
 .RR
-  border: 1px solid black
+  // border 1px solid black
 .ghost
-  stroke: gray
-  fill: gray
+  stroke gray
+  fill gray
 
 .textBox
-  // width: 10px
+  font-weight bold
+  padding 2px
+  border-radius 8px
+  background-color coral
+  border 2px solid coral
+
+.textBox:focus {
+  border 2px solid turquoise
+  outline none
+}
 
 .paper-shadow
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
 
 .paper-toolbar
   color: #fff
-  background: #2196F3
+  background: turquoise
 
 .app-bar, .navdrawer-container, main
   -webkit-transition: -webkit-transform 0.3s ease-out

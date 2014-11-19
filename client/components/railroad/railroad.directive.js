@@ -94,7 +94,7 @@
           console.log('now changing text on node:', node,'from ', oldVal , 'to ', newVal);
         }
 
-        function changeTextNode(event){
+        function editTextNode(event){
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML;
           var width = text.split('').length * 7;
@@ -104,16 +104,19 @@
           $('.textBox').css('width', width);
 
           $('.textForm').css({
-            top: event.pageY - 10,
+            top: event.pageY - 15,
             left: event.pageX - width/2,
           })
+          $('.textBox').focus();
+          $('.textBox').select();
 
         }
 
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
           var newVal = $('.textBox').val();
-          callChangeText(nodeID, newVal, text);
+          console.log("here's where you call editText");
+          // modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
           $('.textForm').remove();
         })
 
@@ -129,7 +132,7 @@
           if (event.which === 1) {
             // if the selected element is the text child of a literal node, run change text function
             if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
-              changeTextNode(event);
+              editTextNode(event);
             // else, prep the node for removal
             } else {
               selectNode(event);
