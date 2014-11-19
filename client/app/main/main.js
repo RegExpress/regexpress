@@ -5,9 +5,8 @@
     .module('baseApp',[
       'ValuesModule',
       'makeRRModule',
-      'ngMaterial',
       'clickHelpers',
-      'modifyTreeModule'
+      'modifyTreeModule',
     ])
     .controller('MainController', [ '$scope','values', 'makeRR', 'modifyTree', MainController ]);
 

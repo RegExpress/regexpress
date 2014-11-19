@@ -17,6 +17,7 @@
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
+
           scope.main.regexTree = parseRegex(scope.main.regexp);
           scope.main.treeChanged++;
         });
@@ -104,14 +105,14 @@
   }
 })();
 
-// '.literal-sequence, 
-// .capture-group, 
-// .charset, 
-// .digit, 
-// non-digit, 
-// .word, 
-// .non-word, 
-// .whitespace, 
-// .non-whitespace, 
-// .start, 
+// '.literal-sequence,
+// .capture-group,
+// .charset,
+// .digit,
+// non-digit,
+// .word,
+// .non-word,
+// .whitespace,
+// .non-whitespace,
+// .start,
 // .end'

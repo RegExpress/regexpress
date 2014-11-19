@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <title>RegExpress</title>
 
+  <link rel="stylesheet" href="bower_components/jquery-ui/themes/ui-darkness/jquery-ui.min.css">
+  <link rel="stylesheet" href="bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.css">
   <link rel="stylesheet" href="styles/app.css">
   <link rel="stylesheet" href="styles/railroad.css">
-  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
-  <link rel="stylesheet" href="bower_components/angular-material/themes/light-blue-dark-theme.css">
   <!-- Loads angular source and railroad bundle -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+  <script src="bower_components/jquery-highlighttextarea/jquery.highlighttextarea.min.js"></script>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-aria/angular-aria.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
   <script src="bower_components/hammerjs/hammer.js"></script>
-  <script src="bower_components/angular-material/angular-material.js"></script>
   <script src="bundle/bundle.js"></script>
 
 
@@ -23,6 +24,7 @@
   <script src="app/main/main.js"></script>
   <script src="components/tree-to-input/treeToInput.directive.js"></script>
   <script src="components/regex/regex.directive.js"></script>
+  <script src="components/highlight/highlight-directive.js"></script>
   <script src="components/railroad/railroad.directive.js"></script>
   <script src="components/railroad/railroad.service.js"></script>
   <script src="components/railroad/railroad.click-helpers.factory.js"></script>
@@ -30,6 +32,7 @@
   <script src="components/test-string/test-string.directive.js"></script>
   <script src="components/modify-tree/modify-tree.factory.js"></script>
   <script src="components/matches/matches.directive.js"></script>
+
 
   <!-- all those damn template directives -->
   <script src="components/workspace/captureGroup.directive.js"></script>
@@ -43,68 +46,68 @@
 
 </head>
   <!-- Main controller controls body of page -->
-  <body ng-controller="MainController" layout="vertical">
-
+  <body ng-controller="MainController">
     <!-- end main controller element -->
-    <md-toolbar md-theme="light-blue-dark">
-      <div class="md-toolbar-tools" layout-align="center">
-        <h3>
-          <span>RegExpress Like You Just Don't Care</span>
-        </h3>
+    <header class="app-bar promote-layer paper-toolbar paper-shadow">
+      <div class="app-bar-container paper-toolbar">
+        <h1 class="logo">RegExpress Like You Just Don't Care</h1>
       </div>
-    </md-toolbar>
-
-    <md-content md-theme="light-blue-dark" class="test" layout-align="center">
-      <form style="padding: 20px;">
-        <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Test String" ng-model="main.string"></md-text-float>
-        </div>
-      </form>
-      <!-- matches expression -->
-      <div layout="horizontal" layout-align="center"><track-matches/></div>
+    </header>
+    <br><br><br>
+    <div class="test">
+        <div class="row">
+          <textarea id="textarea" label="Test String" ng-model="main.string" text-align="center"></textarea>
+        </div>      <!-- matches expression -->
+      <div><track-matches/></div>
       <!-- end matches expressison -->
 
       <!-- <input type="text" ng-model="addObject"> -->
       <input type="button" value="add object" ng-click="callAdd()">
 
       <!-- regex directive -->
-      <div layout="horizontal" layout-align="center"><track-regex/></div>
+      <div><track-regex/></div>
       <!-- end regex directive -->
-    </md-content>
+    </div>
 
 
 
     <!-- This is the second element of the page, the workspace-->
-    <md-content class="work" md-theme="light-blue-dark" layout-align="center">
+
+    <div class="work">
       <form style="padding: 20px;">
 
       <!-- input boxes allows the user to change $scope variables to make regex -->
-        <div class="row" layout="horizontal" layout-align="center">
-          <md-text-float label="Write a regex" ng-keyup="submitRegex()" ng-model="main.regexBody"></md-text-float>
-          <md-text-float label="Tags" ng-keyup="submitRegex()" ng-model="main.regexTags"></md-text-float>
 
+        <div>
+          <input placeholder="Write a regex" ng-keyup="submitRegex()" ng-model="main.regexBody"></input>
+          <input placeholder="Tags" ng-keyup="submitRegex()" ng-model="main.regexTags"></input>
           <!-- end input boxes. tags currently useless -->
 
         </div>
       </form>
-      <div><railroad layout="horizontal" layout-align="center"/></div>
-    <tree-to-input></tree-to-input>
-    </md-content>
+      <div><railroad/></div>
+      <div class="testing"></div>
+    </div>
 
     <!-- <div class="container"> -->
-    <div flex layout="horizontal">
-      <md-content flex class="cell" id="one" md-theme="light-blue-dark"><p></p>
-
-      <div layout="horizontal" layout-align="center"><capture-group-template/></div>
-      <!-- <div layout="horizontal" layout-align="center"><terminal-template/></div> -->
-
-      </md-content>
-
-      <md-content flex class="cell" id="two" md-theme="light-blue-dark">
-      </md-content>
-
-      <md-content flex class="cell" id="three" md-theme="light-blue-dark"><p></p></md-content>
+    <div class="container">
+      <span class="cell"><p></p>
+      <div><capture-group-template/></div>
+      <!-- <div><terminal-template/></div> -->
+      </span>
+      <span class="cell" id="two"><p></p></span>
+      <span class="cell" id="three"><p></p></span>
     </div>
   </div>
   </body>
+  <script>
+  // $( document ).ready(function() {
+  //   $('#textarea').highlightTextarea({
+  //     color: '#ADF0FF',
+  //     words: ['Lorem ipsum', 'shan'],
+  //     caseSensitive: false,
+  //     id: 'demoCustom',
+  //   });
+  // });
+  </script>
 </html>
