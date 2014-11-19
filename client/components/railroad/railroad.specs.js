@@ -1,30 +1,35 @@
 console.log('running railroad controller specs');
 
 describe('Railroad', function() {
+  var $rootScope, $scope;
   beforeEach(module('baseApp')); // the specific module
+  beforeEach(inject(function($injector) {
 
-  var ctrl, scope;
+    $rootScope = $injector.get('$rootScope');
+    $scope = $rootScope.$new();
+    var $controller = $injector.get('$controller');
 
-  beforeEach(inject(function($controller, $rootScope) {
+    createController = function() {
+      return $controller('MainController', {
+        $scope: $scope
+      });
+    };
 
-    scope = $rootScope.$new();
+    createController();
 
-    ctrl = $controller('Railroad', {
-      $scope: scope
-    })
-
-  }))
+  }));
 
   describe('universe is ok', function(){
     it('should not have broken reality', function(){
       expect(true).toBe(true);
-    })
-  })
+      expect($scope.callAdd).toEqual(jasmine.any(Function));
+    });
+  });
 
   describe('scope has the right stuff on it', function(){
     it('should have a re attr', function(){
-      expect(scope.railroad.road).toBeDefined();
-    })
-  })
+      // expect(scope.railroad.road).toBeDefined();
+    });
+  });
 
-})
+});

@@ -3,6 +3,7 @@
   var $     = require('gulp-load-plugins')({lazy:false});
   var del   = require('del');
   var wiredep = require('wiredep');
+  var shell = require('gulp-shell');
   $.livereload();
 
 // Set up paths hashes for client directory
@@ -117,6 +118,8 @@ gulp.task('copy:all', $.sequence(['copy:client', 'copy:packagejson', 'copy:serve
 gulp.task('templates:dist', templatesDist);
 // empties out the entire dist folder, with the exception of any git files (cuz dist is a git repo as well)
 gulp.task('clean', del.bind(null, ['./dist/**/*']));
+// runs tests
+gulp.task('karma', shell.task(['karma start']));
 
 // ===============================
 // The following are what actually happens when a specific gulp task happens
