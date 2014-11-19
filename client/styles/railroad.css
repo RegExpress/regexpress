@@ -1,6 +1,7 @@
 svg.railroad-diagram {
     background-color: #333;
     color: black;
+    border: 1px solid black;
 }
 svg.railroad-diagram path {
     stroke-width: 4;
@@ -36,8 +37,6 @@ g.start > rect:hover,
 g.end > rect:hover,
 g.space > rect:hover,
 g.match > path:hover {
-
-svg.railroad-diagram g.capture-group > rect:hover, g.charset > rect:hover, g.literal > rect:hover, g.match > path:hover {
     stroke: #FF00BF;
 };
 

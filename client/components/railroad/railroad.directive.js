@@ -67,7 +67,7 @@
 
         function askToRemoveNode(event){
           console.log('mouseup is on', handlerHelpers.checkUnder(event));
-          if (handlerHelpers.checkUnder(event) === 'RR-dir') {
+          if (handlerHelpers.checkUnder(event) === 'RR-dir' || handlerHelpers.checkUnder(event) === 'work') {
             var intID = parseInt(itemID)
             try {
               modifyTree.removeNode(intID, scope.main.regexTree);
