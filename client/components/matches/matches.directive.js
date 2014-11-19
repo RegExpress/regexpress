@@ -17,13 +17,16 @@
             scope.main.matches = scope.main.string.match(scope.main.regexp);
             element.empty();
             element.append('<p>' + scope.main.matches + '</p>');
+            // console.log(stuff, "stuff")
+            var wordMatches = scope.main.matches[0].split(' ')
 
-            var wordMatches = scope.main.matches[0];
-
-            // console.log(wordMatches)
-            $('#textarea').highlightTextarea({
-              words: [wordMatches]
-            })
+            console.log(wordMatches)
+            if(wordMatches.length > 0) {
+              $('#textarea').highlightTextarea({
+                color: '#ADF0FF',
+                words: [wordMatches]
+              })
+            }
           } catch (err) {
             // console.log(err)
           }
