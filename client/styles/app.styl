@@ -7,18 +7,35 @@ body
   margin: 5px
   color: #b1b1b1
   user-select()
-p
+  background: #333
+  // background-image: url("../assets/zenbg.png")
   text-align: center
+  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial
+  line-height: 1.4em
+.toolbar
+  height: 10vh
+
 .test
-  border: 2px solid #b1b1b1
-  // color: #ccc
+    border: 2px solid #b1b1b1
+    height: 20vh
+    color #ccc
+    text-align: center
+    padding: 20px
+    margin-left: auto
 .work
   border: 2px solid #b1b1b1
-  color: #ccc
+  color #ccc
+  height 40vh
+  padding: 5px
+
 .container
-  border: 2px solid #b1b1b1
-  color: #ccc
+    border: 2px solid #b1b1b1
+    color #ccc
+    height 30vh
+    display table
 .cell
+  display table-cell
+  width 33.333vw
   border: 2px solid #b1b1b1
 .teststring
   margin: 0px auto 0 auto
@@ -29,8 +46,59 @@ p
 .ghost
   stroke: gray
   fill: gray
-.ui-match
-  background: yellow
-  fill: yellow
-  background-color: yellow
-  color: yellow
+
+.paper-shadow
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
+
+.paper-toolbar
+  color: #fff
+  background: #3F51B5
+
+.app-bar, .navdrawer-container, main
+  -webkit-transition: -webkit-transform 0.3s ease-out
+  transition: transform 0.3s ease-out
+
+.promote-layer
+  -webkit-backface-visibility: hidden
+  backface-visibility: hidden
+
+.app-bar-container
+  display: -webkit-flex
+  display: -ms-flexbox
+  display: flex
+  width: 100%
+  height: 64px
+  position: relative
+  -webkit-flex-direction: row
+  -ms-flex-direction: row
+  flex-direction: row
+  margin: 0 auto
+
+.app-bar
+  display: block
+  width: 100%
+  position: fixed
+  top: 0
+  left: 0
+  overflow: hidden
+  z-index: 1
+  margin-bottom: 40px
+
+.app-bar .logo
+  -webkit-flex: 1
+  -ms-flex: 1
+  flex: 1
+  font-size: 1.3em
+  margin: 0 16px
+  padding: 0
+  color: #fefefe
+  float: none
+  max-width: none
+  font-weight: 400
+  line-height: 64px
+#demoCustom mark
+  padding: 0
+  margin: -1px -4px
+  border-radius: 0.5em
+  border: 1px solid pink
+  text-align: center

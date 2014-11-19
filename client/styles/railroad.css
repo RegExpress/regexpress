@@ -36,12 +36,11 @@ g.start > rect:hover,
 g.end > rect:hover,
 g.space > rect:hover,
 g.match > path:hover {
+
+svg.railroad-diagram g.capture-group > rect:hover, g.charset > rect:hover, g.literal > rect:hover, g.match > path:hover {
     stroke: #FF00BF;
 };
-
-
 /* ghost css */
-
 .copy {
     background-color: #333;
     color: black;
@@ -66,7 +65,3 @@ g.match > path:hover {
     stroke: black;
     fill: hsl(187, 52%, 80%);
 }
-
-/*g.match > path:hover {
-    stroke: red;
-};*/
