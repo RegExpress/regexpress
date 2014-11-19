@@ -13,7 +13,7 @@
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
 
-        var item, itemID, location, oldClass, copy, top, left;
+        var item, itemID, location, oldClass, copy, top, left, text;
 
         // makes railroad diagram and appends to DOM
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
@@ -90,9 +90,30 @@
           $(copy).remove();
         };
 
-        function changeTextNode(event){
-          console.log('text! about to change you, bro');
+        function callChangeText(node, newVal, oldVal){
+          console.log('now changing text on node:',node,'from ', oldVal , 'to ', newVal);
         }
+
+        function changeTextNode(event){
+          text = event.target.innerHTML;
+          console.log('text! about to change you, bro:', text);
+          var textBox = '<form class="textForm" style=" position: absolute; top:0; left: 0"><input class="textBox" type="text" value="'+ text +'"></input></form>';
+          $('.work').append(textBox);
+
+          $('.textForm').css({
+            top: event.pageY,
+            left: event.pageX
+          })
+        }
+
+        $('.work').on('submit','.textForm', function(event){
+          event.preventDefault();
+          var node = 'insert node here. also the left sibling. haha tomorrow self, you have to deal with this';
+          var oldVal = text;
+          var newVal = $('.textBox').val();
+          callChangeText(node, newVal, oldVal);
+          $('.textForm').remove();
+        })
 
         // set selected item and itemID
         element.on('mousedown','.railroad-diagram',function(event){

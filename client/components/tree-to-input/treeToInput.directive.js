@@ -138,7 +138,7 @@
         };
 
         scope.$watch('main.treeChanged', function(newValues, oldValues){
-          console.log(scope.main.treeChanged);
+          // console.log(scope.main.treeChanged);
           // console.log(buildRegexString(scope.main.regexTree));
           scope.main.regexBody = buildRegexString(scope.main.regexTree);
         });
