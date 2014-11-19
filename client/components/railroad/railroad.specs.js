@@ -1,5 +1,3 @@
-console.log('running railroad controller specs');
-
 describe('Railroad', function() {
   var $rootScope, $scope;
   beforeEach(module('baseApp')); // the specific module

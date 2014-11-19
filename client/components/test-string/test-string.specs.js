@@ -1,5 +1,3 @@
-console.log('running test-string controller specs');
-
 describe('TestString', function() {
   var $rootScope, $scope;
   beforeEach(module('baseApp')); // the specific module

@@ -1,5 +1,3 @@
-console.log('running workspace controller specs');
-
 describe('Workspace', function() {
   var $rootScope, $scope;
   beforeEach(module('baseApp')); // the specific module
