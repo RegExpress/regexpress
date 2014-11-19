@@ -25,7 +25,7 @@
               words: [wordMatches]
             })
           } catch (err) {
-            console.log(err)
+            // console.log(err)
           }
         });
       }

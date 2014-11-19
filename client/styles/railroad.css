@@ -12,6 +12,9 @@ svg.railroad-diagram text {
     font: bold 14px monospace;
     text-anchor: middle;
 }
+svg.railroad-diagram g.literal > text:hover {
+    fill: #FF00BF;
+}
 svg.railroad-diagram text.label {
     text-anchor: start;
 }

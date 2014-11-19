@@ -97,13 +97,17 @@
         function changeTextNode(event){
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML;
-          var textBox = '<form class="textForm" style=" position: absolute; top:0; left: 0"><input class="textBox" type="text" value="'+ text +'"></input></form>';
+          var width = text.split('').length * 7;
+          var textBox = '<form class="textForm" style=" position: absolute; top:0; left: 010"><input class="textBox" type="text" value="'+ text +'"></input></form>';
           $('.work').append(textBox);
 
+          $('.textBox').css('width', width);
+
           $('.textForm').css({
-            top: event.pageY,
-            left: event.pageX
+            top: event.pageY - 10,
+            left: event.pageX - width/2,
           })
+
         }
 
         $('.work').on('submit','.textForm', function(event){
@@ -113,12 +117,20 @@
           $('.textForm').remove();
         })
 
+        $('.work').on('keyup', '.textForm', function(){
+          //check length of input, change width of input box to match contents
+          var width = $('.textBox').val().split('').length * 8;
+          $('.textBox').css('width', width);
+        })
+
         // set selected item and itemID
         element.on('mousedown','.railroad-diagram',function(event){
 
           if (event.which === 1) {
-            if ($(event.toElement).is('text')){
+            // if the selected element is the text child of a literal node, run change text function
+            if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
               changeTextNode(event);
+            // else, prep the node for removal
             } else {
               selectNode(event);
               createCopy();
