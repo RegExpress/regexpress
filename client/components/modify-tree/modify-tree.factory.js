@@ -12,6 +12,7 @@
       * parent: the parent of the current node we are evaluating.
       */
       var getNode = function(id, node, parent){
+        // if these are the same, but not the same type, it will not work (literals)
         if(node.idNum === id){
           return {node: node, parent: parent};
         }
@@ -108,6 +109,7 @@
         }
       }
       // we probably need an actually complete node to be passed in, and the place to add it.
+      // should this be called addNodeBefore? We also need addNodeTo
       function addNode(siblingId, parentId, nodeToAdd, regexTree) {
         // console.log('adding node');
         // different cases depending on parent type
@@ -171,9 +173,58 @@
         }
       }
 
+      function editText(nodeID, newVal, regexTree) {
+        // currently only works for liteals in a match. a quantified needs to be worke don
+        // quantifieds have a single object
+        if (typeof nodeID === 'string') {
+          nodeID = parseInt(nodeID);
+        }
+        // get tree, get node, remove all nodes, add new nodes based on newVal
+        var nodeAndParent = getNode(nodeID, regexTree);
+        // var node = nodeAndParent.node;
+        var parent = nodeAndParent.parent;
+        // remove children from parent node
+        if (parent.type === 'match') {
+          // remove all nodes with same id
+          var newBody = [];
+          for (var j = 0; j < parent.body.length; j++) {
+            if (parent.body[j].idNum !== nodeID) {
+              newBody.push(parent.body[j]);
+            }
+          }
+          parent.body = newBody;
+          parent.text = newVal;
+          for (var i = 0; i < newVal.length; i++) {
+
+            parent.body.push({type: "literal", offset: i, text: newVal.charAt(i), body: newVal.charAt(i), escaped: false});
+          } 
+        }
+        if (parent.type === 'quantified') {
+          // if newVal is one character
+          if (newVal.length === 1) {
+            parent.text = newVal + "?";
+            parent.body = {type: "literal", offset: 0, text: newVal, body: newVal, escaped: false};
+          } 
+          // if newVal is more than one character
+          if (newVal.length > 1) {
+            // capture group match, then all literals
+            var newText = "("  + newVal + ")?";
+            parent.text =  newText;
+            // set the quantifieds body to now be a capture group
+            parent.body = {type: "capture-group", offset: 0, text: newText, body: {} };
+            // then set the capture groups body to be a match
+            // this makes the data structure one that we can already deal with (adding to a literal)
+            // so we set the id to something unique, and handle it as if it was editing text to a literal.
+            parent.body.body = {type: "match", offset: 0, text: newText, body: [{type: "literal", idNum: -999}]} ;
+            editText(-999, newVal, regexTree);
+          }
+        }
+      }
+
       return {
         removeNode: removeNode,
-        addNode: addNode
+        addNode: addNode,
+        editText: editText
       };
     }
 })();

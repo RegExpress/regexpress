@@ -117,13 +117,16 @@
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
           var newVal = $('.textBox').val();
+
           console.log("here's where you call editText");
           // modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
+          modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
           $('.textEdit').remove();
           scope.$apply(function(){
             scope.main.info = handlerHelpers.building;
+            scope.main.treeChanged++;
           });
-        })
+        });
 
         $('.work').on('keyup', '.textForm', function(){
           //check length of input, change width of input box to match contents
