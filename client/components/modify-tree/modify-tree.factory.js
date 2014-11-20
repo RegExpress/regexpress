@@ -185,7 +185,14 @@
         var parent = nodeAndParent.parent;
         // remove children from parent node
         if (parent.type === 'match') {
-          parent.body = [];
+          // remove all nodes with same id
+          var newBody = [];
+          for (var j = 0; j < parent.body.length; j++) {
+            if (parent.body[j].idNum !== nodeID) {
+              newBody.push(parent.body[j]);
+            }
+          }
+          parent.body = newBody;
           parent.text = newVal;
           for (var i = 0; i < newVal.length; i++) {
 
