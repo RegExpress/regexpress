@@ -53,7 +53,15 @@ describe('Workspace', function() {
         var nondigit = workspace.getComponentNode('non-digit');
         expect(JSON.stringify(nondigit)).toEqual('{"type":"non-digit"}');
       });
+    });
 
+    describe('handles groups\n', function(){
+      it('should support match and capture-group objects', function(){
+        var text = workspace.getComponentNode('text');
+        expect(JSON.stringify(text)).toEqual('{"type":"match","body":{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}}');
+        var captureGroup = workspace.getComponentNode('capture-group');
+        expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
+      });
     });
   });
 });
