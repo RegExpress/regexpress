@@ -3,17 +3,7 @@ describe('Workspace', function() {
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
 
-    $rootScope = $injector.get('$rootScope');
-    $scope = $rootScope.$new();
-    var $controller = $injector.get('$controller');
-
-    createController = function() {
-      return $controller('MainController', {
-        $scope: $scope
-      });
-    };
-
-    createController();
+    workspace = $injector.get('workspace');
 
   }));
 
@@ -23,10 +13,10 @@ describe('Workspace', function() {
     })
   })
 
-  describe('scope has the right stuff on it', function(){
-    it('should have a space attr', function(){
-      // expect(scope.workspace.space).toBeDefined();
-    })
-  })
+  describe('workspace has the right functions\n', function(){
+    it('should have a getComponentNode function', function(){
+      expect(workspace.getComponentNode).toEqual(jasmine.any(Function));
+    });
+  });
 
 })
