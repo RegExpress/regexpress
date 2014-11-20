@@ -130,7 +130,7 @@
         * Helper function to determine if a character needs to be escaped
         */
         var isSpecial = function(char){
-          if(char === '/' || char === '*' || char === '+' || char === '?' || char === '\\' || char === '(' || char === ')' || char === '{' || 
+          if(char === '/' || char === '*' || char === '+' || char === '?' || char === '\\' || char === '(' || char === ')' || char === '{' ||
             char === '[' || char === '.' || char === '$' || char === '^' || char === '|') {
             return true;
           }
@@ -147,4 +147,3 @@
   }
 
 })();
-
