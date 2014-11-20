@@ -101,7 +101,7 @@
           var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" value="'+ text +'" autofocus></input></form></div>';
           // set appropriate informative text on scope
           scope.$apply(function(){
-            // scope.main.info 
+            scope.main.info = handlerHelpers.editingText;
           })
 
           $('.work').append(textBox);
@@ -112,7 +112,6 @@
             top: event.pageY - 15,
             left: event.pageX - width/2,
           });
-
         }
 
         $('.work').on('submit','.textForm', function(event){
@@ -121,6 +120,9 @@
           console.log("here's where you call editText");
           // modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
           $('.textEdit').remove();
+          scope.$apply(function(){
+            scope.main.info = handlerHelpers.building;
+          });
         })
 
         $('.work').on('keyup', '.textForm', function(){
@@ -129,7 +131,14 @@
           $('.textBox').css('width', width);
         })
 
+        $('.work').on('mousedown', function(event){
+          if (text === undefined && $(event.target).attr('class') != 'textBox'){
+            $('.textEdit').remove();
+          }
+        })
+
         // set selected item and itemID
+
         element.on('mousedown','.railroad-diagram',function(event){
 
           if (event.which === 1) {
@@ -151,6 +160,7 @@
           if (item){
             askToRemoveNode(event);
           }
+          text = undefined;
         });
 
         // allows for the mouse to drag copy around
