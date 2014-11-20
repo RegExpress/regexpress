@@ -13,7 +13,7 @@
     return {
       restrict: "E",
 
-      template: '<div>tree to input directive</div>',
+      template: '<div></div>',
       link: function(scope, element, attrs) {
         /*
         * Traverses a regex tree and builds the equivalent regex string.
