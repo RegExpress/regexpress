@@ -90,10 +90,6 @@
           $(copy).remove();
         };
 
-        function callChangeText(node, newVal, oldVal){
-          console.log('now changing text on node:', node,'from ', oldVal , 'to ', newVal);
-        }
-
         function editTextNode(event){
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML;
@@ -117,9 +113,6 @@
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
           var newVal = $('.textBox').val();
-
-          console.log("here's where you call editText");
-          // modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
           modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
           $('.textEdit').remove();
           scope.$apply(function(){
@@ -137,12 +130,15 @@
         $('.work').on('mousedown', function(event){
           if (text === undefined && $(event.target).attr('class') != 'textBox'){
             $('.textEdit').remove();
+            scope.$apply(function(){
+              scope.main.info = handlerHelpers.building;
+            });
           }
         })
 
         // set selected item and itemID
 
-        element.on('mousedown','.railroad-diagram',function(event){
+        element.on('mousedown','.railroad-diagram',function(even){
 
           if (event.which === 1) {
             // if the selected element is the text child of a literal node, run change text function
@@ -154,7 +150,21 @@
               createCopy();
             };
           } else if (event.which === 3) {
-            console.log($(item))
+
+
+
+            /// testing for click-to-add functionality
+
+            var parent = $(event.toElement).closest('.match').attr('id') //.attr('id')
+            console.log('parentID', parent);
+            // console.log($(event.toElement).siblings('g')) // this is the parent match node
+            var leftSib = handlerHelpers.findLeftSibling(event);
+            // console.log('', leftSib);
+
+
+
+
+
           }
         })
 
