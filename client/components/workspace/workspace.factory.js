@@ -2,12 +2,20 @@
   'use strict';
 
   angular.module('workspaceModule', [])
-    .factory('workspace', modifyTree);
+    .factory('workspace', workspace);
 
     function workspace(){
 
-    	return {
+      var componentTable = {
+        
+      };
 
+      function getComponentNode(type){
+
+      }
+
+    	return {
+        getComponentNode: getComponentNode
     	};
     }
 })();
