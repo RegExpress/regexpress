@@ -13,7 +13,7 @@
       }
 
       return {
-        createRailroad: createRailroad,
+        createRailroad: createRailroad
       };
     }
 

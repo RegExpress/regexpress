@@ -33,6 +33,7 @@
   <script src="components/matches/matches.directive.js"></script>
 
 
+
   <!-- all those damn template directives -->
   <script src="components/workspace/captureGroup.directive.js"></script>
   <script src="components/workspace/terminal.directive.js"></script>
@@ -78,14 +79,16 @@
       <!-- input boxes allows the user to change $scope variables to make regex -->
 
         <div>
-          <input placeholder="Write a regex" ng-keyup="submitRegex()" ng-model="main.regexBody"></input>
-          <input placeholder="Tags" ng-keyup="submitRegex()" ng-model="main.regexTags"></input>
+          <input placeholder="Write a regex" ng-model="main.regexBody"></input>
+          <input placeholder="Tags" ng-model="main.regexTags"></input>
           <!-- end input boxes. tags currently useless -->
 
         </div>
       </form>
-      <div><railroad/></div>
+      <div class="informativeText">{{ main.info }}</div>
+      <div><center><railroad/></center></div>
       <div><tree-to-input></div>
+
     </div>
 
     <!-- <div class="container"> -->
