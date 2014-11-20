@@ -1,5 +1,5 @@
 svg.railroad-diagram {
-    background-color: #333;
+    background-color: #35404F;
     color: black;
     border: 1px solid black;
 }
@@ -21,7 +21,7 @@ svg.railroad-diagram text.comment {
 svg.railroad-diagram rect {
     stroke-width: 4;
     stroke: black;
-    fill: hsl(187, 52%, 80%);
+    fill: #A3D39C;
 }
 
 svg.railroad-diagram g.capture-group > rect:hover,
@@ -43,7 +43,7 @@ g.match > path:hover {
 /* copy css */
 
 .copy {
-    background-color: #333;
+    background-color: #35404F;
     color: black;
 }
 .copy path {
@@ -64,5 +64,5 @@ g.match > path:hover {
 .copy rect {
     stroke-width: 4;
     stroke: black;
-    fill: hsl(187, 52%, 80%);
+    fill: #A3D39C;
 }

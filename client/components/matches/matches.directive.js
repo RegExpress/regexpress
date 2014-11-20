@@ -19,12 +19,12 @@
             element.append('<p>' + scope.main.matches + '</p>');
             // console.log(stuff, "stuff")
             var wordMatches = scope.main.matches[0].split(' ')
-
+            var test = ["word", "stuff"]
             console.log(wordMatches)
             if(wordMatches.length > 0) {
               $('#textarea').highlightTextarea({
                 color: '#ADF0FF',
-                words: [wordMatches]
+                words: test
               })
             }
           } catch (err) {
