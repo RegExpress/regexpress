@@ -159,9 +159,9 @@
             console.log('parentID', parent);
             // console.log($(event.toElement).siblings('g')) // this is the parent match node
             var leftSib = handlerHelpers.findLeftSibling(event);
-            // console.log('', leftSib);
+            console.log('leftSibling', leftSib);
 
-
+            // a path that is a child of a literal-sequence should take a different route. 
 
 
 

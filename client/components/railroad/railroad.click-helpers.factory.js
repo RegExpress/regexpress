@@ -8,7 +8,7 @@
       // maybe move these to their own factory, or change the name of this one
       /// INFORMATIVE MESSAGE TEXT:
       var building = 'Drag and drop elements from the library below to the railroad and build a regex diagram';
-      var editingText = 'Press enter when done editing';
+      var editingText = 'Press enter when done editing, or click elsewhere on the page to cancel';
       // add more as you see fit
 
       function checkUnder(event){
@@ -19,15 +19,15 @@
       }
 
       function findLeftSibling(event){
-
-        // not actually the target node.. need to traverse differently.
-        var targetID = $(event.toElement).closest('g').attr('id');
-
-        var sib = $(event.toElement).prevAll('g');
-        // select the first sibling returned. and figure out how to fix the trailing path problem
-        console.log('prev', sib);
+        // if the path is from a literal node, go up one more parent layer to detect siblings.
+        var target = event.toElement
+        if ($(target).parent('.literal-sequence')[0] != undefined) {
+          target = $(target).parent();
+          console.log('reassigning target to its parent')
+        }
+        var leftSib = $(target).prevAll('g')[0];
+        return leftSib === undefined ? 'no left sibling': leftSib;
       }
-
 
       return {
         checkUnder: checkUnder,

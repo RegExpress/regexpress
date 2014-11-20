@@ -14,7 +14,8 @@
           regexp = '',
           regexTree = {"type": "match", "body": []},
           treeChanged = 0,
-          info = 'Drag and drop elements from the library below to build a regex diagram';
+          info = 'Drag and drop elements from the library below to build a regex diagram',
+          mode;
 
       return {
         string: string,
@@ -24,7 +25,8 @@
         regexTree: regexTree,
         matches: matches,
         treeChanged: treeChanged,
-        info: info
+        info: info,
+        mode: mode
       };
     }
 
