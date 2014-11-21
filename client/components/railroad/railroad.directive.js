@@ -3,9 +3,9 @@
 
   angular
     .module('baseApp')
-    .directive('railroad', ['handlerHelpers', 'modifyTree', 'makeRR', railroad]);
+    .directive('railroad', ['handlerHelpers', 'modifyTree', 'makeRR', 'workspace', railroad]);
 
-  function railroad(handlerHelpers, modifyTree, makeRR) {
+  function railroad(handlerHelpers, modifyTree, makeRR, workspace) {
 
     return {
       restrict: "E",
@@ -153,8 +153,9 @@
 
             /// testing for click-to-add functionality //////////////////
 
-            /// this is the hard coded node to add
-            var nodeToAdd = {'type': 'word'};
+            /// this is the hard coded node type to add
+            var type = 'text';
+            var nodeToAdd = workspace.getComponentNode(type);
 
             var parentID = $(event.toElement).closest('.match, .quantified').attr('id');
             parentID = parseInt(parentID);

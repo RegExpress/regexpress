@@ -18,14 +18,25 @@
         return $(elem).attr('class');
       }
 
+      /*
+      * Finds and returns the ID of the left railroad component sibling. If none, returns undefined
+      * event: the location on the DOM
+      */
       function findLeftSibling(event){
-        // if the path is from a literal node, go up one more parent layer to detect siblings.
-        var target = event.toElement;
-        if ($(target).parent('.literal-sequence')[0] != undefined) {
-          target = $(target).parent();
+        var target = event.toElement; // the element that we dropped the new node onto
+        var parent = $(target).parent(); // the parent of the target element
+        var leftSib = $(target).prevAll('g')[0]; // the immediate sibling g element before our target element 
+
+        // if there is no immediate sibling, we're either at the beginning of the match, or inside a literal-sequence
+        if(leftSib === undefined){
+          if(parent.attr('class') === 'literal-sequence'){
+            leftSib = $(parent).prevAll('g')[0];
+          } else {
+            return undefined;
+          }
         }
-        var leftSib = $(target).prevAll('g')[0];
-        return leftSib === undefined ? undefined : parseInt($(leftSib).attr('id'));
+
+        return parseInt($(leftSib).attr('id'));
       }
 
       return {

@@ -1,10 +1,9 @@
 describe('Workspace', function() {
-  var $rootScope, $scope;
+  var workspace, text;
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
-
     workspace = $injector.get('workspace');
-
+    text = workspace.getComponentNode('text');
   }));
 
   describe('universe is ok', function(){
@@ -57,7 +56,6 @@ describe('Workspace', function() {
 
     describe('handles groups\n', function(){
       it('should support match and capture-group objects', function(){
-        var text = workspace.getComponentNode('text');
         expect(JSON.stringify(text)).toEqual('{"type":"match","body":[{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}]}');
         var captureGroup = workspace.getComponentNode('capture-group');
         expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
@@ -66,21 +64,22 @@ describe('Workspace', function() {
 
     describe('handles choice blocks\n', function(){
       it('should support alternate objects', function(){
-        var text = workspace.getComponentNode('text');
         var alternate = workspace.getComponentNode('alternate');
         expect(JSON.stringify(alternate)).toEqual('{"type":"alternate","left":' + JSON.stringify(text) + ',"right":' + JSON.stringify(text) + '}');
       });
 
       it('should support optional blocks', function(){
-        var text = workspace.getComponentNode('text');
         var optional = workspace.getComponentNode('optional');
         expect(JSON.stringify(optional)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":0,"max":1}}');
       });
 
       it('should support repeating blocks', function(){
-        var text = workspace.getComponentNode('text');
         var repeating = workspace.getComponentNode('repeating');
         expect(JSON.stringify(repeating)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":1,"max":null}}');
+      });
+
+      it('should support optional-repeating blocks', function(){
+        // var text = 
       });
     });
   });
