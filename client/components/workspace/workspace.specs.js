@@ -63,5 +63,25 @@ describe('Workspace', function() {
         expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
       });
     });
+
+    describe('handles choice blocks\n', function(){
+      it('should support alternate objects', function(){
+        var text = workspace.getComponentNode('text');
+        var alternate = workspace.getComponentNode('alternate');
+        expect(JSON.stringify(alternate)).toEqual('{"type":"alternate","left":' + JSON.stringify(text) + ',"right":' + JSON.stringify(text) + '}');
+      });
+
+      it('should support optional blocks', function(){
+        var text = workspace.getComponentNode('text');
+        var optional = workspace.getComponentNode('optional');
+        expect(JSON.stringify(optional)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":0,"max":1}}');
+      });
+
+      it('should support repeating blocks', function(){
+        var text = workspace.getComponentNode('text');
+        var repeating = workspace.getComponentNode('repeating');
+        expect(JSON.stringify(repeating)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":1,"max":Infinity}}');
+      });
+    });
   });
 });
