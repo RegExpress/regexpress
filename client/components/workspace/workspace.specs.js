@@ -25,7 +25,7 @@ describe('Workspace', function() {
         var start = workspace.getComponentNode('start');
         expect(JSON.stringify(start)).toEqual('{"type":"start"}');
         var end = workspace.getComponentNode('end');
-        expect(JSON.stringify(end)).toEqual('{"type":"start"}');
+        expect(JSON.stringify(end)).toEqual('{"type":"end"}');
       });
 
       it('should support any-character objects', function(){
@@ -37,7 +37,7 @@ describe('Workspace', function() {
         var word = workspace.getComponentNode('word');
         expect(JSON.stringify(word)).toEqual('{"type":"word"}');
         var nonword = workspace.getComponentNode('non-word');
-        expect(JSON.stringify(non-word)).toEqual('{"type":"non-word"}');
+        expect(JSON.stringify(nonword)).toEqual('{"type":"non-word"}');
       });
 
       it('should support white-space and non-white-space objects', function(){
