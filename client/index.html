@@ -33,73 +33,82 @@
   <script src="components/modify-tree/modify-tree.factory.js"></script>
   <script src="components/matches/matches.directive.js"></script>
 
-
-
-  <!-- all those damn template directives -->
-  <script src="components/workspace/captureGroup.directive.js"></script>
-  <script src="components/workspace/terminal.directive.js"></script>
-
-  <!-- with their damn templates. GET OFF MY LAWN! -->
-  <!-- // <script type="text/ng-template" id="template-captureGroup.html"></script> -->
-
-
-
-
 </head>
   <!-- Main controller controls body of page -->
   <body ng-controller="MainController">
-    <!-- end main controller element -->
+  <!-- end main controller element -->
+
     <header class="app-bar promote-layer paper-toolbar paper-shadow">
       <div class="app-bar-container paper-toolbar">
-        <h1 class="logo">RegExpress Like You Just Don't Care</h1>
+        <h1 class="logo">RegExpress</h1>
+        <h4 class="subLogo">Demystifying regular expressions</h4>
       </div>
     </header>
+
     <br><br><br>
+
     <div class="test">
-        <div class="row">
-          <input id="textarea" label="Test String" ng-model="main.string" text-align="center"></input>
-        </div>      <!-- matches expression -->
+        <!-- test string model -->
+        <center><div class="row">
+          <input id="textarea" label="Test String" ng-model="main.string" placeholder="Write your text here"></input>
+        </div></center>
+
+      <!-- matches expression -->
       <div><track-matches/></div>
-      <!-- end matches expressison -->
 
       <!-- <input type="text" ng-model="addObject"> -->
-<!--       <input type="button" value="add object" ng-click="callAdd()"> -->
+      <!-- <input type="button" value="add object" ng-click="callAdd()"> -->
 
       <!-- regex directive -->
       <div><track-regex/></div>
-      <!-- end regex directive -->
-    </div>
 
+    </div>
 
 
     <!-- This is the second element of the page, the workspace-->
 
     <div class="work">
-      <form style="padding: 20px;">
-
       <!-- input boxes allows the user to change $scope variables to make regex -->
-
+      <form style="padding: 20px;">
         <div>
           <input placeholder="Write a regex" ng-model="main.regexBody"></input>
           <input placeholder="Tags" ng-model="main.regexTags"></input>
-          <!-- end input boxes. tags currently useless -->
-
         </div>
       </form>
-      <div class="informativeText">{{ main.info }}</div>
-      <div><center><railroad/></center></div>
-      <div><tree-to-input></div>
 
+      <div class="informativeText">{{ main.info }}</div>
+      <!-- Railroad directive. Most of the magic happens here -->
+      <div><center><railroad/></center></div>
+      <!-- this tree to input directive is not currently visible on the page -->
+      <div><tree-to-input></div>
     </div>
 
     <!-- <div class="container"> -->
     <div class="container">
-      <span class="cell"><p></p>
-      <div><capture-group-template/></div>
-      <!-- <div><terminal-template/></div> -->
+      <span class="cell" id="one">
+        <br></br>
+        <div>capture group</div>
+        <div>terminal</div>
+        <div>end line</div>
+        <div>start line</div>
+        <div>something else</div>
       </span>
-      <span class="cell" id="two"><p></p></span>
-      <span class="cell" id="three"><p></p></span>
+      <span class="cell" id="two">
+        <br></br>
+        <div>word character</div>
+        <div>digit</div>
+        <div>white space character</div>
+        <div>start line</div>
+        <div>any word boundary</div>
+      </span>
+      <span class="cell" id="three">
+        <br></br>
+        <div>word character</div>
+        <div>digit</div>
+        <div>white space character</div>
+        <div>start line</div>
+        <div>any word boundary</div>
+      </span>
     </div>
   </div>
   </body>

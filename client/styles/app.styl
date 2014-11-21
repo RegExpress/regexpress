@@ -6,6 +6,12 @@
   turquoise = #4AAAA5
   slate = #35404F
 
+color1 = #F15D58 //salmon
+color2 = #363635 //dark
+color3 = #96BD4F //light_pistachio
+color4 = #A68F58 //tan
+color4 = #DCDDCD //cream
+
 user-select()
   -webkit-user-select none
   -moz-user-select none
@@ -15,16 +21,16 @@ body
   margin: 5px
   color: robinEgg
   user-select()
-  background: slate
+  background: color2
   // background-image: url("../assets/zenbg.png")
   text-align: center
   font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial
   line-height: 1.4em
   overflow: hidden
 
-input:focus
-  outline 3pt solid coral
-
+input:focus {
+  outline 3pt solid color1
+}
 
 p.instruct
   font-size: 10pt
@@ -37,26 +43,25 @@ p.instruct
   height 1vh
 
 .test
-  border: 2px solid robinEgg
-  height: 20vh
+  border: 2px solid color4
+  height: 10vh
   color #ccc
   text-align: center
   padding: 20px
   margin-left: auto
 .work
-  border: 2px solid robinEgg
+  border: 2px solid color4
   color #ccc
-  height 40vh
+  height 38vh
   padding: 5px
-
 .container
   color #ccc
-  height 30vh
+  height 35vh
   display table
 .cell
   display table-cell
   width 33.333vw
-  border 2px solid robinEgg
+  border 2px solid color4
 .teststring
   margin 0px auto 0 auto
   width 400px
@@ -77,12 +82,13 @@ p.instruct
   font-weight bold
   padding 2px
   border-radius 8px
-  background-color coral
-  border 2px solid coral
+  background-color color1
+  border 2px solid color1
 
 .textBox:focus {
-    border 2px solid turquoise
-    outline none
+  border 2px solid color3
+  outline none
+
 }
 
 .paper-shadow
@@ -90,7 +96,7 @@ p.instruct
 
 .paper-toolbar
   color: #fff
-  background: turquoise
+  background: color3
 
 .app-bar, .navdrawer-container, main
   -webkit-transition: -webkit-transform 0.3s ease-out
@@ -126,11 +132,11 @@ p.instruct
   -webkit-flex: 1
   -ms-flex: 1
   flex: 1
-  font-size: 1.3em
+  font-size: 2em
   margin: 0 16px
   padding: 0
-  color: #fefefe
-  float: none
+  color: slate
+  float: left
   max-width: none
   font-weight: 400
   line-height: 64px
@@ -140,3 +146,8 @@ p.instruct
   border-radius: 0.5em
   border: 1px solid pink
   text-align: center
+
+input#textarea
+  width 500px
+  padding 8px
+  font-size: 11pt

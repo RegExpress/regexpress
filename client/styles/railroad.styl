@@ -1,7 +1,6 @@
 svg.railroad-diagram
-	background-color: #35404F
+	background-color: transparent
 	color: black
-	border: 1px solid black
 
 svg.railroad-diagram path
 	stroke-width: 4
@@ -36,14 +35,16 @@ g.non-white-space > rect:hover,
 g.start > rect:hover,
 g.end > rect:hover,
 g.space > rect:hover,
-g.match > path:hover
-	stroke: #FF00BF
+g.match > path:hover,
+g.literal-sequence > path:hover,
+g.quantified > path[d="M314 31h10"]:hover
+	stroke: #F15D58
 
 
 /* copy css */
 
 .copy
-	background-color: #35404F
+	background-color: transparent
 	color: black
 
 .copy path
