@@ -1,4 +1,4 @@
-/*color3 = #83BF17 // pistachio*/
+
 
 svg.railroad-diagram {
     background-color: #363635;
@@ -41,7 +41,7 @@ g.start > rect:hover,
 g.end > rect:hover,
 g.space > rect:hover,
 g.match > path:hover {
-    stroke: #E45F56;
+    stroke: #F15D58;
 };
 
 /* copy css */

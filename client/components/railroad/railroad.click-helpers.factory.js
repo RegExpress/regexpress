@@ -20,20 +20,19 @@
 
       function findLeftSibling(event){
         // if the path is from a literal node, go up one more parent layer to detect siblings.
-        var target = event.toElement
+        var target = event.toElement;
         if ($(target).parent('.literal-sequence')[0] != undefined) {
           target = $(target).parent();
-          console.log('reassigning target to its parent')
         }
         var leftSib = $(target).prevAll('g')[0];
-        return leftSib === undefined ? 'no left sibling': leftSib;
+        return leftSib === undefined ? undefined : parseInt($(leftSib).attr('id'));
       }
 
       return {
         checkUnder: checkUnder,
+        findLeftSibling: findLeftSibling,
         building: building,
-        editingText: editingText,
-        findLeftSibling: findLeftSibling
+        editingText: editingText
       }
     }
 

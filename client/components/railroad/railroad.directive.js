@@ -151,19 +151,25 @@
             };
           } else if (event.which === 3) {
 
+            /// testing for click-to-add functionality //////////////////
 
+            /// this is the hard coded node to add
+            var nodeToAdd = {'type': 'word'};
 
-            /// testing for click-to-add functionality
-
-            var parent = $(event.toElement).closest('.match').attr('id') //.attr('id')
-            console.log('parentID', parent);
-            // console.log($(event.toElement).siblings('g')) // this is the parent match node
+            var parentID = $(event.toElement).closest('.match, .quantified').attr('id');
+            parentID = parseInt(parentID);
             var leftSib = handlerHelpers.findLeftSibling(event);
-            console.log('leftSibling', leftSib);
 
-            // a path that is a child of a literal-sequence should take a different route. 
-
-
+            if (leftSib === undefined && parentID === undefined){
+              console.log('no parent node and no left sibling. Drop the copy and revert');
+            } else {
+              console.log('leftSibling', leftSib, 'parentID', parentID, scope.main.regexTree);
+              modifyTree.addNode(leftSib, parentID, nodeToAdd, scope.main.regexTree);
+              scope.$apply(function(){
+                scope.main.treeChanged++;
+              })
+            }
+            /////////////// most of this will get moved to workspace.directive /////
 
           }
         })
