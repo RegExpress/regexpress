@@ -57,56 +57,68 @@
       * regexTree: the regex tree
       */ 
       function removeNode(idToRemove, regexTree) {
-        // console.log("yo",regexTree);
-        var nodeAndParent = getNode(idToRemove, regexTree);
-        if (nodeAndParent === null || nodeAndParent.parent === undefined) {
-          return;
-        }
-        var node = nodeAndParent.node;
-        var parent = nodeAndParent.parent;
-        // handle checking of group types here
-        // charsets are handled by default because their parents are always a type that we have already handled.
-        // they can never be a parent.
-        // Is match
-        if (parent.type === 'match') {
-          var indexOfNode = parent.body.indexOf(node);
-          parent.body.splice(indexOfNode,1);
-          // this is for if the body is now empty
-          // it removes the object that has the empty body array.
-          // not 100% sure this works for capture groups as well
-          if (parent.body.length === 0) {
-            removeNode(parent.idNum, regexTree);
+        var addToNodes = true;
+        var nodes = [];
+
+        function traverseTree(idToRemove, regexTree) {
+          var nodeAndParent = getNode(idToRemove, regexTree);
+          if (nodeAndParent === null || nodeAndParent.parent === undefined) {
+            return;
           }
-          // if more of same id , delete those also
-          // while in body, there exists more nodes with same idNum, delete them.
-          if (parent.body.length) {
-            removeNode(idToRemove, regexTree);
+          var node = nodeAndParent.node;
+          var parent = nodeAndParent.parent;
+          if (addToNodes) {
+            nodes.unshift(node);
           }
-        }
-        // capture groups && quantifieds
-        if (parent.type === 'capture-group' || parent.type === 'quantified') {
-          removeNode(parent.idNum, regexTree);
-        }
-        /// alternates
-        if (parent.type === 'alternate') {
-          var parentAndSuperParent = getNode(parent.idNum, regexTree);
-          var superParent = parentAndSuperParent.parent;
-          if (superParent.type === 'alternate') {
-            if (node === parent.right) {
-              superParent.right = parent.left;
+          // handle checking of group types here
+          // charsets are handled by default because their parents are always a type that we have already handled.
+          // they can never be a parent.
+          // Is match
+          if (parent.type === 'match') {
+            var indexOfNode = parent.body.indexOf(node);
+            parent.body.splice(indexOfNode,1);
+            // this is for if the body is now empty
+            // it removes the object that has the empty body array.
+            // not 100% sure this works for capture groups as well
+            if (parent.body.length === 0) {
+              addToNodes = false;
+              traverseTree(parent.idNum, regexTree);
             }
-            if (node === parent.left) {
-              superParent.right = parent.right;
-            } 
-          } else if (superParent.type === 'capture-group') {
-            if (node === parent.right) {
-              superParent.body = parent.left;
-            }
-            if (node === parent.left) {
-              superParent.body = parent.right;
+            // if more of same id , delete those also
+            // while in body, there exists more nodes with same idNum, delete them.
+            if (parent.body.length) {
+              traverseTree(idToRemove, regexTree);
             }
           }
+          // capture groups && quantifieds
+          if (parent.type === 'capture-group' || parent.type === 'quantified') {
+            addToNodes = false;
+            traverseTree(parent.idNum, regexTree);
+          }
+          /// alternates
+          if (parent.type === 'alternate') {
+            var parentAndSuperParent = getNode(parent.idNum, regexTree);
+            var superParent = parentAndSuperParent.parent;
+            if (superParent.type === 'alternate') {
+              if (node === parent.right) {
+                superParent.right = parent.left;
+              }
+              if (node === parent.left) {
+                superParent.right = parent.right;
+              } 
+            } else if (superParent.type === 'capture-group') {
+              if (node === parent.right) {
+                superParent.body = parent.left;
+              }
+              if (node === parent.left) {
+                superParent.body = parent.right;
+              }
+            }
+          }
+          
         }
+        traverseTree(idToRemove, regexTree);
+        return nodes;
       }
       // we probably need an actually complete node to be passed in, and the place to add it.
       // should this be called addNodeBefore? We also need addNodeTo
