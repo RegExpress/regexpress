@@ -14,7 +14,7 @@
           regexp = '',
           regexTree = {"type": "match", "body": []},
           treeChanged = 0,
-          info = 'Drag and drop elements from the library below to build a regex diagram',
+          info = 'Drag and drop elements from the library below to the railroad and build a regex diagram',
           mode;
 
       return {

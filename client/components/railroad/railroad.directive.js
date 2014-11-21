@@ -14,7 +14,6 @@
       link: function(scope, element, attrs) {
 
         var item, itemID, location, oldClass, copy, top, left, text, nodeID;
-        var dragging = false;
 
         /*
         * Watches the regexp model and re-renders the tree whenever the regexp changes. The scope.main.treeChanged model is incremented to indicate a finished tree change, since the tree itself cannot be watched easily.
@@ -239,7 +238,7 @@
               $('g.ghost rect').css('stroke', 'black');
               $(item).attr('class', oldClass);
             }
-            item = undefined; // sets item to undefined so this will not fire when nothing is "picked up"
+            item = undefined; // sets item back to undefined
           }
           $(copy).remove();
           text = undefined;
