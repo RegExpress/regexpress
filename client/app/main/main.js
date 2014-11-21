@@ -9,9 +9,9 @@
       'makeRRModule',
       'workspaceModule'
     ])
-    .controller('MainController', [ '$scope','values', 'modifyTree', 'makeRR', MainController ]);
+    .controller('MainController', [ '$scope','values', 'modifyTree', 'workspace', 'makeRR', MainController ]);
 
-    function MainController($scope, values, makeRR, modifyTree) {
+    function MainController($scope, values, makeRR, modifyTree, workspace) {
       $scope.main = values;
 
       // for testing purposes
