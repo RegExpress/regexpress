@@ -123,7 +123,6 @@
       // we probably need an actually complete node to be passed in, and the place to add it.
       // should this be called addNodeBefore? We also need addNodeTo
       function addNode(siblingId, parentId, nodeToAdd, regexTree) {
-        console.log('adding node');
         // different cases depending on parent type
         var siblingAndParent, sibling, parent;
         if (siblingId) {
