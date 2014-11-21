@@ -3,17 +3,7 @@ describe('Workspace', function() {
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
 
-    $rootScope = $injector.get('$rootScope');
-    $scope = $rootScope.$new();
-    var $controller = $injector.get('$controller');
-
-    createController = function() {
-      return $controller('MainController', {
-        $scope: $scope
-      });
-    };
-
-    createController();
+    workspace = $injector.get('workspace');
 
   }));
 
@@ -23,10 +13,55 @@ describe('Workspace', function() {
     })
   })
 
-  describe('scope has the right stuff on it', function(){
-    it('should have a space attr', function(){
-      // expect(scope.workspace.space).toBeDefined();
-    })
-  })
+  describe('workspace has the right functions\n', function(){
+    it('should have a getComponentNode function', function(){
+      expect(workspace.getComponentNode).toEqual(jasmine.any(Function));
+    });
+  });
 
-})
+  describe('getComponentNode returns the correct nodes\n', function(){
+    describe('handles non-terminal types\n', function(){
+      it('should support start and end objects', function(){
+        var start = workspace.getComponentNode('start');
+        expect(JSON.stringify(start)).toEqual('{"type":"start"}');
+        var end = workspace.getComponentNode('end');
+        expect(JSON.stringify(end)).toEqual('{"type":"start"}');
+      });
+
+      it('should support any-character objects', function(){
+        var anyChar = workspace.getComponentNode('any-character');
+        expect(JSON.stringify(anyChar)).toEqual('{"type":"any-character"}');
+      });
+
+      it('should support word and non-word objects', function(){
+        var word = workspace.getComponentNode('word');
+        expect(JSON.stringify(word)).toEqual('{"type":"word"}');
+        var nonword = workspace.getComponentNode('non-word');
+        expect(JSON.stringify(non-word)).toEqual('{"type":"non-word"}');
+      });
+
+      it('should support white-space and non-white-space objects', function(){
+        var whitespace = workspace.getComponentNode('white-space');
+        expect(JSON.stringify(whitespace)).toEqual('{"type":"white-space"}');
+        var nonwhitespace = workspace.getComponentNode('non-white-space');
+        expect(JSON.stringify(nonwhitespace)).toEqual('{"type":"non-white-space"}');
+      });
+
+      it('should support digit and non-digit objects', function(){
+        var digit = workspace.getComponentNode('digit');
+        expect(JSON.stringify(digit)).toEqual('{"type":"digit"}');
+        var nondigit = workspace.getComponentNode('non-digit');
+        expect(JSON.stringify(nondigit)).toEqual('{"type":"non-digit"}');
+      });
+    });
+
+    describe('handles groups\n', function(){
+      it('should support match and capture-group objects', function(){
+        var text = workspace.getComponentNode('text');
+        expect(JSON.stringify(text)).toEqual('{"type":"match","body":{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}}');
+        var captureGroup = workspace.getComponentNode('capture-group');
+        expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
+      });
+    });
+  });
+});
