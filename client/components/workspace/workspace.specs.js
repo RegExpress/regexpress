@@ -25,7 +25,7 @@ describe('Workspace', function() {
         var start = workspace.getComponentNode('start');
         expect(JSON.stringify(start)).toEqual('{"type":"start"}');
         var end = workspace.getComponentNode('end');
-        expect(JSON.stringify(end)).toEqual('{"type":"start"}');
+        expect(JSON.stringify(end)).toEqual('{"type":"end"}');
       });
 
       it('should support any-character objects', function(){
@@ -37,7 +37,7 @@ describe('Workspace', function() {
         var word = workspace.getComponentNode('word');
         expect(JSON.stringify(word)).toEqual('{"type":"word"}');
         var nonword = workspace.getComponentNode('non-word');
-        expect(JSON.stringify(non-word)).toEqual('{"type":"non-word"}');
+        expect(JSON.stringify(nonword)).toEqual('{"type":"non-word"}');
       });
 
       it('should support white-space and non-white-space objects', function(){
@@ -58,9 +58,29 @@ describe('Workspace', function() {
     describe('handles groups\n', function(){
       it('should support match and capture-group objects', function(){
         var text = workspace.getComponentNode('text');
-        expect(JSON.stringify(text)).toEqual('{"type":"match","body":{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}}');
+        expect(JSON.stringify(text)).toEqual('{"type":"match","body":[{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}]}');
         var captureGroup = workspace.getComponentNode('capture-group');
         expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
+      });
+    });
+
+    describe('handles choice blocks\n', function(){
+      it('should support alternate objects', function(){
+        var text = workspace.getComponentNode('text');
+        var alternate = workspace.getComponentNode('alternate');
+        expect(JSON.stringify(alternate)).toEqual('{"type":"alternate","left":' + JSON.stringify(text) + ',"right":' + JSON.stringify(text) + '}');
+      });
+
+      it('should support optional blocks', function(){
+        var text = workspace.getComponentNode('text');
+        var optional = workspace.getComponentNode('optional');
+        expect(JSON.stringify(optional)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":0,"max":1}}');
+      });
+
+      it('should support repeating blocks', function(){
+        var text = workspace.getComponentNode('text');
+        var repeating = workspace.getComponentNode('repeating');
+        expect(JSON.stringify(repeating)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":1,"max":null}}');
       });
     });
   });
