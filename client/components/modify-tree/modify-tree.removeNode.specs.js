@@ -106,8 +106,34 @@ describe('Modify-Tree-removeNode\n', function() {
   });
 
   describe('returns a node', function(){
-    xit('should return x when x', function() {
+    it('returns a literal node from the front of a match node', function(){
+      var removedNode = modifyTree.removeNode(5, tree1);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"literal","offset":0,"text":"a","body":"a","escaped":false,"idNum":5}]');
+    });
 
+    it('returns multiple literals in a row from a match node', function(){
+      var removedNode = modifyTree.removeNode(5, tree4);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"literal","offset":0,"text":"a","body":"a","escaped":false,"idNum":5},{"type":"literal","offset":1,"text":"b","body":"b","escaped":false,"idNum":5},{"type":"literal","offset":2,"text":"c","body":"c","escaped":false,"idNum":5}]');
+    });
+
+    it('returns a capture group', function() {
+      var removedNode = modifyTree.removeNode(5, tree2);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"capture-group","offset":1,"text":"a","body":{"type":"match","offset":1,"text":"a","body":[{"type":"literal","offset":1,"text":"a","body":"a","escaped":false,"idNum":7}],"idNum":6},"index":1,"idNum":5}]')
+    });
+
+    it('returns a quantified', function() {
+      var removedNode = modifyTree.removeNode(6, tree1);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"quantified","offset":1,"text":"b?","body":{"type":"literal","offset":1,"text":"b","body":"b","escaped":false,"idNum":7},"quantifier":{"type":"quantifier","offset":2,"text":"?","min":0,"max":1,"greedy":true},"idNum":6}]');
+    });
+
+    it('returns a literal from inside a quantified', function() {
+      var removedNode = modifyTree.removeNode(7, tree1);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"literal","offset":1,"text":"b","body":"b","escaped":false,"idNum":7}]');
+    });
+
+    it('returns an alternate', function() {
+      var removedNode = modifyTree.removeNode(6, tree3);
+      expect(JSON.stringify(removedNode)).toEqual('[{"type":"alternate","offset":1,"text":"a|b|c","left":{"type":"match","offset":1,"text":"a","body":[{"type":"literal","offset":1,"text":"a","body":"a","escaped":false,"idNum":8}],"idNum":7},"right":{"type":"alternate","offset":3,"text":"b|c","left":{"type":"match","offset":3,"text":"b","body":[{"type":"literal","offset":3,"text":"b","body":"b","escaped":false,"idNum":11}],"idNum":10},"right":{"type":"match","offset":5,"text":"c","body":[{"type":"literal","offset":5,"text":"c","body":"c","escaped":false,"idNum":13}],"idNum":12},"idNum":9},"idNum":6}]');
     });
 
   });
