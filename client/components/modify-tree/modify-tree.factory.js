@@ -12,7 +12,7 @@
       * parent: the parent of the current node we are evaluating.
       */
       var getNode = function(id, node, parent){
-        // if these are the same, but not the same type, it will not work (literals)
+        // if these are the same, but not the same type, it will not work (string vs number)
         if(node.idNum === id){
           return {node: node, parent: parent};
         }
@@ -57,7 +57,7 @@
       * regexTree: the regex tree
       */ 
       function removeNode(idToRemove, regexTree) {
-        var addToNodes = true;
+        var addToNodes = true; // remains true while we need to add the removed nodes to the array we will return
         var nodes = [];
 
         function traverseTree(idToRemove, regexTree) {
@@ -70,35 +70,39 @@
           if (addToNodes) {
             nodes.unshift(node);
           }
+
           // handle checking of group types here
           // charsets are handled by default because their parents are always a type that we have already handled.
           // they can never be a parent.
-          // Is match
           if (parent.type === 'match') {
             var indexOfNode = parent.body.indexOf(node);
             parent.body.splice(indexOfNode,1);
-            // this is for if the body is now empty
-            // it removes the object that has the empty body array.
-            // not 100% sure this works for capture groups as well
+
+            // if our match body is empty, remove the match node as well
             if (parent.body.length === 0) {
               addToNodes = false;
               traverseTree(parent.idNum, regexTree);
             }
-            // if more of same id , delete those also
-            // while in body, there exists more nodes with same idNum, delete them.
+            
+            // if our match body is not empty, call the function again in case there are more literals with the same id
             if (parent.body.length) {
               traverseTree(idToRemove, regexTree);
             }
           }
-          // capture groups && quantifieds
+
           if (parent.type === 'capture-group' || parent.type === 'quantified') {
+            // capture groups and quantifieds have a single object as their body. if we are removing that, we should just remove
+            // the entire capture group/quantified
             addToNodes = false;
             traverseTree(parent.idNum, regexTree);
           }
-          /// alternates
+
           if (parent.type === 'alternate') {
             var parentAndSuperParent = getNode(parent.idNum, regexTree);
             var superParent = parentAndSuperParent.parent;
+
+            //if the superParent is an alternate, set it's right property to the non-removed node
+            //if the superParent is a capture group, set it's body property to the non-removed node
             if (superParent.type === 'alternate') {
               if (node === parent.right) {
                 superParent.right = parent.left;
@@ -120,10 +124,16 @@
         traverseTree(idToRemove, regexTree);
         return nodes;
       }
-      // we probably need an actually complete node to be passed in, and the place to add it.
-      // should this be called addNodeBefore? We also need addNodeTo
+
+      /*
+      * Adds a node to the regex tree
+      * siblingId: the id of the sibling immediately to the left of the new node. if undefined, the new node is the first child
+      * parentId: the id of the parent of the new node
+      * nodeToAdd: the new node to be added to the tree
+      * regexTree: the first node in the regexTree
+      */
       function addNode(siblingId, parentId, nodeToAdd, regexTree) {
-        // different cases depending on parent type
+        // find the sibling and parent nodes from their id's
         var siblingAndParent, sibling, parent;
         if (siblingId) {
           siblingAndParent = getNode(siblingId, regexTree);
@@ -132,8 +142,9 @@
         } else {
           parent = getNode(parentId, regexTree).node; 
         }
+
         if (parent.type === 'match') { 
-          // do this is sibling node is defined
+          //add the new node after the sibling, or at the beginning
           if (sibling !== undefined) {
             var indexOfSibling = parent.body.indexOf(sibling);
             parent.body.splice(indexOfSibling+1,0,nodeToAdd);
@@ -141,7 +152,9 @@
             parent.body.unshift(nodeToAdd);
           }
         }
+
         if (parent.type === 'alternate') {
+          //always add the new node at the end of the alternate chain
           if (parent.right.type === 'alternate') {
             addNode(siblingId, parent.right.idNum, nodeToAdd, regexTree);
             return;
@@ -149,19 +162,18 @@
           var oldRight = parent.right;
           parent.right = {type: 'alternate', left: oldRight, right: nodeToAdd};
         }
+
         if (parent.type === 'capture-group') {
-          // if capture group, just call addNode on the match inside of it
           // in theory this shouldnt really happen as itll default to 'match', but this is here just in case.
           addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
-          return;
         }
+
         if (parent.type === 'quantified') {
-          // if its a literal character, the body will just be a literal node
           if (parent.body.type === 'literal' || parent.body.type === 'charset') {
-            // make parent .body into a capture group w/ a literal
+            // make parent .body into a capture group w/ the old body
             var oldBody = parent.body;
             parent.body = {type: 'capture-group', body: {type: 'match', body: [oldBody]}};
-            // if sibling, after else before
+            
             if (sibling !== undefined) {
               // parent -> capture group -> match -> match's body
               parent.body.body.body.push(nodeToAdd);
@@ -172,18 +184,27 @@
             addNode(siblingId, parent.body.idNum, nodeToAdd, regexTree);
           }
         }
+
         if (parent.type === 'charset') {
+          //can only add literals or charsets to a charset
           if (nodeToAdd.type === 'charset') {
             for (var i = 0; i < nodeToAdd.body.length; i++) {
               parent.body.push(nodeToAdd.body[i]);
             }
           }
+
           if (nodeToAdd.type === 'literal') {
             parent.body.push(nodeToAdd);
           }
         }
       }
 
+      /*
+      * Finds all nodes with nodeID and replaces them with one a literal node for each letter in newVal.
+      * nodeID: the id for the node(s) to replace. the node(s) should be literals
+      * newVal: the text to add
+      * regexTree: the first node in the regex tree
+      */
       function editText(nodeID, newVal, regexTree) {
         var needToAdd = true; // remains true until we've added our newVal
 
@@ -192,7 +213,7 @@
           removeNode(nodeID, regexTree);
           return;
         }
-        
+
         if (typeof nodeID === 'string') {
           nodeID = parseInt(nodeID);
         }
@@ -203,8 +224,8 @@
         if (parent.type === 'match') {
           var newBody = [];
 
-          // add all nodes with different id's to our new body. 
-          // if the id equals nodeID, and we haven't added our newVal, add a node for each letter in newVal
+          // add all nodes that don't match nodeID to the new body. 
+          // if the id equals nodeID, and newVal hasn't been added, add a node for each letter in newVal
           for (var j = 0; j < parent.body.length; j++) {
             if (parent.body[j].idNum !== nodeID) {
               newBody.push(parent.body[j]);
@@ -228,18 +249,18 @@
             parent.text = newVal + "?";
             parent.body = {type: "literal", offset: 0, text: newVal, body: newVal, escaped: false};
           } 
-          // if newVal is more than one character, set the parent body to a capture group -> match -> literals
+          // if newVal is more than one character, set the parent body to a capture group -> match -> literal
           if (newVal.length > 1) {
-            // capture group match, then all literals
             var newText = "("  + newVal + ")?";
             parent.text =  newText;
-            // quantified body points to a capture group
             parent.body = {type: "capture-group", offset: 0, text: newText, body: {} };
-            // capture groups body points to a match
-            // this makes the data structure one that we can already deal with (adding to a literal)
-            // so we set the id to something unique, and handle it as if it was editing text to a literal.
-            parent.body.body = {type: "match", offset: 0, text: newText, body: [{type: "literal", idNum: -999}]} ;
-            editText(-999, newVal, regexTree); // the node with id -999 will be removed 
+            parent.body.body = {type: "match", offset: 0, text: newText, body: [{type: "literal", idNum: -999}]};
+
+            // call editText on the new literal, its parent is a match so it will be handled in the above if statement
+            // -999 is used for the id because regular nodes in the tree can only have positive id's,
+            // so there's no possibility of accidentally editing the wrong node. this node will be removed,
+            // so it's ok that it has a negative id
+            editText(-999, newVal, regexTree); 
           }
         }
       }
