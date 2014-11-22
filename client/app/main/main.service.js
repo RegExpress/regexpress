@@ -15,7 +15,7 @@
           regexTree = {"type": "match", "body": []},
           treeChanged = 0,
           info = 'Drag and drop elements from the library below to the railroad and build a regex diagram',
-          mode;
+          nodeToAdd;
 
       return {
         string: string,
@@ -26,7 +26,7 @@
         matches: matches,
         treeChanged: treeChanged,
         info: info,
-        mode: mode
+        nodeToAdd: nodeToAdd
       };
     }
 
