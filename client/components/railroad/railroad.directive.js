@@ -63,13 +63,13 @@
 
           // Determines the offset of the rect (diagram node image) from the wrapping svg, calculates halfway point
           var target = $(copy).find('rect');
-          top = ($(target).position().top) + ($(target).attr('height')/2);
-          left = ($(target).position().left) + ($(target).attr('width')/2);
+          top = ($(target).position().top) - 5;// + ($(target).attr('height')/2);
+          left = ($(target).position().left) - 5;// + ($(target).attr('width')/2);
 
           // Sets the top and left coords of the clone to appear under the mouse
           $(copy).css({
-            top: event.pageY - top,
-            left: event.pageX - left
+            top: event.pageY,// - top,
+            left: event.pageX// - left
           })
 
           // Gray out the selected item from the railroad diagram by replacing the class with "ghost". The original class is
@@ -118,6 +118,47 @@
             top: event.pageY - 15,
             left: event.pageX - width/2,
           });
+        }
+
+        /*
+        * Takes an array of nodes or a single node and adds to the tree in the location specified by the parent and left sibling IDs
+        */
+        function addNode(leftSibID, parentID, node) {
+          if (Array.isArray(node)) {
+            for (var i = 0; i < node.length; i++) {
+              try {
+                modifyTree.addNode(leftSibID, parentID, node[i], scope.main.regexTree);
+              } catch (err) { console.log ('err caught', err);}
+            };
+          } else {
+            try {
+              modifyTree.addNode(leftSibID, parentID, node, scope.main.regexTree);
+            } catch (err) { console.log ('err caught', err);}
+          }
+          // trigger tree change to re-render diagram
+          scope.$apply(function(){
+            scope.main.treeChanged++;
+          });
+        }
+
+        /*
+        * Returns an object with the ID's of the parent node and left sibling node of the selected node. This allows the modify tree function
+        * to correctly locate a specific spot on the tree
+        */
+        function findRelatives(event) {
+          var relatives = {};
+
+          // finds closest parent of match or quantified type, sets ID on relatives object
+          var parentID = $(event.toElement).closest('.match, .quantified').attr('id');
+          relatives.parentID = parseInt(parentID);
+
+          relatives.leftSibID = handlerHelpers.findLeftSibling(event);
+
+          if (relatives.leftSibID === undefined && relatives.parentID === undefined){
+            console.log('no parent node and no left sibling. Drop the copy and revert. YOU GET NOTHINGGGGG');
+            return;
+          }
+          return relatives;
         }
 
          ////////////////////////////
@@ -175,71 +216,69 @@
         element.on('mousedown','.railroad-diagram',function(event){
           // if the click is a left click
           if (event.which === 1) {
-            // check if the user is trying to add a node
-            if (scope.main.mode === 'add') {
-              // do the adding stuff
-
+            // if the selected element is the text child of a literal node, run change text function
+            if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
+              editTextNode(event);
             } else {
-            // The user is not trying to add a node. Check if the user is trying to change test.
-
-              // if the selected element is the text child of a literal node, run change text function
-              if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
-                editTextNode(event);
-              } else {
-              // The user is not trying to add a node or change text. Prepare the node for removal
-                selectNode(event);
-                createCopy();
-              }
-            };
-
-          } else if (event.which === 3) {
-
-            /// testing for click-to-add functionality //////////////////
-
-            /// this is the hard coded node type to add 
-            var type = 'text';
-            var nodeToAdd = workspace.getComponentNode(type);
-
-            var parentID = $(event.toElement).closest('.match, .quantified').attr('id');
-            parentID = parseInt(parentID);
-            var leftSib = handlerHelpers.findLeftSibling(event);
-
-            if (leftSib === undefined && parentID === undefined){
-              console.log('no parent node and no left sibling. Drop the copy and revert');
-            } else {
-              console.log('leftSibling', leftSib, 'parentID', parentID, scope.main.regexTree);
-              modifyTree.addNode(leftSib, parentID, nodeToAdd, scope.main.regexTree);
-              scope.$apply(function(){
-                scope.main.treeChanged++;
-              })
+            // The user is not trying to change text. select the node to prepare for moving/removal
+              selectNode(event);
+              createCopy();
             }
-            /////////////// most of this will get moved to workspace.directive /////
-
           }
-        })
+        });
 
         /*
-        * Checks the location of the mouse on mouseup. If the mouse is inside the diagram, the copy is removed, the diagram is
-        * reverted back to normal and no changed are made. Otherwise, the selected node is removed.
+        * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging off.
+        * Checks the location of the mouse on mouseup.  If the mouse is off the railroad diagram, the captured item is removed. If the mouse is
+        * in the  original pick-up spot, the copy is removed, the diagram is reverted back to normal and no changes are made. If the mouse is
+        * over a valid drop target location, the selected node is added there.
         */
 
         // Removed item from tree on mouseup if off the RR
         $('.work').on('mouseup', function(event) {
-          // Checks if item is currently defined
-          if (item){
-            // check location of mouse event
-            var over = handlerHelpers.checkUnder(event);
-            // if off the railroad, remove selected node
-            if (over === 'RR' || over === 'undefined' || over === 'work') {
-              var intID = parseInt(itemID)
-              callRemoveNode(intID);
-            } else {
-              // un-gray the dropped item, add back old class
-              $('g.ghost rect').css('stroke', 'black');
-              $(item).attr('class', oldClass);
-            }
-            item = undefined; // sets item back to undefined
+
+          // If user is not trying to add any node, do nothing
+          if (!scope.main.nodeToAdd && !item) {
+            return;
           }
+
+          // Check location of mouse event. Returns an object with class and id attributes
+          var intID = parseInt(itemID);
+          var over = handlerHelpers.checkUnderCopy(event);
+          var overSelf = handlerHelpers.isOverSelf(event, itemID);
+
+          // for testing purposes
+          var overValidTarget = true; // TODO set up a checkIfOverValid target setup, possibly in tandem with findRelatives
+
+          // If off the railroad, remove selected node
+          if (over.class === 'RR' || over.class === 'undefined' || over.class === 'work') {
+            callRemoveNode(intID);
+            scope.main.nodeToAdd = undefined;
+            // drop workshop clone here?
+
+          } else if ( overSelf ) {
+            // un-gray the dropped item, add back old class
+            $('g.ghost rect').css('stroke', 'black');
+            $(item).attr('class', oldClass);
+
+          } else if ( overValidTarget ) {
+            var targetLocation = findRelatives(event); // an object containing the parent and left sibling ID's of location to add to
+
+            // If adding not adding a node from the library, move currently selected node
+            if (!scope.main.nodeToAdd){
+              //removes picked up node from tree, returns the removed tree node
+              var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
+              // adds in removed node(s) to new location
+              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray);
+              item = undefined;
+
+            } else {
+              // add new node from library and reset scope.main.nodeToAdd
+              addNode(targetLocation.leftSibID, targetLocation.parentID, scope.main.nodeToAdd);
+              scope.main.nodeToAdd = undefined;
+            }
+          }
+          // remove the copy that's probably still floating around
           $(copy).remove();
           text = undefined;
         });
@@ -250,9 +289,9 @@
         $('.work').on('mousemove', function(event){
           if (item && copy) {
             $(copy).css({
-              top:  event.pageY - top,
-              left: event.pageX - left
-             })
+              top:  event.pageY + 50,// - top,
+              left: event.pageX + 50//- left
+            })
           }
         })
       }

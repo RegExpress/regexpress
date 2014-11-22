@@ -17,16 +17,20 @@
       * whether the mouse is over the railroad diagram or not.
       */
 
-      function checkUnder(event){
+      function checkUnderCopy(event){
+        var over = {};
         $('.copy').hide();
         var elem = document.elementFromPoint(event.pageX, event.pageY);
         $('.copy').show();
-        return $(elem).attr('class');
+        over.elem = elem;
+        over.class = $(elem).attr('class');
+        over.id = $(elem).attr('id');
+        return over;
       }
 
       /*
       * Finds and returns the ID of the left railroad component sibling. If none, returns undefined
-      * event: the location on the DOM
+      * event: mouseup event
       */
       function findLeftSibling(event){
         var target = event.toElement; // the element that we dropped the new node onto
@@ -45,11 +49,17 @@
         return parseInt($(leftSib).attr('id')); // return the integer ID, not the string
       }
 
+      function isOverSelf(event, itemID) {
+        var targetID = $(checkUnderCopy(event).elem).closest('g').attr('id');
+        return targetID === itemID ? true : false;
+      }
+
       return {
-        checkUnder: checkUnder,
+        checkUnderCopy: checkUnderCopy,
         findLeftSibling: findLeftSibling,
         building: building,
-        editingText: editingText
+        editingText: editingText,
+        isOverSelf: isOverSelf
       }
     }
 
