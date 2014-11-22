@@ -10,7 +10,7 @@
     return {
       restrict: "E",
       replace: false,
-      template: '<div>This is where the workspace will be</div>',
+      templateUrl: 'components/workspace/workspace.template.html',
       link: function(scope, element, attrs) {
 
       }

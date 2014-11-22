@@ -9,7 +9,13 @@
       /// INFORMATIVE MESSAGE TEXT:
       var building = 'Drag and drop elements from the library below to the railroad and build a regex diagram';
       var editingText = 'Press enter when done editing, or click elsewhere on the page to cancel';
+      var draggingItme = 'Drag the item off the diagram to remove it, or place it elsewhere on the railroad';
       // add more as you see fit
+
+      /*
+      * Hides the copy that is the current target of the event and checks the class of the element underneath. This can check
+      * whether the mouse is over the railroad diagram or not.
+      */
 
       function checkUnder(event){
         $('.copy').hide();
@@ -25,7 +31,7 @@
       function findLeftSibling(event){
         var target = event.toElement; // the element that we dropped the new node onto
         var parent = $(target).parent(); // the parent of the target element
-        var leftSib = $(target).prevAll('g')[0]; // the immediate sibling g element before our target element 
+        var leftSib = $(target).prevAll('g')[0]; // the immediate sibling g element before our target element
 
         // if there is no immediate sibling, we're either at the beginning of the match, or inside a literal-sequence
         if(leftSib === undefined){
@@ -36,7 +42,7 @@
           }
         }
 
-        return parseInt($(leftSib).attr('id'));
+        return parseInt($(leftSib).attr('id')); // return the integer ID, not the string
       }
 
       return {
