@@ -187,6 +187,12 @@
       function editText(nodeID, newVal, regexTree) {
         var needToAdd = true; // remains true until we've added our newVal
 
+        // if the newVal is empty, just remove the selected node
+        if(newVal.length === 0){
+          removeNode(nodeID, regexTree);
+          return;
+        }
+        
         if (typeof nodeID === 'string') {
           nodeID = parseInt(nodeID);
         }
