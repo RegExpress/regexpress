@@ -52,7 +52,7 @@
       };
 
       /*
-      * Removes a specific node from the regex tree
+      * Removes all nodes with idToRemove from the regex tree. Returns an array of removed nodes
       * idToRemove: the id of the node we want to remove
       * regexTree: the regex tree
       */ 
