@@ -11,13 +11,14 @@
   <!-- styles:css -->
   <link rel="stylesheet" href="styles/app.css">
   <!-- endinject -->
+<<<<<<< HEAD
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
-  
+
 </head>
 <!-- Main controller controls body of page -->
 <body ng-controller="MainController">
   <!-- end main controller element -->
-  
+
   <div>
     <h1 class="logo">RegExpress</h1>
     <h4 class="sublogo">Demystifying regular expressions</h4>
@@ -25,11 +26,14 @@
 
   <!-- updates the regexp model  -->
   <div><track-matches/></div>
-  
+
   <!-- regex directive -->
   <div><track-regex/></div>
 
   <!-- This is the second element of the page, the workspace-->
+  </div>
+
+
   <div class="work">
     <div class="informativeText">{{ main.info }}</div>
     <!-- <h3>Workspace</h3> -->
@@ -43,26 +47,21 @@
         <textarea label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
       </div>
     </form>
-    
     <!-- Railroad directive. Most of the magic happens here -->
     <div><center><railroad/></center></div>
     <!-- this tree to input directive is not currently visible on the page -->
     <div><tree-to-input></div>
     </div>
-    
-    <!-- <div class="container"> -->
-<<<<<<< HEAD
-    <div class="container">
 
-=======
+    <!-- <div class="container"> -->
+
     <div class="library-container">
       <h3>Component Library</h3>
->>>>>>> CSS & HTML refactor
       <!-- Workspace directive -->
       <place-workspace></place-workspace>
     </div>
   </div>
-  
+
   <!-- build:js -->
   <!-- bower:js -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
