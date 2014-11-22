@@ -245,6 +245,8 @@
           // Check location of mouse event. Returns an object with class and id attributes
           var intID = parseInt(itemID);
           var over = handlerHelpers.checkUnderCopy(event);
+
+          // bug: if user clicks on text to edit, it removes the whole selected node. Re assign item better.
           var overSelf = handlerHelpers.isOverSelf(event, itemID);
 
           // for testing purposes
