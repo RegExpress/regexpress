@@ -52,6 +52,13 @@ describe('Workspace', function() {
         var nondigit = workspace.getComponentNode('non-digit');
         expect(JSON.stringify(nondigit)).toEqual('{"type":"non-digit"}');
       });
+
+      it('should support word-boundary an non-word-boundary objects', function(){
+        var boundary = workspace.getComponentNode('word-boundary');
+        expect(JSON.stringify(boundary)).toEqual('{"type":"word-boundary"}');
+        var nonboundary = workspace.getComponentNode('non-word-boundary');
+        expect(JSON.stringify(nonboundary)).toEqual('{"type":"non-word-boundary"}');
+      });
     });
 
     describe('handles groups\n', function(){
@@ -76,10 +83,6 @@ describe('Workspace', function() {
       it('should support repeating blocks', function(){
         var repeating = workspace.getComponentNode('repeating');
         expect(JSON.stringify(repeating)).toEqual('{"type":"quantified","body":' + JSON.stringify(text) + ',"quantifier":{"min":1,"max":null}}');
-      });
-
-      it('should support optional-repeating blocks', function(){
-        // var text = 
       });
     });
   });

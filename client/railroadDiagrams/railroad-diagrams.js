@@ -239,9 +239,10 @@ var options = {
     // Hook up the two sides if this is narrower than its stated width.
     var gaps = determineGaps(width, this.width);
     Path(x,y).h(gaps[0]).addTo(this);
-    Path(x+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
-    x += gaps[0];
+    
+    var startX = x; // need to save the original x for drawing the path after the items
 
+    x += gaps[0];
     for(var i = 0; i < this.items.length; i++) {
       var item = this.items[i];
       if(item.needsSpace) {
@@ -255,6 +256,7 @@ var options = {
         x += 10;
       }
     }
+    Path(startX+gaps[0]+this.width,y).h(gaps[1]).addTo(this);
     return this;
   }
 

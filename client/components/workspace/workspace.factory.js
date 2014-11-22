@@ -20,6 +20,8 @@
         'non-digit': {'type': 'non-digit'},
         'white-space': {'type': 'white-space'},
         'non-white-space': {'type': 'non-white-space'},
+        'word-boundary': {'type': 'word-boundary'},
+        'non-word-boundary': {'type': 'non-word-boundary'},
         'text': text,
         'capture-group': {'type': 'capture-group', 'body': text},
         'alternate': {'type': 'alternate', 'left': text, 'right': text},
