@@ -218,6 +218,7 @@
           if (event.which === 1) {
             // if the selected element is the text child of a literal node, run change text function
             if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
+              $('.textEdit').remove();
               editTextNode(event);
             } else {
             // The user is not trying to change text. select the node to prepare for moving/removal
