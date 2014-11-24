@@ -188,7 +188,7 @@
         /*
         * Changes the width of the text form to fit the contents
         */
-        $('.work').on('keyup', '.textForm', function(){ // change this to keydown TODO
+        $('.work').on('keydown', '.textForm', function(){
           //check length of input, change width of input box to match contents
           var width = $('.textBox').val().split('').length * 8;
           $('.textBox').css('width', width);
@@ -224,7 +224,6 @@
             // The user is not trying to change text. select the node to prepare for moving/removal
               selectNode(event);
               createCopy();
-              console.log('selecting node', item)
             }
           }
         });
@@ -260,7 +259,7 @@
             scope.main.nodeToAdd = undefined;
             // drop workshop clone here?
 
-          } else if ( overSelf ) {
+          } else if ( !scope.main.nodeToAdd && overSelf ) {
             // un-gray the dropped item, add back old class
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
@@ -285,6 +284,7 @@
           // remove the copy that's probably still floating around
           $(copy).remove();
           text = undefined;
+          scope.main.nodeToAdd = undefined;
         });
 
         /*
@@ -298,6 +298,16 @@
             })
           }
         })
+
+        // Becaue :hover does not activate during a drag, these mousemove and mouseout functions must be used to create the highlighting effect
+        $('.work').on('mousemove', 'rect, g.match > path, g.literal-sequence > path', function(){
+          this.style.stroke = 'red'
+        })
+        $('.work').on('mouseout', 'rect, g.match > path, g.literal-sequence > path', function(){
+          this.style.stroke = 'black'
+        })
+
+
       }
     }
   }
