@@ -2,6 +2,7 @@
 
   coral = #E45F56
   pistachio = #A3D39C
+  light-pistachio = #c1d6bc
   robinEgg = #7ACCC8
   turquoise = #4AAAA5
   slate = #35404F
@@ -19,18 +20,41 @@ user-select()
 
 body
   margin: 5px
-  color: robinEgg
+  color: color4
   user-select()
   background: color2
-  // background-image: url("../assets/zenbg.png")
   text-align: center
-  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial
+  font-family: 'Droid Sans Mono', Helvetica, Arial
   line-height: 1.4em
-  overflow: hidden
+  // overflow: hidden
 
-input:focus {
-  outline 3pt solid color1
-}
+input:focus, textarea:focus 
+  outline 3pt solid color4 
+
+
+.regex-input-container
+  width 40%
+  margin auto
+  padding 0
+  .regex-slash
+    font-size 16px
+  .regex-input
+    height 20px
+    font-size 14px
+  .regex
+    width 60%
+  .flag
+    width 10%
+  .test-text
+    width: 80%
+    margin-top 10px
+
+
+.logo
+  color: pistachio
+
+.sublogo
+  color: light-pistachio 
 
 p.instruct
   font-size: 10pt
@@ -38,30 +62,28 @@ p.instruct
   margin: 0
   color: black
 
-
-.toolbar
-  height 1vh
-
 .test
-  border: 2px solid color4
+
   height: 10vh
   color #ccc
   text-align: center
   padding: 20px
   margin-left: auto
 .work
-  border: 2px solid color4
+  border-top 2px solid color4
   color #ccc
   height 38vh
   padding: 5px
+  
 .library
   color #ccc
   height 35vh
   display table
+  overflow-y scroll
 .cell
   display table-cell
   width 33.333vw
-  border 2px solid color4
+  // border 2px solid color4
 .teststring
   margin 0px auto 0 auto
   width 400px
@@ -71,87 +93,41 @@ p.instruct
 .informativeText
   position absolute
   float left
-  margin-left 150px
-  width 200px
+  margin-left 120px
+  width 225px
+  padding-top 25px
+  text-align center
+  font-size: 12px
 
 .ghost
   stroke gray
   fill gray
 
-.textBox
+.textBox, .textBox:focus
   font-weight bold
   padding 2px
   border-radius 8px
-  background-color color1
-  border 2px solid color1
-
-.textBox:focus
-  border 2px solid color3
+  height 25px
+  font-size: 14px
+  background-color coral
+  border 1px solid coral
   outline none
 
+
+
+.library-container
+  border-radius 10px
+  margin 10px
+  padding-top 5px
+  background-color #292929
+   
 .components
   max-height 50px
   max-width: 100px
   display inline-table
 
-.paper-shadow
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
-
-.paper-toolbar
-  color: #fff
-  background: color3
-
-.app-bar, .navdrawer-container, main
-  -webkit-transition: -webkit-transform 0.3s ease-out
-  transition: transform 0.3s ease-out
-
-.promote-layer
-  -webkit-backface-visibility: hidden
-  backface-visibility: hidden
-
-.app-bar-container
-  display: -webkit-flex
-  display: -ms-flexbox
-  display: flex
-  width: 100%
-  height: 64px
-  position: relative
-  -webkit-flex-direction: row
-  -ms-flex-direction: row
-  flex-direction: row
-  margin: 0 auto
-
-.app-bar
-  display: block
-  width: 100%
-  position: fixed
-  top: 0
-  left: 0
-  overflow: hidden
-  z-index: 1
-  margin-bottom: 40px
-
-.app-bar .logo
-  -webkit-flex: 1
-  -ms-flex: 1
-  flex: 1
-  font-size: 2em
-  margin: 0 16px
-  padding: 0
-  color: slate
-  float: left
-  max-width: none
-  font-weight: 400
-  line-height: 64px
-#demoCustom mark
-  padding: 0
-  margin: -1px -4px
-  border-radius: 0.5em
-  border: 1px solid pink
-  text-align: center
-
-input#textarea
-  width 500px
-  padding 8px
-  font-size: 11pt
+// input#textarea
+//   width 500px
+//   padding 8px
+//   font-size: 11pt
   
