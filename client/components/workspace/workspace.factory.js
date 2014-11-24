@@ -7,7 +7,7 @@
     function workspace(){
 
       //holder text for elements that will look weird with nothing inside. just says 'abc'
-      var text = {'type': 'match', 'body': [{'type': 'literal', 'body': 'a'}, {'type': 'literal', 'body': 'b'}, {'type': 'literal', 'body': 'c'}]} 
+      var text = {'type': 'match', 'body': [{'type': 'literal', 'body': 'a'}, {'type': 'literal', 'body': 'b'}, {'type': 'literal', 'body': 'c'}]}
 
       //table of nodes for each individual type of component
       var componentTable = {
@@ -28,8 +28,6 @@
         'optional': {'type': 'quantified', 'body': text, 'quantifier': {'min': 0, 'max': 1}},
         'repeating': {'type': 'quantified', 'body': text, 'quantifier': {'min': 1, 'max': Infinity}}
       };
-
-      // need: word-character, 
 
       /*
       * Returns the appropriate node for the given type
