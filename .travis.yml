@@ -11,31 +11,31 @@ before_install:
 before_script:
   - ./node_modules/.bin/bower install -F
 after_success:
-- test $TRAVIS_PULL_REQUEST = false
-  && echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-  && openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d
-  && chmod 600 .travis/k.key
-  && eval $(ssh-agent)
-  && ssh-add .travis/k.key
-- test $TRAVIS_BRANCH == "develop"
-  && test $TRAVIS_PULL_REQUEST = false
-  && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/amber-storm.git
-  && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH
-- test $TRAVIS_BRANCH != "develop"
-  && ./node_modules/.bin/bower install
-  && gulp build:dist
-  && cd dist
-  && npm install --prod --ignore-scripts
-  && cd $TRAVIS_BUILD_DIR
-  && tar -zcvf amber-storm-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
+- test $TRAVIS_PULL_REQUEST = false \
+  && echo -e "Host *.cloudapp.net\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config \
+  && openssl aes-256-cbc -K $encrypted_1d50cdfa274b_key -iv $encrypted_1d50cdfa274b_iv -in .travis/k.key.enc -out .travis/k.key -d \
+  && chmod 600 .travis/k.key \
+  && eval $(ssh-agent) \
+  && ssh-add .travis/k.key 
+- test $TRAVIS_BRANCH == "develop" \
+  && test $TRAVIS_PULL_REQUEST = false \
+  && git remote add deploy-server git@regexpress-test.cloudapp.net:/home/git/regexpress.git \
+  && git push --force deploy-server $TRAVIS_BRANCH:$TRAVIS_BRANCH 
+- test $TRAVIS_BRANCH != "develop" \
+  && ./node_modules/.bin/bower install \
+  && gulp build:dist \
+  && cd dist \
+  && npm install --prod --ignore-scripts \
+  && cd $TRAVIS_BUILD_DIR \
+  && tar -zcvf regexpress-$TRAVIS_BRANCH.tar.gz dist && export PRODBUILDCOMPLETE=true
 deploy:
   provider: releases
   api_key:
     secure: XTUX4TwgJfSFzGm46g8cDQbVBCaAIP7IVjKD5tquXvYfQaNLkUvEM3t1mjqXXADYHKWpDMj117meyVD8EJhilUOKCHnJq/9XCWhhbTXzDaTR/xl45/4CIb+GAKe4ZKv5JW4xpmjsc1o1AtyjwUHXGw2VUMlAo3FKv913267ZsSM= 
-  file: amber-storm-$TRAVIS_BRANCH.tar.gz
+  file: regexpress-$TRAVIS_BRANCH.tar.gz
   on:
     condition: $PRODBUILDCOMPLETE = true
-    repo: amber-storm/amber-storm
+    repo: RegExpress/regexpress
     all_branches: true
     tags: true
 after_deploy:
