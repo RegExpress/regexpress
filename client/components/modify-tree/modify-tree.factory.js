@@ -52,7 +52,7 @@
       };
 
       /*
-      * Removes a specific node from the regex tree
+      * Removes all nodes with idToRemove from the regex tree. Returns an array of removed nodes
       * idToRemove: the id of the node we want to remove
       * regexTree: the regex tree
       */ 
@@ -156,7 +156,9 @@
         if (parent.type === 'alternate') {
           //always add the new node at the end of the alternate chain
           if (parent.right.type === 'alternate') {
-            addNode(siblingId, parent.right.idNum, nodeToAdd, regexTree);
+            // siblingId doesn't matter at this point since we're always adding to end of alternate chain
+            // keeping siblingId can cause problems though, just use undefined
+            addNode(undefined, parent.right.idNum, nodeToAdd, regexTree);
             return;
           }
           var oldRight = parent.right;
