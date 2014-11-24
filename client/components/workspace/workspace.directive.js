@@ -3,18 +3,25 @@
 
   angular
     .module('baseApp')
-    .directive('placeWorkspace', placeWorkspace);
+    .directive('placeWorkspace', ['workspace', placeWorkspace]);
 
 
-  function placeWorkspace() {
+  function placeWorkspace(workspace) {
     return {
       restrict: "E",
       replace: false,
       templateUrl: 'components/workspace/workspace.template.html',
       link: function(scope, element, attrs) {
 
-        $('.library').on('mousedown', function(){
-          scope.main.nodeToAdd = {'type': 'start'};
+        function lookUpNodeType(nodeClass){
+          return workspace.getComponentNode(nodeClass);
+        }
+
+        $('.library').on('mousedown', function(event){
+          var nodeToAddClass = $(event.toElement).attr('class').split(' ')[0];
+          var node = lookUpNodeType(nodeToAddClass);
+          console.log('node to add', node);
+          scope.main.nodeToAdd = node;
         })
 
         $('.library').on('mouseup', function(){

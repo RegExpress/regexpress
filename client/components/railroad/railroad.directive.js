@@ -3,16 +3,16 @@
 
   angular
     .module('baseApp')
-    .directive('railroad', ['handlerHelpers', 'modifyTree', 'makeRR', 'workspace', railroad]);
+    .directive('railroad', ['handlerHelpers', 'modifyTree', 'makeRR', railroad]);
 
-  function railroad(handlerHelpers, modifyTree, makeRR, workspace) {
+  function railroad(handlerHelpers, modifyTree, makeRR) {
 
     return {
       restrict: "E",
       replace: true,
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
-
+        // comment all of these
         var item, itemID, location, oldClass, copy, top, left, text, nodeID;
 
         /*
@@ -129,7 +129,7 @@
               try {
                 modifyTree.addNode(leftSibID, parentID, node[i], scope.main.regexTree);
               } catch (err) { console.log ('err caught', err);}
-            };
+            }
           } else {
             try {
               modifyTree.addNode(leftSibID, parentID, node, scope.main.regexTree);
@@ -175,7 +175,7 @@
           var newVal = $('.textBox').val(); // Get contents of text box
 
           // Triggers modification of tree to insert new text
-          modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text);
+          modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text); // TODO figure out where the hell I'm using text, this only takes 3 arguments. FIX IT
           $('.textEdit').remove(); // removes the form
 
           // Update informative text and increments treeChanged counter to trigger re-rendering of diagram
@@ -188,7 +188,7 @@
         /*
         * Changes the width of the text form to fit the contents
         */
-        $('.work').on('keyup', '.textForm', function(){
+        $('.work').on('keyup', '.textForm', function(){ // change this to keydown TODO
           //check length of input, change width of input box to match contents
           var width = $('.textBox').val().split('').length * 8;
           $('.textBox').css('width', width);
@@ -198,7 +198,7 @@
         * Removes text form on mousedown unless the event is on the form itself
         */
         $('.work').on('mousedown', function(event){
-          if (text === undefined && $(event.target).attr('class') != 'textBox'){
+          if (text === undefined && $(event.target).attr('class') !== 'textBox'){
             $('.textEdit').remove();
             scope.$apply(function(){
               scope.main.info = handlerHelpers.building;
@@ -208,7 +208,7 @@
 
         /*
         * Handles mousedown over the railroad diagram.
-        * If the scope.main.mode model is set to "add", then a captured node
+        * If the scope.main.mode model is set to "add", then a captured node  /// TODO clarify after removal of scope.main.mode
         * from the workspace will be added to the target area.
         * if the model is not set to add and the user is clicking on a text area, prep for text editing.
         * Otherwise, the clicked diagram node will be prepared for dragging and possible removal
@@ -224,6 +224,7 @@
             // The user is not trying to change text. select the node to prepare for moving/removal
               selectNode(event);
               createCopy();
+              console.log('selecting node', item)
             }
           }
         });
@@ -238,7 +239,7 @@
         // Removed item from tree on mouseup if off the RR
         $('.work').on('mouseup', function(event) {
 
-          // If user is not trying to add any node, do nothing
+          // If user is not trying to add or remove any node, do nothing
           if (!scope.main.nodeToAdd && !item) {
             return;
           }

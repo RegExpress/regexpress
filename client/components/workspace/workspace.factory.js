@@ -7,7 +7,7 @@
     function workspace(){
 
       //holder text for elements that will look weird with nothing inside. just says 'abc'
-      var text = {'type': 'match', 'body': [{'type': 'literal', 'body': 'a'}, {'type': 'literal', 'body': 'b'}, {'type': 'literal', 'body': 'c'}]} 
+      var text = {'type': 'match', 'body': [{'type': 'literal', 'body': 'a'}, {'type': 'literal', 'body': 'b'}, {'type': 'literal', 'body': 'c'}]}
 
       //table of nodes for each individual type of component
       var componentTable = {
