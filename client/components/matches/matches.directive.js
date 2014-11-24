@@ -28,12 +28,15 @@
             // console.log(stuff, "stuff")
             var wordMatches = scope.main.matches[0].split(' ')
             var test = ["word", "stuff", "w"]
-            scope.$broadcast('matched changed');
-            if(wordMatches.length > 0) {
-              //call function
-              // highlight(wordMatches);
-
-            }
+            // scope.$broadcast('matched changed');
+            console.log(scope.main.regexp)
+            var regex = [];
+            regex.push('"' + scope.main.regexp + '"')
+            // console.log(regex)
+            $("#textarea").highlightTextarea({
+              words: test
+            })
+            console.log(wordMatches);
           } catch (err) {
             // console.log(err)
           }

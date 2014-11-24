@@ -16,10 +16,10 @@
 
           var wordMatches = scope.main.matches[0].split(' ')
           var test = ["llama", "boxes", "possums"]
-          console.log(wordMatches, Array.isArray(wordMatches), test, Array.isArray(test));
-          element.highlightTextarea({
-            words: wordMatches
-          })
+          console.log(scope.main.regexp)
+          // element.highlightTextarea({
+          //   words: wordMatches
+          // })
           // $('.highlighter mark').css("background-color", "red")
         })
       }
