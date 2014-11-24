@@ -18,7 +18,7 @@
         }
 
         $('.library').on('mousedown', function(event){
-          var nodeToAddClass = $(event.toElement).attr('class').split(' ')[0];
+          var nodeToAddClass = $(event.toElement).attr('id');
           var node = lookUpNodeType(nodeToAddClass);
           console.log('node to add', node);
           scope.main.nodeToAdd = node;
