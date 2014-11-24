@@ -29,6 +29,8 @@
         'repeating': {'type': 'quantified', 'body': text, 'quantifier': {'min': 1, 'max': Infinity}}
       };
 
+      // need: word-character, 
+
       /*
       * Returns the appropriate node for the given type
       * type: the type of node to return from the table
