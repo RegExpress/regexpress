@@ -24,9 +24,9 @@
         'non-word-boundary': {'type': 'non-word-boundary'},
         'text': text,
         'capture-group': {'type': 'capture-group', 'body': text},
-        'alternate': {'type': 'alternate', 'left': text, 'right': text},
-        'optional': {'type': 'quantified', 'body': text, 'quantifier': {'min': 0, 'max': 1}},
-        'repeating': {'type': 'quantified', 'body': text, 'quantifier': {'min': 1, 'max': Infinity}}
+        'alternate': {'type': 'capture-group', 'body': {'type': 'alternate', 'left': text, 'right': text}},
+        'optional': {'type': 'quantified', 'body': {'type': 'capture-group', 'body': text}, 'quantifier': {'min': 0, 'max': 1}},
+        'repeating': {'type': 'quantified', 'body': {'type': 'capture-group', 'body': text}, 'quantifier': {'min': 1, 'max': Infinity}}
       };
 
       /*
