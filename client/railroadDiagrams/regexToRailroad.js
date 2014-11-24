@@ -111,6 +111,9 @@ var rx2rr = function(node) {
       var quantifier = node.quantifier; 
       var min = quantifier.min; 
       var max = quantifier.max;
+      if(max === null){
+        max = Infinity;
+      }
       var body = rx2rr(node.body);
       if (!(min <= max)) {
         throw new Error("Minimum quantifier (" + min + ") must be lower than maximum quantifier (" + max + ")");
