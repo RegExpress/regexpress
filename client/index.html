@@ -11,18 +11,26 @@
   <!-- styles:css -->
   <link rel="stylesheet" href="styles/app.css">
   <!-- endinject -->
-<<<<<<< HEAD
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 
 </head>
 <!-- Main controller controls body of page -->
 <body ng-controller="MainController">
   <!-- end main controller element -->
+  <header class="app-bar promote-layer paper-toolbar paper-shadow">
+    <div class="app-bar-container paper-toolbar">
+      <h1 class="logo">RegExpress</h1>
+      <h4 class="subLogo">Demystifying regular expressions</h4>
+    </div>
+  </header>
 
-  <div>
-    <h1 class="logo">RegExpress</h1>
-    <h4 class="sublogo">Demystifying regular expressions</h4>
-  </div>
+  <br><br><br>
+
+  <div class="test">
+    <!-- test string model -->
+    <center><div class="row">
+      <input id="textarea" label="Test String" ng-model="main.string" placeholder="Write your text here"></input>
+    </div></center>
 
   <!-- updates the regexp model  -->
   <div><track-matches/></div>
