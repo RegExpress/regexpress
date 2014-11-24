@@ -5,56 +5,45 @@
   <title>RegExpress</title>
   <!-- build:css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/jquery-highlighttextarea/jquery.highlighttextarea.css" />
+  <link rel='stylesheet' href='bower_components/jquery-highlighttextarea/jquery.highlighttextarea.css' />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- styles:css -->
   <link rel="stylesheet" href="styles/app.css">
   <!-- endinject -->
+  <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
   
 </head>
 <!-- Main controller controls body of page -->
 <body ng-controller="MainController">
   <!-- end main controller element -->
   
-  <header class="app-bar promote-layer paper-toolbar paper-shadow">
-    <div class="app-bar-container paper-toolbar">
-      <h1 class="logo">RegExpress</h1>
-      <h4 class="subLogo">Demystifying regular expressions</h4>
-    </div>
-  </header>
-  
-  <br><br><br>
-  
-  <div class="test">
-    <!-- test string model -->
-    <center><div class="row">
-      <input id="textarea" label="Test String" ng-model="main.string" placeholder="Write your text here"></input>
-    </div></center>
-    
-    <div><track-matches/></div>
-    
-    <!-- <input type="text" ng-model="addObject"> -->
-    <!-- <input type="button" value="add object" ng-click="callAdd()"> -->
-    
-    <!-- regex directive -->
-    <div><track-regex/></div>
-    
+  <div>
+    <h1 class="logo">RegExpress</h1>
+    <h4 class="sublogo">Demystifying regular expressions</h4>
   </div>
+
+  <!-- updates the regexp model  -->
+  <div><track-matches/></div>
   
-  
+  <!-- regex directive -->
+  <div><track-regex/></div>
+
   <!-- This is the second element of the page, the workspace-->
-  
   <div class="work">
+    <div class="informativeText">{{ main.info }}</div>
+    <!-- <h3>Workspace</h3> -->
     <!-- input boxes allows the user to change $scope variables to make regex -->
     <form style="padding: 20px;">
-      <div>
-        <input placeholder="Write a regex" ng-model="main.regexBody"></input>
-        <input placeholder="Tags" ng-model="main.regexTags"></input>
+      <div class="regex-input-container">
+        <span class="regex-slash">/</span>
+        <input placeholder="Write a regex" class="regex-input regex" ng-model="main.regexBody"></input>
+        <span class="regex-slash">/</span>
+        <input placeholder="flag" class="regex-input flag" ng-model="main.regexTags"></input>
+        <textarea label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
       </div>
     </form>
     
-    <div class="informativeText">{{ main.info }}</div>
     <!-- Railroad directive. Most of the magic happens here -->
     <div><center><railroad/></center></div>
     <!-- this tree to input directive is not currently visible on the page -->
@@ -62,8 +51,13 @@
     </div>
     
     <!-- <div class="container"> -->
+<<<<<<< HEAD
     <div class="container">
 
+=======
+    <div class="library-container">
+      <h3>Component Library</h3>
+>>>>>>> CSS & HTML refactor
       <!-- Workspace directive -->
       <place-workspace></place-workspace>
     </div>

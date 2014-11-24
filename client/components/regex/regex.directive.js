@@ -17,7 +17,6 @@
           try {
             scope.main.regexp = new RegExp(newValues[0], newValues[1]);
             element.empty();
-            element.append('<div>' + scope.main.regexp + '</div>');
           } catch (err) {
           }
         });

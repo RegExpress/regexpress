@@ -16,7 +16,7 @@
           try {
             scope.main.matches = scope.main.string.match(scope.main.regexp);
             element.empty();
-            element.append('<p>' + scope.main.matches + '</p>');
+            // element.append('<p>' + scope.main.matches + '</p>');
             // console.log(stuff, "stuff")
             var wordMatches = scope.main.matches[0].split(' ')
             var test = ["word", "stuff"]
