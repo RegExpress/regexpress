@@ -1,7 +1,7 @@
 {
-  "name": "amber-storm",
+  "name": "regexpress",
   "version": "0.1.0",
-  "description": "Albrey's bicep",
+  "description": "Drag and Drop Regex",
   "main": "server.js",
   "scripts": {
     "test": "gulp test",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TessMyers/amber-storm.git"
+    "url": "https://github.com/RegExpress/regexpress.git"
   },
   "author": "tmyers <tcymyers@gmail.com> (http://www.tessmyers.com/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TessMyers/amber-storm/issues"
+    "url": "https://github.com/RegExpress/regexpress/issues"
   },
-  "homepage": "https://github.com/TessMyers/amber-storm",
+  "homepage": "https://github.com/RegExpress/regexpress",
   "dependencies": {
     "bower": "^1.3.12",
     "express": "^4.10.1",

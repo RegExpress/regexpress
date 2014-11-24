@@ -275,7 +275,7 @@ function copyServer() {
 // Move all of our bower files over to dist
 //======================================
 function bowerFilesDist() {
-  return $.bower(paths.bower)
+  return $.bower()
   .pipe(gulp.dest(dist.bower));
 }
 
