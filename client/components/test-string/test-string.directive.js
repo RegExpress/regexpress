@@ -13,14 +13,13 @@
       replace: true,
       link: function(scope, element, attrs) {
         scope.$on('matched changed', function(data){
-
+          console.log(data)
           var wordMatches = scope.main.matches[0].split(' ')
           var test = ["llama", "boxes", "possums"]
           console.log(scope.main.regexp)
-          // element.highlightTextarea({
-          //   words: wordMatches
-          // })
-          // $('.highlighter mark').css("background-color", "red")
+          element.highlightTextarea({
+            words: test
+          })
         })
       }
     }
