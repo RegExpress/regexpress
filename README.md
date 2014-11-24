@@ -1,4 +1,4 @@
-# Amber Storm [![Build Status](https://travis-ci.org/amber-storm/amber-storm.svg)](https://travis-ci.org/amber-storm/amber-storm)
+# RegExpress [![Build Status](https://travis-ci.org/RegExpress/regexpress.svg)](https://travis-ci.org/RegExpress/regexpress)
 
 ## Team
 
@@ -43,7 +43,7 @@ Make sure you have `gulp` and `bower` installed.
 
 ### Roadmap
 
-View the project roadmap [here](https://github.com/amber-storm/amber-storm/issues)
+View the project roadmap [here](https://github.com/RegExpress/regexpress/issues)
 
 
 ## Contributing
