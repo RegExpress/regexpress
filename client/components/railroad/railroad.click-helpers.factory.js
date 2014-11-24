@@ -50,8 +50,15 @@
       }
 
       function isOverSelf(event, itemID) {
-        var targetID = $(checkUnderCopy(event).elem).closest('g').attr('id');
-        return targetID === itemID ? true : false;
+        var target = checkUnderCopy(event).elem;
+        var targetID = $(target).closest('g').attr('id');
+        var nextId = $(target).next('g').attr('id');
+        var prevId = $(target).prev('g').attr('id');
+        if(itemID === targetID || itemID === nextId || itemID === prevId){
+          return true;
+        }
+        return false;
+        // return targetID === itemID ? true : false;
       }
 
       return {
