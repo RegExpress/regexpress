@@ -14,14 +14,13 @@
         // watches for changes in regex, creates matched string and appends to DOM
 
         scope.$watchGroup(['main.regexp', 'main.string'], function(newVal, oldVal){
-          var $textarea = $('#textarea');
+          var $textarea = $('.test-text');
 
           scope.$emit('matched changed');
           try {
             scope.main.matches = scope.main.string.match(scope.main.regexp);
             element.empty();
             // element.append('<p>' + scope.main.matches + '</p>');
-            // console.log(stuff, "stuff")
             var wordMatches = scope.main.matches[0].split(' ')
             var test = ["word", "stuff", "w"]
             scope.$broadcast('matched changed');
@@ -29,9 +28,9 @@
             var regex = [];
             regex.push('"' + scope.main.regexp + '"')
             // console.log(regex)
-            $("#textarea").highlightTextarea({
-              words: test
-            })
+            // $textarea.highlightTextarea({
+            //   words: wordMatches
+            // })
             // console.log(wordMatches);
           } catch (err) {
             // console.log(err)
