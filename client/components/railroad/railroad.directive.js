@@ -43,8 +43,10 @@
         * "itemID" as the uinque id of the node to be removed.
         */
         function selectNode(event){
-          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character ');
+          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character, .word-boundary ');
+
           itemID = item.attr('id');
+          console.log('item',  item)
         }
 
         /*
@@ -230,7 +232,7 @@
         });
 
         /*
-        * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging off.
+        * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging to the trash can.
         * Checks the location of the mouse on mouseup.  If the mouse is off the railroad diagram, the captured item is removed. If the mouse is
         * in the  original pick-up spot, the copy is removed, the diagram is reverted back to normal and no changes are made. If the mouse is
         * over a valid drop target location, the selected node is added there.
@@ -253,21 +255,24 @@
           // for testing purposes
           var overValidTarget = true; // TODO set up a checkIfOverValid target setup, possibly in tandem with findRelatives
 
-          // If off the railroad, remove selected node
-          if (over.class === 'RR' || over.class === 'undefined' || over.class === 'work') {
+          // If over trash, remove selected node
+          if (over.id === 'trash') {
             callRemoveNode(intID);
             scope.main.nodeToAdd = undefined;
             // drop workshop clone here?
 
-          } else if ( !scope.main.nodeToAdd && overSelf ) {
+          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'RR-dir' || over.class === 'undefined' ) {
+            console.log('dropped');
             // un-gray the dropped item, add back old class
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
 
           } else if ( overValidTarget ) {
-            var targetLocation = findRelatives(event); // an object containing the parent and left sibling ID's of location to add to
+            var targetLocation = findRelatives(event); // an object containing the parent and left sibling IDs of location to add to
+
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
+              console.log('adding a node from RR')
               //removes picked up node from tree, returns the removed tree node
               var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
               // adds in removed node(s) to new location
