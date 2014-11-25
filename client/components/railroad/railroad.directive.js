@@ -53,18 +53,22 @@
         */
         function createCopy(){
           // Create clone of the current item
+
           copy = $(item).clone()
-            .attr('fill', 'black')
+            // .attr('fill', 'black')
             .wrap('<svg class="copy" style="position: absolute;"></svg>')
             .parent();
 
           // Appends the clone to the DOM
           $('.work').append(copy);
+          console.log($(copy))
+
+          // $('.literal').last().css('-webkit-transform', 'translate(-78px,-53px)')
 
           // Determines the offset of the rect (diagram node image) from the wrapping svg, calculates halfway point
-          var target = $(copy).find('rect');
-          top = ($(target).position().top) - 5;// + ($(target).attr('height')/2);
-          left = ($(target).position().left) - 5;// + ($(target).attr('width')/2);
+          // var target = $(copy).find('rect');
+          // top = ($(target).position().top) - 5;// + ($(target).attr('height')/2);
+          // left = ($(target).position().left) - 5;// + ($(target).attr('width')/2);
 
           // Sets the top and left coords of the clone to appear under the mouse
           $(copy).css({
@@ -282,7 +286,7 @@
             }
           }
           // remove the copy that's probably still floating around
-          $(copy).remove();
+          // $(copy).remove();
           text = undefined;
           scope.main.nodeToAdd = undefined;
         });
@@ -292,16 +296,16 @@
         */
         $('.work').on('mousemove', function(event){
           if (item && copy) {
-            $(copy).css({
-              top:  event.pageY + 50,// - top,
-              left: event.pageX + 50//- left
-            })
+            // $(copy).css({
+            //   top:  event.pageY + 5,// - top,
+            //   left: event.pageX + 5//- left
+            // })
           }
         })
 
         // Becaue :hover does not activate during a drag, these mousemove and mouseout functions must be used to create the highlighting effect
         $('.work').on('mousemove', 'rect, g.match > path, g.literal-sequence > path', function(){
-          this.style.stroke = 'red'
+          this.style.stroke = '#E45F56'
         })
         $('.work').on('mouseout', 'rect, g.match > path, g.literal-sequence > path', function(){
           this.style.stroke = 'black'
