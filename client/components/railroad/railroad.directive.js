@@ -53,9 +53,7 @@
         */
         function createCopy(){
           // Create clone of the current item
-
           copy = $(item).clone()
-            // .attr('fill', 'black')
             .wrap('<svg class="copy" style="position: absolute;"></svg>')
             .parent();
 
@@ -63,12 +61,9 @@
           $('.work').append(copy);
           console.log($(copy))
 
-          // $('.literal').last().css('-webkit-transform', 'translate(-78px,-53px)')
-
-          // Determines the offset of the rect (diagram node image) from the wrapping svg, calculates halfway point
-          // var target = $(copy).find('rect');
-          // top = ($(target).position().top) - 5;// + ($(target).attr('height')/2);
-          // left = ($(target).position().left) - 5;// + ($(target).attr('width')/2);
+          // Gets the Bounding Box of node SVG and remove offset from parent SVG.
+          var BBox = $(copy).context.getBBox();
+          $(copy).children('g').css('-webkit-transform', 'translate(-'+ (BBox.x -2) +'px,-'+ (BBox.y -2) +'px)')
 
           // Sets the top and left coords of the clone to appear under the mouse
           $(copy).css({
@@ -286,7 +281,7 @@
             }
           }
           // remove the copy that's probably still floating around
-          // $(copy).remove();
+          $(copy).remove();
           text = undefined;
           scope.main.nodeToAdd = undefined;
         });
@@ -296,10 +291,10 @@
         */
         $('.work').on('mousemove', function(event){
           if (item && copy) {
-            // $(copy).css({
-            //   top:  event.pageY + 5,// - top,
-            //   left: event.pageX + 5//- left
-            // })
+            $(copy).css({
+              top:  event.pageY + 5,// - top,
+              left: event.pageX + 5//- left
+            })
           }
         })
 
@@ -310,8 +305,6 @@
         $('.work').on('mouseout', 'rect, g.match > path, g.literal-sequence > path', function(){
           this.style.stroke = 'black'
         })
-
-
       }
     }
   }
