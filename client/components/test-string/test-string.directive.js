@@ -9,13 +9,18 @@
 // we probably do not need this any more, here for posterity
   function testString() {
     return {
-      restrict: "E",
+      restrict: "A",
       replace: true,
-      template: '<div>HEY NOW<div>ok</div></div>',
       link: function(scope, element, attrs) {
-        element.on('click', function(event){
-
-        });
+        scope.$on('matched changed', function(data){
+          console.log(data)
+          var wordMatches = scope.main.matches[0].split(' ')
+          var test = ["llama", "boxes", "possums"]
+          console.log(scope.main.regexp)
+          element.highlightTextarea({
+            words: test
+          })
+        })
       }
     }
   }
