@@ -37,7 +37,7 @@
               left: event.pageX+5
             });
 
-          $('.container').append(clone);
+          $('.library-container').append(clone);
         })
 
         $('body').on('mousemove', function(){
