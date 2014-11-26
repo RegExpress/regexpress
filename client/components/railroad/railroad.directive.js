@@ -43,7 +43,7 @@
         * "itemID" as the uinque id of the node to be removed.
         */
         function selectNode(event){
-          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space ');
+          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character ');
           itemID = item.attr('id');
         }
 
