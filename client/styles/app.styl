@@ -79,6 +79,7 @@ input:focus, textarea:focus
   .flag
     width 10%
   .test-text
+    display: inline
     width: 50%
     margin-top 10px
 
@@ -96,33 +97,42 @@ p.instruct
   color: black
 
 .test
-
   height: 10vh
   color #ccc
   text-align: center
   padding: 20px
   margin-left: auto
+  
 .work
   border-top 2px solid color4
   color #ccc
-  height 38vh
   padding: 5px
 
+.library-container
+  border-radius 10px
+  margin 10px
+  padding-top 5px
+  background-color #292929
+  text-align center
+  min-height 20%
+  overflow auto
+  
 .library
   color #ccc
-  height 35vh
   display table
-  overflow-y scroll
+  
 .cell
   display table-cell
   width 33.333vw
-  // border 2px solid color4
+  
 .teststring
   margin 0px auto 0 auto
   width 400px
   height 20px
+  
 .RR-dir
   display inline-block
+  
 .informativeText
   position absolute
   float left
@@ -185,7 +195,6 @@ h3
   border-radius 10px
 
 span.question {
-  // background-image url('assets/question.png')
   cursor: pointer;
   display: inline-block;
   width: 20px;
@@ -202,12 +211,6 @@ span.question {
   position: relative;
 }
 
-.Q
-  background-image url('../assets/question.png')
-  background-size contain
-  height 40px
-  width 40px
-
 span.question:hover { background-color: robinEgg; }
 
 span div.tooltip {
@@ -221,6 +224,7 @@ span div.tooltip {
   width: 250px;
   border-radius: 5px;
 }
+
 span.question.question-regextest
   top -10px
 
