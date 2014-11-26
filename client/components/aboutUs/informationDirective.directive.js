@@ -23,7 +23,6 @@
             $(module).animate({height: shownHeight});
           }
         }
-
         $('.aboutUs').on('click', function(){
           toggleHeight('#aboutUsHidden');
         })
