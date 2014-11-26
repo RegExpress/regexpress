@@ -125,7 +125,9 @@
         */
         function addNode(leftSibID, parentID, node) {
           if (Array.isArray(node)) {
-            for (var i = 0; i < node.length; i++) {
+            //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
+            //starts at the end of the array and runs to front
+            for (var i = node.length-1; i >= 0; i--) {
               try {
                 modifyTree.addNode(leftSibID, parentID, node[i], scope.main.regexTree);
               } catch (err) { console.log ('err caught', err);}
@@ -237,7 +239,6 @@
 
         // Removed item from tree on mouseup if off the RR
         $('.work').on('mouseup', function(event) {
-
           // If user is not trying to add or remove any node, do nothing
           if (!scope.main.nodeToAdd && !item) {
             return;
@@ -266,7 +267,6 @@
 
           } else if ( overValidTarget ) {
             var targetLocation = findRelatives(event); // an object containing the parent and left sibling ID's of location to add to
-
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
               //removes picked up node from tree, returns the removed tree node
