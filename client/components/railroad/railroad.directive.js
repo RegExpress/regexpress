@@ -13,12 +13,13 @@
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
         // comment all of these
-        var item, itemID, location, oldClass, copy, top, left, text, nodeID;
+        var item, itemID, location, oldClass, copy, top, left, text, nodeID, saveTree;
 
         /*
         * Watches the regexp model and re-renders the tree whenever the regexp changes. The scope.main.treeChanged model is incremented to indicate a finished tree change, since the tree itself cannot be watched easily.
         */
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
+          // scope.main.savedRegexTree = scope.main.regexTree;
           scope.main.regexTree = parseRegex(scope.main.regexp);
           scope.main.treeChanged++;
         });
@@ -83,9 +84,12 @@
         */
         function callRemoveNode(intID){
           try {
+            // save the old tree before changing
+            saveTree = scope.main.regexTree;
             modifyTree.removeNode(intID, scope.main.regexTree);
             // $apply must be used to register incrementation of the treeChanged model
             scope.$apply(function(){
+              scope.main.regexTree = saveTree;
               scope.main.treeChanged++;
             });
           } catch (err) {
@@ -130,6 +134,7 @@
         * Takes an array of nodes or a single node and adds to the tree in the location specified by the parent and left sibling IDs
         */
         function addNode(leftSibID, parentID, node) {
+          saveTree = scope.main.regexTree;
           if (Array.isArray(node)) {
             //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
             //starts at the end of the array and runs to front
@@ -145,6 +150,7 @@
           }
           // trigger tree change to re-render diagram
           scope.$apply(function(){
+            scope.main.savedRegexTree = saveTree;
             scope.main.treeChanged++;
           });
         }
@@ -179,6 +185,7 @@
         */
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
+          saveTree = scope.main.regexTree;
 
           var newVal = $('.textBox').val(); // Get contents of text box
 
@@ -188,6 +195,7 @@
 
           // Update informative text and increments treeChanged counter to trigger re-rendering of diagram
           scope.$apply(function(){
+            scope.main.savedRegexTree = saveTree;
             scope.main.info = handlerHelpers.building;
             scope.main.treeChanged++;
           });
