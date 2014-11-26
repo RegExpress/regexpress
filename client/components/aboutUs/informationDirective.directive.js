@@ -13,22 +13,31 @@
       template: '<div></div>',
       link: function(scope, element, attrs) {
 
-        function toggleHeight(module){
-          var hiddenHeight = 0;
-          var shownHeight = 500;
+        var currentWidth;
 
-          if ($(module).css('height') === shownHeight + 'px') {
-            $(module).animate({height: hiddenHeight});
+        function toggleIt(module, attribute, expanded, collapsed){
+          var obj = {};
+          if ($(module).css(attribute) === expanded + 'px') {
+            obj[attribute] = collapsed;
           } else {
-            $(module).animate({height: shownHeight});
+            obj[attribute] = expanded;
           }
+          $(module).animate(obj, {queue: false});
         }
+
         $('#aboutClick').on('click', function(){
-          toggleHeight('#aboutUsHidden');
+          toggleIt('#aboutUsHidden', 'height', 500, 0);
         })
 
         $('#howClick').on('click', function(){
-          toggleHeight('#howDoesItHidden');
+          toggleIt('#howDoesItHidden', 'height', 600, 0);
+          if (!currentWidth) {
+            currentWidth = parseInt($('#howDoesItHidden').css('width').slice(0,-2));
+          }
+          toggleIt('#howClick', 'width', 450, currentWidth);
+          toggleIt('#howDoesItHidden', 'width', 450, currentWidth);
+          $('#explanation').show();
+
         })
       }
     }
