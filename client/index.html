@@ -62,22 +62,22 @@
         <br>
         <center>
         <span class="question question-regextest">?</span>
-        <textarea style="display: inline; width: 90%" testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
+        <textarea testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
         </center>
       </div>
     </form>
 
-    <div id="undo" style="display: inline-block">UNDO</div>
     <span class="question question-railroad">?</span>
     <!-- Railroad directive. Most of the magic happens here -->
     <div class="railroad-directive">
       <railroad/>
     </div>
     <img id="trash" src="assets/trash.png"></img>
+    <div id="undo">UNDO</div>
 
     <!-- this tree to input directive is not currently visible on the page -->
     <div><tree-to-input></div>
-    </div>
+  </div>
 
     <!-- <div class="container"> -->
 
@@ -105,18 +105,18 @@
     <script src="bundle/bundle.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
-    <script src="components/matches/matches.directive.js"></script>
     <script src="components/aboutUs/informationDirective.directive.js"></script>
+    <script src="components/matches/matches.directive.js"></script>
+    <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
     <script src="components/railroad/railroad.service.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
-    <script src="components/modify-tree/modify-tree.factory.js"></script>
+    <script src="components/tool-tips/tooltips.js"></script>
     <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
-    <script src="components/tool-tips/tooltips.js"></script>
     <!-- endinject -->
   </body>
   </html>
