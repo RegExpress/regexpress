@@ -252,8 +252,12 @@
 
           // Check location of mouse event. Returns an object with class and id attributes
           var intID = parseInt(itemID);
-          var over = handlerHelpers.checkUnderCopy(event);
 
+          var overElem = event.toElement;
+          var over = {
+            class: $(overElem).attr('class'),
+            id: $(overElem).attr('id')
+          }
           // bug: if user clicks on text to edit, it removes the whole selected node. Re assign item better.
           var overSelf = handlerHelpers.isOverSelf(event, itemID);
 
@@ -262,13 +266,11 @@
 
           // If over trash, remove selected node
           if (over.id === 'trash') {
-            console.log()
             callRemoveNode(intID);
             scope.main.nodeToAdd = undefined;
             // drop workshop clone here?
 
-          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'RR-dir' || over.class === 'undefined' ) {
-            console.log('dropped');
+          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'work' || over.class === 'ng-pristine ng-valid' || over.class === 'RR') {
             // un-gray the dropped item, add back old class
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
@@ -278,7 +280,6 @@
 
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
-              console.log('adding a node from RR')
               //removes picked up node from tree, returns the removed tree node
               var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
               // adds in removed node(s) to new location
