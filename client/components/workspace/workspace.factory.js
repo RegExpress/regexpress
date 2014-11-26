@@ -7,7 +7,7 @@
     function workspace(){
 
       //holder text for elements that will look weird with nothing inside. says "<text here>"
-      var text = {'type': 'match', 'body': [{'type': 'literal', 'body': '<'},{'type': 'literal', 'body': 't'}, {'type': 'literal', 'body': 'e'}, {'type': 'literal', 'body': 'x'},{'type': 'literal', 'body': 't'},{'type': 'literal', 'body': ' '},{'type': 'literal', 'body': 'h'},{'type': 'literal', 'body': 'e'},{'type': 'literal', 'body': 'r'},{'type': 'literal', 'body': 'e'},{'type': 'literal', 'body': '>'}]}
+      var text = '{"type": "match", "body": [{"type": "literal", "body": "<"}, {"type": "literal", "body": "t"}, {"type": "literal", "body": "e"},{"type": "literal", "body": "x"},{"type": "literal", "body": "t"},{"type": "literal", "body": " "},{"type": "literal", "body": "h"},{"type": "literal", "body": "e"},{"type": "literal", "body": "r"},{"type": "literal", "body": "e"},{"type": "literal", "body": ">"}]}';
 
 
       /*

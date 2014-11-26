@@ -107,8 +107,15 @@
           // The node that contains the text to change
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML; // The current text in the diagram node
+          var valOrPlaceHolder = 'value'
+
+          if (text === '&lt;text here&gt;') {
+            console.log('valOrPlaceHolder reassigned')
+            valOrPlaceHolder = 'placeholder'
+          }
+
           var width = text.split('').length * 7;
-          var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" value="'+ text +'" autofocus></input></form></div>';
+          var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" '+ valOrPlaceHolder +'="'+ text +'" autofocus></input></form></div>';
 
           $('.work').append(textBox);
 
