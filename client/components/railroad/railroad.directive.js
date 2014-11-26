@@ -46,7 +46,6 @@
           item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character, .word-boundary ');
 
           itemID = item.attr('id');
-          console.log('item',  item)
         }
 
         /*
@@ -61,7 +60,6 @@
 
           // Appends the clone to the DOM
           $('.work').append(copy);
-          console.log($(copy))
 
           // Gets the Bounding Box of node SVG and remove offset from parent SVG.
           var BBox = $(copy).context.getBBox();
@@ -107,14 +105,14 @@
           // The node that contains the text to change
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML; // The current text in the diagram node
-          var valOrPlaceHolder = 'value'
 
+          // if the text in the node is default text, then initialize the text input box with a placeholder rather than a value attribute
+          var valOrPlaceHolder = 'value';
           if (text === '&lt;text here&gt;') {
-            console.log('valOrPlaceHolder reassigned')
-            valOrPlaceHolder = 'placeholder'
+            valOrPlaceHolder = 'placeholder';
           }
 
-          var width = text.split('').length * 7;
+          var width = text.split('').length * 10;
           var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" '+ valOrPlaceHolder +'="'+ text +'" autofocus></input></form></div>';
 
           $('.work').append(textBox);
@@ -200,7 +198,7 @@
         */
         $('.work').on('keydown', '.textForm', function(){
           //check length of input, change width of input box to match contents
-          var width = $('.textBox').val().split('').length * 8;
+          var width = $('.textBox').val().split('').length * 10;
           $('.textBox').css('width', width);
         })
 
@@ -264,6 +262,7 @@
 
           // If over trash, remove selected node
           if (over.id === 'trash') {
+            console.log()
             callRemoveNode(intID);
             scope.main.nodeToAdd = undefined;
             // drop workshop clone here?

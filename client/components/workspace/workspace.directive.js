@@ -20,7 +20,6 @@
         $('.library').on('mousedown', function(event){
           var nodeToAddType = $(event.toElement).attr('id'); // node type is contained in ID of library components
           var node = lookUpNodeType(nodeToAddType);
-          console.log('node to add', node);
           scope.main.nodeToAdd = node;
         })
 
