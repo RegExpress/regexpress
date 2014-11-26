@@ -62,7 +62,7 @@ input:focus, textarea:focus
 
 .hidden
   background-color lightTan
-  opacity 0.9
+  color: slate
 
 .regex-input-container
   width 40%
@@ -130,6 +130,7 @@ p.instruct
   padding-top 25px
   text-align center
   font-size: 12px
+  z-index: -1
 
 .ghost
   stroke gray
@@ -173,6 +174,7 @@ h3
   border-radius 10px
 
 span.question {
+  // background-image url('assets/question.png')
   cursor: pointer;
   display: inline-block;
   width: 16px;
@@ -186,7 +188,15 @@ span.question {
   text-align: center;
   position: relative;
 }
-span.question:hover { background-color: robinEgg; }
+
+.Q
+  background-image url('../assets/question.png')
+  background-size contain
+  height 40px
+  width 40px
+
+span.question:hover { background-color: #3D6199; }
+
 div.tooltip {
   background-color: robinEgg;
   color: White;
@@ -199,7 +209,7 @@ div.tooltip {
 }
 span.question.question-regextest
   top -10px
-  
+
 span.question.question-railroad
   top -25px
 
@@ -208,4 +218,14 @@ div.tooltip p {
   color: White;
 }
 
-  
+.bio
+  height 20%
+  margin 1px
+  color slate
+
+.headshots
+  display inline-block
+  float left
+  margin-left 20px
+  max-width 90%
+  max-height 90%
