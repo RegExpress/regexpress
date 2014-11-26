@@ -247,65 +247,63 @@
 
         /*
         * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging to the trash can.
-        * Checks the location of the mouse on mouseup.  If the mouse is off the railroad diagram, the captured item is removed. If the mouse is
-        * in the  original pick-up spot, the copy is removed, the diagram is reverted back to normal and no changes are made. If the mouse is
-        * over a valid drop target location, the selected node is added there.
+        * Checks the location of the mouse on mouseup.  If the mouse is over a valid drop target location, the selected node is added there.
+        * If the mouse is over the trash can, the selected node is removed. If the mouse is anywhere else, the copy is removed, the diagram is 
+        * reverted back to normal and no changes are made.
         */
 
-        // Removed item from tree on mouseup if off the RR
         $('.work').on('mouseup', function(event) {
-          // If user is not trying to add or remove any node, do nothing
+          // If user is not trying to add or move/remove a node, do nothing
           if (!scope.main.nodeToAdd && !item) {
             return;
           }
 
-          // Check location of mouse event. Returns an object with class and id attributes
-          var intID = parseInt(itemID);
+          var intID = parseInt(itemID); // Convert the saved itemID into an integer
 
+          // Check location of mouse event. Creates an object with class and id attributes
           var overElem = event.toElement;
           var over = {
             class: $(overElem).attr('class'),
             id: $(overElem).attr('id')
           }
-          // bug: if user clicks on text to edit, it removes the whole selected node. Re assign item better.
-          var overSelf = handlerHelpers.isOverSelf(event, itemID);
-
-          // for testing purposes
+          // bug: if user clicks on node for text to edit, it removes the whole selected node. Re assign item better.  
+          var overSelf = handlerHelpers.isOverSelf(event, itemID); // true if you are over the selected node, or next to it on the railroad (NOT 100% WORKING)
           var overValidTarget = true; // TODO set up a checkIfOverValid target setup, possibly in tandem with findRelatives
 
           // If over trash, remove selected node
           if (over.id === 'trash') {
             callRemoveNode(intID);
-            scope.main.nodeToAdd = undefined;
-            // drop workshop clone here?
-
-          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'work' || over.class === 'ng-pristine ng-valid' || over.class === 'RR') {
-            // un-gray the dropped item, add back old class
+            
+          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'ng-pristine ng-valid' || 
+            over.class === 'question question-regextest' || over.class === 'question question-railroad' || 
+            over.class === 'question question-regexinput' || over.class === 'test-text ng-pristine ng-untouched ng-valid' ||
+            over.class === 'regex-input regex ng-pristine ng-untouched ng-valid' || 
+            over.class === 'regex-input flag ng-pristine ng-untouched ng-valid' ||
+            over.class === 'regex-slash' || over.class === 'start' || over.class === 'end' ||
+            over.class === 'RR' || over.class === 'railroad-diagram' || over.class === 'work') {
+            // if we drop the item anywhere in the workspace that's not the trashcan or railroad, put the selected item back in it's original spot
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
 
           } else if ( overValidTarget ) {
             var targetLocation = findRelatives(event); // an object containing the parent and left sibling IDs of location to add to
 
-            // If adding not adding a node from the library, move currently selected node
+            // If not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
               saveTree = scope.main.regexTree;
-              //removes picked up node from tree, returns the removed tree node
-              var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
-              // adds in removed node(s) to new location
-              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray, saveTree);
-              item = undefined;
-
+              var removedArray = modifyTree.removeNode(intID, scope.main.regexTree); //removes picked up node from tree, returns removed node(s)
+              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray); //adds in removed node(s) to new location
             } else {
-              // add new node from library and reset scope.main.nodeToAdd
-              addNode(targetLocation.leftSibID, targetLocation.parentID, scope.main.nodeToAdd);
-              scope.main.nodeToAdd = undefined;
+              addNode(targetLocation.leftSibID, targetLocation.parentID, scope.main.nodeToAdd); //add new node from library
             }
           }
-          // remove the copy that's probably still floating around
+
+          // remove the copy that's probably still floating around and clear all holder variables
           $(copy).remove();
           text = undefined;
           scope.main.nodeToAdd = undefined;
+          itemID = undefined;
+          item = undefined;
         });
 
         /*
