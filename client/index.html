@@ -23,7 +23,6 @@
   <div class="header">
     <h1 class="logo">RegExpress</h1>
     <h4 class="sublogo">Demystifying regular expressions</h4>
-    <span class="question question-about" >?</span>
   </div>
   <div class="howDoesItWork" id="howDoesItHidden"></div>
   <div class="howDoesItWork">How does it work?</div>
@@ -46,6 +45,7 @@
         <input placeholder="Write a regex" class="regex-input regex" ng-model="main.regexBody"></input>
         <span class="regex-slash">/</span>
         <input placeholder="flag" class="regex-input flag" ng-model="main.regexTags"></input>
+        <br>
         <span class="question question-regextest">?</span>
         <textarea style="display: inline;" testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
       </div>
@@ -65,8 +65,8 @@
     <!-- <div class="container"> -->
 
     <div class="library-container">
-      <span class="question question-library">?</span>
-      <h3>Component Library</h3>
+        <span class="question question-library">?</span> 
+        <h3>Component Library</h3>
       <!-- Workspace directive -->
       <place-workspace></place-workspace>
     </div>
