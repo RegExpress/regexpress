@@ -63,7 +63,7 @@ describe('Workspace', function() {
 
     describe('handles groups\n', function(){
       it('should support match and capture-group objects', function(){
-        expect(JSON.stringify(text)).toEqual('{"type":"match","body":[{"type":"literal","body":"a"},{"type":"literal","body":"b"},{"type":"literal","body":"c"}]}');
+        expect(JSON.stringify(text)).toEqual('{"type":"match","body":[{"type":"literal","body":"<"},{"type":"literal","body":"t"},{"type":"literal","body":"e"},{"type":"literal","body":"x"},{"type":"literal","body":"t"},{"type":"literal","body":"_"},{"type":"literal","body":"h"},{"type":"literal","body":"e"},{"type":"literal","body":"r"},{"type":"literal","body":"e"},{"type":"literal","body":">"}]}');
         var captureGroup = workspace.getComponentNode('capture-group');
         expect(JSON.stringify(captureGroup)).toEqual('{"type":"capture-group","body":' + JSON.stringify(text) + '}');
       });
