@@ -19,7 +19,6 @@
         * Watches the regexp model and re-renders the tree whenever the regexp changes. The scope.main.treeChanged model is incremented to indicate a finished tree change, since the tree itself cannot be watched easily.
         */
         scope.$watch('main.regexp', function(newVal, oldVal, scope){
-          // scope.main.savedRegexTree = scope.main.regexTree;
           scope.main.regexTree = parseRegex(scope.main.regexp);
           scope.main.treeChanged++;
         });
@@ -30,6 +29,8 @@
         * re-render the diagram once at the end of the tree change, and therefore a counter is $watched instead.
         */
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
+          console.log('tree has changed', scope.main.regexTree);
+
           var newRR = makeRR.createRailroad(scope.main.regexTree);
           element.empty();
           element.append( '<div>'+ newRR +'</div>');
@@ -133,8 +134,8 @@
         /*
         * Takes an array of nodes or a single node and adds to the tree in the location specified by the parent and left sibling IDs
         */
-        function addNode(leftSibID, parentID, node) {
-          saveTree = scope.main.regexTree;
+        function addNode(leftSibID, parentID, node, savedtree) {
+          saveTree = savedtree || scope.main.regexTree;
           if (Array.isArray(node)) {
             //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
             //starts at the end of the array and runs to front
@@ -288,10 +289,11 @@
 
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
+              saveTree = scope.main.regexTree;
               //removes picked up node from tree, returns the removed tree node
               var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
               // adds in removed node(s) to new location
-              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray);
+              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray, saveTree);
               item = undefined;
 
             } else {

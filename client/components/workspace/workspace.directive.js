@@ -67,7 +67,18 @@
         */
 
         $('#undo').on('click', function(){
-          console.log('click brah');
+          // if a tree is saved, set the main tree to that value and set the saved tree to undefined. else, nothing can happen
+          if (scope.main.savedRegexTree) {
+            scope.$apply(function(){
+              scope.main.regexTree = scope.main.savedRegexTree;
+              scope.main.savedRegexTree = undefined;
+            });
+          } else {
+            console.log('sorry, no tree saved. make more changes and we will track them');
+          }
+          scope.$apply(function(){
+            scope.main.treeChanged++;
+          })
         })
 
 
