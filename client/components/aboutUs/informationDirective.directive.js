@@ -10,7 +10,7 @@
     return {
       restrict: "E",
       replace: false,
-      template: '<div>aboutis</div>',
+      template: '<div></div>',
       link: function(scope, element, attrs) {
 
         function toggleHeight(module){
