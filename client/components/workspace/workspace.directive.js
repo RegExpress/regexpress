@@ -51,6 +51,15 @@
           $('.drag').remove();
         })
 
+        $('#trash').on('mouseover', function(){
+          $('#trash').css('background-color', '#E45F56')
+        })
+
+        $('#trash').on('mouseout', function(){
+          $('#trash').css('background-color', '')
+        })
+
+
       }
     }
   }
