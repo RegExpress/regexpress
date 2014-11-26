@@ -20,7 +20,6 @@ user-select()
   -moz-user-select none
   -ms-user-select none
 
-
 body
   margin: 5px
   color: color4
@@ -31,8 +30,8 @@ body
   line-height: 1.4em
   // overflow: hidden
 
-input:focus, textarea:focus
-  outline 3pt solid color4
+input:focus, textarea:focus 
+  outline 3pt solid color4 
 
 .header
   display inline-block
@@ -78,8 +77,8 @@ input:focus, textarea:focus
   .flag
     width 10%
   .test-text
-    width: 100%
-    margin-top 20px
+    width: 50%
+    margin-top 10px
 
 
 .logo
@@ -154,6 +153,10 @@ p.instruct
   margin 10px
   padding-top 5px
   background-color #292929
+  text-align center
+  
+h3
+  display inline-block
 
 .components
   display inline-table
@@ -182,32 +185,26 @@ span.question {
   text-align: center;
   position: relative;
 }
-span.question:hover { background-color: #3D6199; }
+span.question:hover { background-color: robinEgg; }
 div.tooltip {
-  background-color: green;
+  background-color: robinEgg;
   color: White;
   position: absolute;
-  left: 25px;
+  left: -260px;
   top: -25px;
   z-index: 1000000;
   width: 250px;
   border-radius: 5px;
 }
-div.tooltip:before {
-  border-color: transparent #3D6199 transparent transparent;
-  border-right: 6px solid #3D6199;
-  border-style: solid;
-  border-width: 6px 6px 6px 0px;
-  content: "";
-  display: block;
-  height: 0;
-  width: 0;
-  line-height: 0;
-  position: absolute;
-  top: 40%;
-  left: -6px;
-}
+span.question.question-regextest
+  top -10px
+  
+span.question.question-railroad
+  top -25px
+
 div.tooltip p {
   margin: 10px;
   color: White;
 }
+
+  
