@@ -108,7 +108,7 @@
 
           // if the text in the node is default text, then initialize the text input box with a placeholder rather than a value attribute
           var valOrPlaceHolder = 'value';
-          if (text === '&lt;text here&gt;') {
+          if (text === '&lt;text_here&gt;') {
             valOrPlaceHolder = 'placeholder';
           }
 

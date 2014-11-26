@@ -17,14 +17,17 @@
 <!-- Main controller controls body of page -->
 <body ng-controller="MainController">
   <!-- end main controller element -->
-  <div class="aboutUs" id="aboutUsHidden"></div>
+  <!-- aboutUs directive -->
+  <div><information/></div>
+
+  <div class="aboutUs hidden" id="aboutUsHidden"></div>
   <div class="aboutUs">About Us</div>
 
   <div class="header">
     <h1 class="logo">RegExpress</h1>
     <h4 class="sublogo">Demystifying regular expressions</h4>
   </div>
-  <div class="howDoesItWork" id="howDoesItHidden"></div>
+  <div class="howDoesItWork hidden" id="howDoesItHidden"></div>
   <div class="howDoesItWork">How does it work?</div>
 
   <!-- updates the regexp model  -->
@@ -79,6 +82,7 @@
     <script src="bundle/bundle.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
+    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/matches/matches.directive.js"></script>
     <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
@@ -86,9 +90,9 @@
     <script src="components/railroad/railroad.service.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
+    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
-    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <!-- endinject -->
   </body>
   </html>
