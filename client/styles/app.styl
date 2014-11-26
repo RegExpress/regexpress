@@ -7,7 +7,7 @@
   turquoise = #4AAAA5
   slate = #35404F
   tan = #8F917E
-  // lightTan =
+  lightTan = #CCCFBC
 
 color1 = #F15D58 //salmon
 color2 = #363635 //dark
@@ -48,9 +48,6 @@ input:focus, textarea:focus
   border-radius 0px 6px 6px 0px
   padding 15px
 
-#aboutUsHidden
-  // z-index = 1
-
 .howDoesItWork
   display inline-block
   background-color tan
@@ -62,6 +59,10 @@ input:focus, textarea:focus
   top 30px
   border-radius 6px 0px 0px 6px
   padding 15px
+
+.hidden
+  background-color lightTan
+  color: slate
 
 .regex-input-container
   width 40%
@@ -129,6 +130,7 @@ p.instruct
   padding-top 25px
   text-align center
   font-size: 12px
+  z-index: -1
 
 .ghost
   stroke gray
@@ -172,6 +174,7 @@ h3
   border-radius 10px
 
 span.question {
+  // background-image url('assets/question.png')
   cursor: pointer;
   display: inline-block;
   width: 16px;
@@ -185,7 +188,15 @@ span.question {
   text-align: center;
   position: relative;
 }
-span.question:hover { background-color: robinEgg; }
+
+.Q
+  background-image url('../assets/question.png')
+  background-size contain
+  height 40px
+  width 40px
+
+span.question:hover { background-color: #3D6199; }
+
 div.tooltip {
   background-color: robinEgg;
   color: White;
@@ -198,7 +209,7 @@ div.tooltip {
 }
 span.question.question-regextest
   top -10px
-  
+
 span.question.question-railroad
   top -25px
 
@@ -207,4 +218,14 @@ div.tooltip p {
   color: White;
 }
 
-  
+.bio
+  height 20%
+  margin 1px
+  color slate
+
+.headshots
+  display inline-block
+  float left
+  margin-left 20px
+  max-width 90%
+  max-height 90%
