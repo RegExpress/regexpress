@@ -9,7 +9,11 @@
       //holder text for elements that will look weird with nothing inside. just says 'abc'
       var text = '{"type": "match", "body": [{"type": "literal", "body": "a"}, {"type": "literal", "body": "b"}, {"type": "literal", "body": "c"}]}'
 
-      //table of nodes for each individual type of component
+      /*
+      * Table of strings for each individual type of component. Need to keep a table of strings and parse them each time so that a new object
+      * is returned on each call instead of the same object.
+      */
+
       var componentTable = {
         'start': '{"type": "start"}',
         'end': '{"type": "end"}',
