@@ -6,6 +6,8 @@
   robinEgg = #7ACCC8
   turquoise = #4AAAA5
   slate = #35404F
+  tan = #8F917E
+  // lightTan = 
 
 color1 = #F15D58 //salmon
 color2 = #363635 //dark
@@ -32,6 +34,35 @@ body
 input:focus, textarea:focus
   outline 3pt solid color4
 
+.header
+  display inline-block
+
+.aboutUs
+  display inline-block
+  background-color tan
+  height 25px
+  width 20%
+  text-align center
+  position absolute
+  left 0px
+  top 30px
+  border-radius 0px 6px 6px 0px
+  padding 15px
+  
+#aboutUsHidden
+  // z-index = 1
+
+.howDoesItWork
+  display inline-block
+  background-color tan
+  height 25px
+  width 20%
+  text-align center
+  position absolute
+  right 0px
+  top 30px
+  border-radius 6px 0px 0px 6px
+  padding 15px
 
 .regex-input-container
   width 40%
@@ -90,12 +121,12 @@ p.instruct
   width 400px
   height 20px
 .RR-dir
-  // width 100px
+  display inline-block
 .informativeText
   position absolute
   float left
-  margin-left 120px
-  width 225px
+  margin-left 10%
+  width 15%
   padding-top 25px
   text-align center
   font-size: 12px
@@ -108,20 +139,26 @@ p.instruct
   font-weight bold
   padding 2px
   border-radius 8px
-  height 25px
+  height 20px
+  padding 5px
   font-size: 14px
   background-color coral
   border 1px solid coral
   outline none
+
+.railroad-directive
+  display inline-block
 
 .library-container
   border-radius 10px
   margin 10px
   padding-top 5px
   background-color #292929
-   
+
 #optional, #alternate, #repeating
   max-height 100px
+
+
 
 .components
   min-height 50px
@@ -129,7 +166,7 @@ p.instruct
   max-width: 200px
   display inline-table
 
-// input#textarea
-//   width 500px
-//   padding 8px
-//   font-size: 11pt
+#trash
+  display inline-block
+  border-radius 10px
+

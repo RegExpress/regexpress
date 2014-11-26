@@ -6,8 +6,12 @@
 
     function workspace(){
 
-      //holder text for elements that will look weird with nothing inside. just says 'abc'
-      var text = '{"type": "match", "body": [{"type": "literal", "body": "a"}, {"type": "literal", "body": "b"}, {"type": "literal", "body": "c"}]}'
+      //holder text for elements that will look weird with nothing inside. says "<text here>"
+
+      // var testText = '{"type": "match", "body": [{"type": "literal", "body": "a"}, {"type": "literal", "body": "b"}, {"type": "literal", "body": "c"}]}'
+
+      var text = '{"type": "match", "body": [{"type": "literal", "body": "<"}, {"type": "literal", "body": "t"}, {"type": "literal", "body": "e"},{"type": "literal", "body": "x"},{"type": "literal", "body": "t"},{"type": "literal", "body": "_"},{"type": "literal", "body": "h"},{"type": "literal", "body": "e"},{"type": "literal", "body": "r"},{"type": "literal", "body": "e"},{"type": "literal", "body": ">"}]}';
+
 
       /*
       * Table of strings for each individual type of component. Need to keep a table of strings and parse them each time so that a new object
@@ -27,6 +31,7 @@
         'word-boundary': '{"type": "word-boundary"}',
         'non-word-boundary': '{"type": "non-word-boundary"}',
         'text': text,
+        // 'testText': testText,
         'capture-group': '{"type": "capture-group", "body":' + text + '}',
         'alternate': '{"type": "capture-group", "body": {"type": "alternate", "left":' + text + ', "right":' + text + '}}',
         'optional': '{"type": "quantified", "body": {"type": "capture-group", "body":' + text + '}, "quantifier": {"min": 0, "max": 1}}',

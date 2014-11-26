@@ -51,7 +51,7 @@
 
       function isOverSelf(event, itemID) {
 
-        var target = checkUnderCopy(event).elem;
+        var target = event.toElement;
         var targetID = $(target).closest('g').attr('id');
         var nextId = $(target).next('g').attr('id');
         var prevId = $(target).prev('g').attr('id');

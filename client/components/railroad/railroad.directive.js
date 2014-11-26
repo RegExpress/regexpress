@@ -43,7 +43,8 @@
         * "itemID" as the uinque id of the node to be removed.
         */
         function selectNode(event){
-          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character ');
+          item = $(event.toElement).closest('.literal-sequence, .literal, .capture-group, .charset, .digit, .non-digit, .word, .non-word, .white-space, .non-white-space, .start, .end, .space, .any-character, .word-boundary ');
+
           itemID = item.attr('id');
         }
 
@@ -54,17 +55,15 @@
         function createCopy(){
           // Create clone of the current item
           copy = $(item).clone()
-            .attr('fill', 'black')
             .wrap('<svg class="copy" style="position: absolute;"></svg>')
             .parent();
 
           // Appends the clone to the DOM
           $('.work').append(copy);
 
-          // Determines the offset of the rect (diagram node image) from the wrapping svg, calculates halfway point
-          var target = $(copy).find('rect');
-          top = ($(target).position().top) - 5;// + ($(target).attr('height')/2);
-          left = ($(target).position().left) - 5;// + ($(target).attr('width')/2);
+          // Gets the Bounding Box of node SVG and remove offset from parent SVG.
+          var BBox = $(copy).context.getBBox();
+          $(copy).children('g').css('-webkit-transform', 'translate(-'+ (BBox.x -2) +'px,-'+ (BBox.y -2) +'px)')
 
           // Sets the top and left coords of the clone to appear under the mouse
           $(copy).css({
@@ -106,8 +105,15 @@
           // The node that contains the text to change
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML; // The current text in the diagram node
-          var width = text.split('').length * 7;
-          var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" value="'+ text +'" autofocus></input></form></div>';
+
+          // if the text in the node is default text, then initialize the text input box with a placeholder rather than a value attribute
+          var valOrPlaceHolder = 'value';
+          if (text === '&lt;text here&gt;') {
+            valOrPlaceHolder = 'placeholder';
+          }
+
+          var width = text.split('').length * 10;
+          var textBox = '<div class="textEdit" style="position: absolute"><form class="textForm"><input class="textBox" type="text" '+ valOrPlaceHolder +'="'+ text +'" autofocus></input></form></div>';
 
           $('.work').append(textBox);
 
@@ -192,7 +198,7 @@
         */
         $('.work').on('keydown', '.textForm', function(){
           //check length of input, change width of input box to match contents
-          var width = $('.textBox').val().split('').length * 8;
+          var width = $('.textBox').val().split('').length * 10;
           $('.textBox').css('width', width);
         })
 
@@ -231,7 +237,7 @@
         });
 
         /*
-        * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging off.
+        * This functionality allows the user to add components from the library, move nodes on the railroad, and remove nodes by dragging to the trash can.
         * Checks the location of the mouse on mouseup.  If the mouse is off the railroad diagram, the captured item is removed. If the mouse is
         * in the  original pick-up spot, the copy is removed, the diagram is reverted back to normal and no changes are made. If the mouse is
         * over a valid drop target location, the selected node is added there.
@@ -246,27 +252,32 @@
 
           // Check location of mouse event. Returns an object with class and id attributes
           var intID = parseInt(itemID);
-          var over = handlerHelpers.checkUnderCopy(event);
 
+          var overElem = event.toElement;
+          var over = {
+            class: $(overElem).attr('class'),
+            id: $(overElem).attr('id')
+          }
           // bug: if user clicks on text to edit, it removes the whole selected node. Re assign item better.
           var overSelf = handlerHelpers.isOverSelf(event, itemID);
 
           // for testing purposes
           var overValidTarget = true; // TODO set up a checkIfOverValid target setup, possibly in tandem with findRelatives
 
-          // If off the railroad, remove selected node
-          if (over.class === 'RR' || over.class === 'undefined' || over.class === 'work') {
+          // If over trash, remove selected node
+          if (over.id === 'trash') {
             callRemoveNode(intID);
             scope.main.nodeToAdd = undefined;
             // drop workshop clone here?
 
-          } else if ( !scope.main.nodeToAdd && overSelf ) {
+          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'work' || over.class === 'ng-pristine ng-valid' || over.class === 'RR') {
             // un-gray the dropped item, add back old class
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
 
           } else if ( overValidTarget ) {
-            var targetLocation = findRelatives(event); // an object containing the parent and left sibling ID's of location to add to
+            var targetLocation = findRelatives(event); // an object containing the parent and left sibling IDs of location to add to
+
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
               //removes picked up node from tree, returns the removed tree node
@@ -293,21 +304,19 @@
         $('.work').on('mousemove', function(event){
           if (item && copy) {
             $(copy).css({
-              top:  event.pageY + 50,// - top,
-              left: event.pageX + 50//- left
+              top:  event.pageY + 5,// - top,
+              left: event.pageX + 5//- left
             })
           }
         })
 
         // Becaue :hover does not activate during a drag, these mousemove and mouseout functions must be used to create the highlighting effect
         $('.work').on('mousemove', 'rect, g.match > path, g.literal-sequence > path', function(){
-          this.style.stroke = 'red'
+          this.style.stroke = '#E45F56'
         })
         $('.work').on('mouseout', 'rect, g.match > path, g.literal-sequence > path', function(){
           this.style.stroke = 'black'
         })
-
-
       }
     }
   }
