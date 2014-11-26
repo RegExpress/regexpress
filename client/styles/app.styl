@@ -51,6 +51,7 @@ a
   top 30px
   border-radius 0px 6px 6px 0px
   padding 15px
+  z-index 2
 
 .howDoesItWork
   display inline-block
@@ -64,10 +65,12 @@ a
   top 30px
   border-radius 6px 0px 0px 6px
   padding 15px
+  z-index 2
 
 .hidden
   background-color lightTan
   color: slate
+  z-index 1
 
 .regex-input-container
   width 40%
@@ -86,7 +89,6 @@ a
     display: inline
     width: 50%
     margin-top 10px
-
 
 .logo
   color: pistachio
@@ -257,8 +259,19 @@ div.tooltip p {
   height 20%
   margin 1px
   color slate
+
 .octocat
   display inline-block
   position absolute
   bottom 0
   max-height 10%
+
+#explanation
+  height 94%
+  margin-top 14%
+  font-size 10pt
+  text-align left
+  width 450px
+  display none
+  line-height: 16px
+
