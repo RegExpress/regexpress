@@ -28,10 +28,10 @@
             var regex = [];
             regex.push('"' + scope.main.regexp + '"')
             // console.log(regex)
-            $textarea.highlightTextarea({
-              color: "#96BD4F",
-              words: wordMatches
-            })
+            // $textarea.highlightTextarea({
+            //   color: "#96BD4F",
+            //   words: wordMatches
+            // })
             console.log(wordMatches);
           } catch (err) {
             // console.log(err)
