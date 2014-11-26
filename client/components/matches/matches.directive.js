@@ -21,18 +21,25 @@
             scope.main.matches = scope.main.string.match(scope.main.regexp);
             element.empty();
             // element.append('<p>' + scope.main.matches + '</p>');
-            var wordMatches = scope.main.matches[0].split(' ')
-            var test = ["word", "stuff", "w"]
+            var wordMatches = [];
+
+            for(var i = 0; i < scope.main.matches[0].split(' ').length; i++) {
+              wordMatches.push(scope.main.matches[0].split(' ')[i])
+            }
+            var inputValue = [];
+            inputValue.push($textarea.val())
+            console.log(inputValue)
             scope.$broadcast('matched changed');
             // console.log(scope.main.regexp)
             var regex = [];
             regex.push('"' + scope.main.regexp + '"')
             // console.log(regex)
+            console.log(wordMatches)
             // $textarea.highlightTextarea({
             //   color: "#96BD4F",
             //   words: wordMatches
             // })
-            console.log(wordMatches);
+
           } catch (err) {
             // console.log(err)
           }

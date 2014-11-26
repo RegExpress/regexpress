@@ -29,7 +29,7 @@
         * re-render the diagram once at the end of the tree change, and therefore a counter is $watched instead.
         */
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
-          console.log('tree has changed', scope.main.regexTree);
+          // console.log('tree has changed', scope.main.regexTree);
 
           var newRR = makeRR.createRailroad(scope.main.regexTree);
           element.empty();
@@ -134,7 +134,7 @@
         function addNode(leftSibID, parentID, node) {
           // saveTree = savedtree || scope.main.regexTree;
           if (Array.isArray(node)) {
-            //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
+            //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop
             //starts at the end of the array and runs to front
             for (var i = node.length-1; i >= 0; i--) {
               try {
