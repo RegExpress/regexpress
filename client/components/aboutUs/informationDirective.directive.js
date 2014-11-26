@@ -23,11 +23,11 @@
             $(module).animate({height: shownHeight});
           }
         }
-        $('.aboutUs').on('click', function(){
+        $('#aboutClick').on('click', function(){
           toggleHeight('#aboutUsHidden');
         })
 
-        $('.howDoesItWork').on('click', function(){
+        $('#howClick').on('click', function(){
           toggleHeight('#howDoesItHidden');
         })
       }
