@@ -85,18 +85,15 @@
         */
         function callRemoveNode(intID){
           try {
-            // save the old tree before changing
-            saveTree = scope.main.regexTree;
             modifyTree.removeNode(intID, scope.main.regexTree);
             // $apply must be used to register incrementation of the treeChanged model
             scope.$apply(function(){
-              scope.main.regexTree = saveTree;
               scope.main.treeChanged++;
             });
           } catch (err) {
             console.log('error caught in callRemoveNode', err);
           }
-        };
+        }
 
         /*
         * Prepares to edit text on the tree. Detects closest literal-sequence or sequence node to the selected text and appends
@@ -106,7 +103,7 @@
           // Set appropriate informative text on info model
           scope.$apply(function(){
             scope.main.info = handlerHelpers.editingText;
-          })
+          });
           // The node that contains the text to change
           nodeID = $(event.toElement).closest('.literal-sequence, .literal').attr('id');
           text = event.target.innerHTML; // The current text in the diagram node
@@ -134,8 +131,8 @@
         /*
         * Takes an array of nodes or a single node and adds to the tree in the location specified by the parent and left sibling IDs
         */
-        function addNode(leftSibID, parentID, node, savedtree) {
-          saveTree = savedtree || scope.main.regexTree;
+        function addNode(leftSibID, parentID, node) {
+          // saveTree = savedtree || scope.main.regexTree;
           if (Array.isArray(node)) {
             //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
             //starts at the end of the array and runs to front
@@ -151,7 +148,6 @@
           }
           // trigger tree change to re-render diagram
           scope.$apply(function(){
-            scope.main.savedRegexTree = saveTree;
             scope.main.treeChanged++;
           });
         }
@@ -186,17 +182,15 @@
         */
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
-          saveTree = scope.main.regexTree;
-
           var newVal = $('.textBox').val(); // Get contents of text box
 
           // Triggers modification of tree to insert new text
+          scope.main.savedRegexTrees.push(JSON.stringify(scope.main.regexTree));
           modifyTree.editText(parseInt(nodeID), newVal, scope.main.regexTree, text); // TODO figure out where the hell I'm using text, this only takes 3 arguments. FIX IT
           $('.textEdit').remove(); // removes the form
 
           // Update informative text and increments treeChanged counter to trigger re-rendering of diagram
           scope.$apply(function(){
-            scope.main.savedRegexTree = saveTree;
             scope.main.info = handlerHelpers.building;
             scope.main.treeChanged++;
           });
@@ -272,6 +266,7 @@
 
           // If over trash, remove selected node
           if (over.id === 'trash') {
+            scope.main.savedRegexTrees.push(JSON.stringify(scope.main.regexTree));
             callRemoveNode(intID);
             
           } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'ng-pristine ng-valid' || 
@@ -290,10 +285,11 @@
 
             // If not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
-              saveTree = scope.main.regexTree;
+              scope.main.savedRegexTrees.push(JSON.stringify(scope.main.regexTree));
               var removedArray = modifyTree.removeNode(intID, scope.main.regexTree); //removes picked up node from tree, returns removed node(s)
               addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray); //adds in removed node(s) to new location
             } else {
+              scope.main.savedRegexTrees.push(JSON.stringify(scope.main.regexTree));
               addNode(targetLocation.leftSibID, targetLocation.parentID, scope.main.nodeToAdd); //add new node from library
             }
           }

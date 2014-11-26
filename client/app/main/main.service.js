@@ -13,7 +13,7 @@
           matches,
           regexp = '',
           regexTree = {"type": "match", "body": []},
-          savedRegexTree = undefined,
+          savedRegexTrees = [],
           treeChanged = 0,
           info = 'Drag and drop elements from the library below to the railroad and build a regex diagram',
           nodeToAdd;
@@ -25,7 +25,7 @@
         regexTags: regexTags,
         regexp: regexp,
         regexTree: regexTree,
-        savedRegexTree: savedRegexTree,
+        savedRegexTrees: savedRegexTrees,
         matches: matches,
         treeChanged: treeChanged,
         info: info,
