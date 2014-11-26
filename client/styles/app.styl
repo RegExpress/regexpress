@@ -167,3 +167,47 @@ p.instruct
 #trash
   display inline-block
   border-radius 10px
+
+span.question {
+  cursor: pointer;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: #89A4CC;
+  line-height: 16px;
+  color: White;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+}
+span.question:hover { background-color: #3D6199; }
+div.tooltip {
+  background-color: green;
+  color: White;
+  position: absolute;
+  left: 25px;
+  top: -25px;
+  z-index: 1000000;
+  width: 250px;
+  border-radius: 5px;
+}
+div.tooltip:before {
+  border-color: transparent #3D6199 transparent transparent;
+  border-right: 6px solid #3D6199;
+  border-style: solid;
+  border-width: 6px 6px 6px 0px;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
+  line-height: 0;
+  position: absolute;
+  top: 40%;
+  left: -6px;
+}
+div.tooltip p {
+  margin: 10px;
+  color: White;
+}

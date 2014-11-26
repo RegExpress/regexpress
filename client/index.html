@@ -23,6 +23,7 @@
   <div class="header">
     <h1 class="logo">RegExpress</h1>
     <h4 class="sublogo">Demystifying regular expressions</h4>
+    <span class="question question-about" >?</span>
   </div>
   <div class="howDoesItWork" id="howDoesItHidden"></div>
   <div class="howDoesItWork">How does it work?</div>
@@ -40,23 +41,31 @@
     <!-- input boxes allows the user to change $scope variables to make regex -->
     <form style="padding: 20px;">
       <div class="regex-input-container">
+        <span class="question question-regexinput">?</span>
         <span class="regex-slash">/</span>
         <input placeholder="Write a regex" class="regex-input regex" ng-model="main.regexBody"></input>
         <span class="regex-slash">/</span>
         <input placeholder="flag" class="regex-input flag" ng-model="main.regexTags"></input>
-        <center><textarea testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea></center>
+        <span class="question question-regextest">?</span>
+        <textarea style="display: inline;" testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
       </div>
     </form>
 
+    <span class="question question-railroad">?</span>
     <!-- Railroad directive. Most of the magic happens here -->
-    <div class="railroad-directive"><railroad/></div>
+    <div class="railroad-directive">
+      <railroad/>
+    </div>
     <img id="trash" src="assets/trash.png"></img>
+
     <!-- this tree to input directive is not currently visible on the page -->
     <div><tree-to-input></div>
     </div>
 
     <!-- <div class="container"> -->
+
     <div class="library-container">
+      <span class="question question-library">?</span>
       <h3>Component Library</h3>
       <!-- Workspace directive -->
       <place-workspace></place-workspace>
@@ -87,6 +96,7 @@
     <script src="components/railroad/railroad.service.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
+    <script src="components/tool-tips/tooltips.js"></script>
     <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
