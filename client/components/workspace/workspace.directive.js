@@ -50,12 +50,35 @@
           $('.drag').remove();
         })
 
+        /*
+        * Hilights trash on mouseover. The hover CSS functonality does not work in Chrome when dragging an item, and this makes up for it.
+        */
+
         $('#trash').on('mouseover', function(){
           $('#trash').css('background-color', '#E45F56')
         })
 
         $('#trash').on('mouseout', function(){
           $('#trash').css('background-color', '')
+        })
+
+        /*
+        * 
+        */
+
+        $('#undo').on('click', function(){
+          // if a tree is saved, set the main tree to that value and set the saved tree to undefined. else, nothing can happen
+          if (scope.main.savedRegexTree) {
+            scope.$apply(function(){
+              scope.main.regexTree = scope.main.savedRegexTree;
+              scope.main.savedRegexTree = undefined;
+            });
+          } else {
+            console.log('sorry, no tree saved. make more changes and we will track them');
+          }
+          scope.$apply(function(){
+            scope.main.treeChanged++;
+          })
         })
 
 

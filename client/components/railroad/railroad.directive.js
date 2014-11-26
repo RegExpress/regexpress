@@ -13,7 +13,7 @@
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
         // comment all of these
-        var item, itemID, location, oldClass, copy, top, left, text, nodeID;
+        var item, itemID, location, oldClass, copy, top, left, text, nodeID, saveTree;
 
         /*
         * Watches the regexp model and re-renders the tree whenever the regexp changes. The scope.main.treeChanged model is incremented to indicate a finished tree change, since the tree itself cannot be watched easily.
@@ -29,6 +29,8 @@
         * re-render the diagram once at the end of the tree change, and therefore a counter is $watched instead.
         */
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
+          console.log('tree has changed', scope.main.regexTree);
+
           var newRR = makeRR.createRailroad(scope.main.regexTree);
           element.empty();
           element.append( '<div>'+ newRR +'</div>');
@@ -83,9 +85,12 @@
         */
         function callRemoveNode(intID){
           try {
+            // save the old tree before changing
+            saveTree = scope.main.regexTree;
             modifyTree.removeNode(intID, scope.main.regexTree);
             // $apply must be used to register incrementation of the treeChanged model
             scope.$apply(function(){
+              scope.main.regexTree = saveTree;
               scope.main.treeChanged++;
             });
           } catch (err) {
@@ -129,7 +134,8 @@
         /*
         * Takes an array of nodes or a single node and adds to the tree in the location specified by the parent and left sibling IDs
         */
-        function addNode(leftSibID, parentID, node) {
+        function addNode(leftSibID, parentID, node, savedtree) {
+          saveTree = savedtree || scope.main.regexTree;
           if (Array.isArray(node)) {
             //removeNode from modify-tree factory returns an array that is in order. we need to add last item first, so this for loop 
             //starts at the end of the array and runs to front
@@ -145,6 +151,7 @@
           }
           // trigger tree change to re-render diagram
           scope.$apply(function(){
+            scope.main.savedRegexTree = saveTree;
             scope.main.treeChanged++;
           });
         }
@@ -179,6 +186,7 @@
         */
         $('.work').on('submit','.textForm', function(event){
           event.preventDefault();
+          saveTree = scope.main.regexTree;
 
           var newVal = $('.textBox').val(); // Get contents of text box
 
@@ -188,6 +196,7 @@
 
           // Update informative text and increments treeChanged counter to trigger re-rendering of diagram
           scope.$apply(function(){
+            scope.main.savedRegexTree = saveTree;
             scope.main.info = handlerHelpers.building;
             scope.main.treeChanged++;
           });
@@ -280,10 +289,11 @@
 
             // If adding not adding a node from the library, move currently selected node
             if (!scope.main.nodeToAdd){
+              saveTree = scope.main.regexTree;
               //removes picked up node from tree, returns the removed tree node
               var removedArray = modifyTree.removeNode(intID, scope.main.regexTree);
               // adds in removed node(s) to new location
-              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray);
+              addNode(targetLocation.leftSibID, targetLocation.parentID, removedArray, saveTree);
               item = undefined;
 
             } else {
