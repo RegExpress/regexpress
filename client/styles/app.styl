@@ -178,6 +178,7 @@ h3
   display inline-block
 
 .components
+  cursor pointer
   display inline-table
   max-height 50
   max-width 100px
@@ -186,20 +187,26 @@ h3
 #capture-group, #alternate, #repeating, #optional
   max-height 100px
 
-#undo
+.undo
+  cursor pointer
   display inline-block
-  background-color robinEgg
+  background-color coral
+
   height 20px
   width 70px
   border-radius 10px
   padding 10px
   margin-bottom 100px
   vertical-align 25px
-  color color2
+  &.no-stash
+    background-color grey
+    color #343434
 
 #trash
   display inline-block
   border-radius 10px
+  &:hover
+    background-color #E45F56
 
 span.question {
   cursor: pointer;
@@ -292,3 +299,6 @@ div.tooltip p {
   margin auto
   padding: 20px
 
+ 
+.svg-hover
+  cursor pointer

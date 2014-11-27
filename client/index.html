@@ -77,7 +77,7 @@
       <railroad/>
     </div>
     <img id="trash" src="assets/trash.png"></img>
-    <div id="undo" ng-click="undoTree()">UNDO</div>
+    <div class="undo" ng-class="{'no-stash': main.savedRegexTrees.length === 0}" ng-click="undoTree()">UNDO</div>
 
     <!-- this tree to input directive is not currently visible on the page -->
     <div><tree-to-input></div>
