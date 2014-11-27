@@ -33,6 +33,10 @@ body
 input:focus, textarea:focus
   outline 3pt solid color4
 
+a
+  text-decoration none
+  color color2
+
 .header
   display inline-block
 
@@ -47,6 +51,7 @@ input:focus, textarea:focus
   top 30px
   border-radius 0px 6px 6px 0px
   padding 15px
+  z-index 2
 
 .howDoesItWork
   display inline-block
@@ -60,10 +65,12 @@ input:focus, textarea:focus
   top 30px
   border-radius 6px 0px 0px 6px
   padding 15px
+  z-index 2
 
 .hidden
   background-color lightTan
   color: slate
+  z-index 1
 
 .regex-input-container
   width 40%
@@ -82,7 +89,6 @@ input:focus, textarea:focus
     display: inline
     width: 50%
     margin-top 10px
-
 
 .logo
   color: pistachio
@@ -182,13 +188,14 @@ h3
 
 #undo
   display inline-block
-  background-color red
+  background-color robinEgg
   height 20px
   width 70px
   border-radius 10px
   padding 10px
   margin-bottom 100px
   vertical-align 25px
+  color color2
 
 #trash
   display inline-block
@@ -239,7 +246,7 @@ div.tooltip p {
 .bio
   height 20%
   margin 1px
-  color slate
+  color #363635
 
 .headshots
   display inline-block
@@ -252,8 +259,36 @@ div.tooltip p {
   height 20%
   margin 1px
   color slate
+  text-align center
+  padding 0px
+
 .octocat
   display inline-block
   position absolute
-  bottom 0
+  bottom 20px
   max-height 10%
+
+#explanation
+  margin-left 0px
+  margin-right 0px
+  height 80%
+  margin-top 14%
+  font-size 10pt
+  text-align left
+  width 450px
+  display none
+  line-height: 16px
+
+#contribute
+  display inline-block
+  font-size 9pt
+  float left
+  margin 10px 0px 0px 40px
+
+#diagram
+  // background-color red
+  height 100px
+  width 400px
+  margin auto
+  padding: 20px
+

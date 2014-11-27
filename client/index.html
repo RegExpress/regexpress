@@ -16,30 +16,34 @@
 </head>
 <!-- Main controller controls body of page -->
 <body ng-controller="MainController">
-  <!-- <a href="https://github.com/RegExpress/regexpress"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 1" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork us on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a> -->
   <!-- end main controller element -->
   <!-- aboutUs directive -->
   <div><information/></div>
-
-  <div class="aboutUs hidden" id="aboutUsHidden">
-    <div class="bio"><br><br></div>
-    <div class="bio"><img class="headshots" src="assets/mikeHeadshot.png"></img><br>Mike Howard</div>
-    <div class="bio"><img class="headshots" src="assets/tessHeadshot.png"></img><br>Tess Myers</div>
-    <div class="bio"><img class="headshots" src="assets/tylerHeadshot.png"></img><br>Tyler Garrett</div>
-    <div class="bio"><img class="headshots" src="assets/shanHeadshot.png"></img><br>Shan Swami</div>
-  </div>
-  <div class="aboutUs">About Us</div>
 
   <div class="header">
     <h1 class="logo">RegExpress</h1>
     <h4 class="sublogo">Demystifying regular expressions</h4>
   </div>
-  <div class="howDoesItWork hidden" id="howDoesItHidden">
-    <div class="Demystifying"><br><br></div>
-    <div class="githublink"><a href="https://github.com/RegExpress/regexpress"><img class="octocat" src="assets/octocat.png"></img></a></div>
+
+  <div class="aboutUs hidden" id="aboutUsHidden">
+    <div class="bio"><br><br></div>
+    <div class="bio"><a href="https://github.com/darkstar21"><img class="headshots" src="assets/mikeHeadshot.png" ></img></a><br><a href="https://github.com/darkstar21">Mike Howard</a></div>
+
+    <div class="bio"><a href="https://github.com/tessmyers"><img class="headshots" src="assets/tessHeadshot.png" ></img></a><br><a href="https://github.com/tessmyers">Tess Myers</a></div>
+
+    <div class="bio"><a href="https://github.com/tgrrtt"><img class="headshots" src="assets/tylerHeadshot.png" ></img></a><br><a href="https://github.com/tgrrtt">Tyler Garrett</a></div>
+
+    <div class="bio"><a href="https://github.com/shanswami"><img class="headshots" src="assets/shanHeadshot.png" ></img></a><br><a href="https://github.com/shanswami">Shan Swami</a></div>
 
   </div>
-  <div class="howDoesItWork">How does it work?</div>
+  <div class="aboutUs" id="aboutClick">About Us</div>
+
+
+  <div class="howDoesItWork hidden" id="howDoesItHidden">
+    <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of library components. If you're not familiar with regular expressions, check out the sample ones below.<br><br><center>So, How does it work?</center><br>The secret is that a regular expression can be represented as text, a tree structure, or as a syntax diagram.<div id="diagram">(maybe put a little diagram here? or ditch it)</div>Hidden behind the scenes is a syntax tree that we update anytime you change the text in the input box or when you change the diagram. Changes to the syntax tree flow back to both the text and the visual diagram, so that all three representations of the regular expression are always in sync. Read more about it here</div>
+    <div class="githublink"><div id="contribute">Contribute to this open source project!</div><a href="https://github.com/RegExpress/regexpress"><img class="octocat" src="assets/octocat.png"></img></a></div>
+  </div>
+  <div class="howDoesItWork" id="howClick">How does it work?</div>
 
   <!-- updates the regexp model  -->
   <div><track-matches/></div>
@@ -105,8 +109,8 @@
     <script src="bundle/bundle.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
-    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/matches/matches.directive.js"></script>
+    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
