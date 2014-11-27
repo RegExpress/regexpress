@@ -316,10 +316,13 @@
 
         // Becaue :hover does not activate during a drag, these mousemove and mouseout functions must be used to create the highlighting effect
         $('.work').on('mousemove', 'rect, g.match > path, g.literal-sequence > path', function(){
-          this.style.stroke = '#E45F56'
+          this.style.stroke = '#E45F56';
+          // make cursor pointer
+          $('body').addClass('svg-hover');
         })
         $('.work').on('mouseout', 'rect, g.match > path, g.literal-sequence > path', function(){
-          this.style.stroke = 'black'
+          this.style.stroke = 'black';
+          $('body').removeClass('svg-hover');
         })
       }
     }
