@@ -77,7 +77,7 @@
       <railroad/>
     </div>
     <img id="trash" src="assets/trash.png"></img>
-    <div class="undo" ng-class="{'no-stash': main.savedRegexTrees.length === 0}" ng-click="undoTree()">UNDO</div>
+    <div class="undo" ng-class="{'stash': main.savedRegexTrees.length >= 1}" ng-click="undoTree()">UNDO</div>
 
     <!-- this tree to input directive is not currently visible on the page -->
     <div><tree-to-input></div>
@@ -109,8 +109,8 @@
     <script src="bundle/bundle.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
-    <script src="components/matches/matches.directive.js"></script>
     <script src="components/aboutUs/informationDirective.directive.js"></script>
+    <script src="components/matches/matches.directive.js"></script>
     <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
