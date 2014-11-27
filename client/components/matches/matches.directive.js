@@ -15,6 +15,9 @@
 
         scope.$watchGroup(['main.regexp', 'main.string'], function(newVal, oldVal){
           var $textarea = $('.test-text');
+          var highlight = function(words) {
+
+          }
 
           scope.$emit('matched changed');
           try {
@@ -28,7 +31,7 @@
             }
             // var inputValue = [];
             // inputValue.push($textarea.val())
-            
+
             console.log(wordMatches)
             $textarea.highlightTextarea({
               color: "#96BD4F",
