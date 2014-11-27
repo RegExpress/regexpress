@@ -201,7 +201,7 @@
         */
         $('.work').on('keydown', '.textForm', function(){
           //check length of input, change width of input box to match contents
-          var width = $('.textBox').val().split('').length * 10;
+          var width = 10 + $('.textBox').val().length * 10;
           $('.textBox').css('width', width);
         })
 
@@ -227,9 +227,9 @@
         element.on('mousedown','.railroad-diagram',function(event){
           // if the click is a left click
           if (event.which === 1) {
+            $('.textEdit').remove();
             // if the selected element is the text child of a literal node, run change text function
             if ($(event.toElement).is('text') && $(event.toElement).closest('.literal-sequence')[0] != undefined ){
-              $('.textEdit').remove();
               editTextNode(event);
             } else {
             // The user is not trying to change text. select the node to prepare for moving/removal
