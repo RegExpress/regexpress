@@ -50,7 +50,19 @@
           $('.drag').remove();
         })
 
+        /*
+        * Hilights trash on mouseover. The hover CSS functonality does not work in Chrome when dragging an item, and this makes up for it.
+        */
+
+        $('#trash').on('mouseover', function(){
+          $('#trash').css('background-color', '#E45F56');
+        });
+
+        $('#trash').on('mouseout', function(){
+          $('#trash').css('background-color', '');
+        });
+
       }
-    }
+    };
   }
 })();
