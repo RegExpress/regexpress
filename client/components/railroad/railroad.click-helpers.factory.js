@@ -7,7 +7,7 @@
     function handlerHelpers(){
       // maybe move these to their own factory, or change the name of this one
       /// INFORMATIVE MESSAGE TEXT:
-      var building = 'Drag and drop elements from the library below to the railroad and build a regex diagram';
+      var building = 'Drag and items from the library below onto the line to the right, and release it when it\'s highlighted to create a regex';
       var editingText = 'Press enter when done editing, or click elsewhere on the page to cancel';
       var draggingItme = 'Drag the item off the diagram to remove it, or place it elsewhere on the railroad';
       // add more as you see fit
