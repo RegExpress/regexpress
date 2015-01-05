@@ -25,29 +25,17 @@
     <h4 class="sublogo">Demystifying regular expressions</h4>
   </div>
 
-  <div class="aboutUs hidden" id="aboutUsHidden">
-    <div class="bio"><br><br></div>
-    <div class="bio"><a href="https://github.com/darkstar21"><img class="headshots" src="assets/mikeHeadshot.png" ></img></a><br><a href="https://github.com/darkstar21">Mike Howard</a></div>
-
-    <div class="bio"><a href="https://github.com/tessmyers"><img class="headshots" src="assets/tessHeadshot.png" ></img></a><br><a href="https://github.com/tessmyers">Tess Myers</a></div>
-
-    <div class="bio"><a href="https://github.com/tgrrtt"><img class="headshots" src="assets/tylerHeadshot.png" ></img></a><br><a href="https://github.com/tgrrtt">Tyler Garrett</a></div>
-
-    <div class="bio"><a href="https://github.com/shanswami"><img class="headshots" src="assets/shanHeadshot.png" ></img></a><br><a href="https://github.com/shanswami">Shan Swami</a></div>
-
-  </div>
-  <div class="aboutUs" id="aboutClick">About Us</div>
-
+  <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
 
   <div class="howDoesItWork hidden" id="howDoesItHidden">
-    <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of the library components.<br><br><center>So, how does it work?</center><br>The secret is that a regular expression can be represented as text, a tree structure, or as a syntax diagram. Hidden behind the scenes is a syntax tree that we update anytime you change the text in the input box or when you change the diagram. Changes to the syntax tree flow back to both the text and the visual diagram, so that all three representations of the regular expression are always in sync.<br><center> Read more <a class="blog" href="http://www.techphrasis.com/planting-a-regex-tree-the-building-of-regexpress/">here</a><center></div>
+    <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of the library components.<center> Read about how RegExpress was built <a class="blog" href="http://www.techphrasis.com/planting-a-regex-tree-the-building-of-regexpress/">here</a><center></div>
 
     <div class="githublink"><a href="https://github.com/RegExpress/regexpress"><div id="contribute">Contribute to this open source project!</a></div><a href="https://github.com/RegExpress/regexpress"><img class="octocat" src="assets/octocat.png"></img></a></div>
   </div>
-  <div class="howDoesItWork" id="howClick">How does it work?</div>
+  <div class="howDoesItWork" id="howClick">What is this?</div>
 
   <!-- updates the regexp model  -->
-  <div><track-matches/></div>
+ <div><track-matches/></div>
 
   <!-- regex directive -->
   <div><track-regex/></div>
@@ -86,9 +74,11 @@
 
     <!-- <div class="container"> -->
 
-    <div class="library-container">
+    <div class="library-header">
         <span class="question question-library">?</span>
         <h3>Component Library</h3>
+    </div>
+    <div class="library-container">
       <!-- Workspace directive -->
       <place-workspace></place-workspace>
     </div>
@@ -110,7 +100,6 @@
     <script src="bundle/bundle.js"></script>
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
-    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/matches/matches.directive.js"></script>
     <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
@@ -118,10 +107,11 @@
     <script src="components/railroad/railroad.service.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
+    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/tool-tips/tooltips.js"></script>
-    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
+    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <!-- endinject -->
   </body>
   </html>

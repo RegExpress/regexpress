@@ -1,7 +1,7 @@
 $(document).ready(function () {
   $("span.question-about").hover(function () {
-    $(this).append('<div class="tooltip"><p>Regexpress shows the user both the text and the visual diagram for any regular expression. ' + 
-      'Hidden behind the scenes is a syntax tree that gets updated anytime the user changes the text in the input box, or ' + 
+    $(this).append('<div class="tooltip"><p>Regexpress shows the user both the text and the visual diagram for any regular expression. ' +
+      'Hidden behind the scenes is a syntax tree that gets updated anytime the user changes the text in the input box, or ' +
       'drags a component onto or off of the visual diagram. Changes to the syntax tree flow back to both the text and the visual ' +
       'diagram, so that all three representations of the regular expression are always in sync</p></div>');
   }, function () {
@@ -20,7 +20,7 @@ $(document).ready(function () {
       'will be highlighted</p></div>')
   }, function() {
     $("div.tooltip").remove();
-  });  
+  });
 
   $("span.question-library").hover(function(){
     $(this).append('<div class="tooltip"><p>This is a library of regex components. Drag and drop items from this libary onto the ' +
@@ -35,5 +35,8 @@ $(document).ready(function () {
       'the railroad or remove them</p></div>')
   }, function() {
     $("div.tooltip").remove();
-  });    
+  });
 });
+
+// WHAT THE FUCK! Put this shit in a directive!
+// then add in tips for each of the component elements. probably refactor this whole damn thing. fuuuuuuuuu
