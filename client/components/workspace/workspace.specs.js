@@ -72,7 +72,7 @@ describe('Workspace', function() {
     describe('handles choice blocks\n', function(){
       it('should support alternate objects', function(){
         var alternate = workspace.getComponentNode('alternate');
-        expect(JSON.stringify(alternate)).toEqual('{"type":"capture-group","body":{"type":"alternate","left":' + JSON.stringify(text) + ',"right":' + JSON.stringify(text) + '}}');
+        expect(JSON.stringify(alternate)).toEqual('{"type":"alternate","left":' + JSON.stringify(text) + ',"right":' + JSON.stringify(text) + '}');
       });
 
       it('should support optional blocks', function(){
