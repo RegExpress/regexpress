@@ -15,7 +15,7 @@
           regexTree = {"type": "match", "body": []},
           savedRegexTrees = [],
           treeChanged = 0,
-          info = 'Drag and drop elements from the library below to the railroad and build a regex diagram',
+          info = 'Drag and items from the library below onto the line to the right, and release it when it\'s highlighted to create a regex',
           nodeToAdd;
 
 
