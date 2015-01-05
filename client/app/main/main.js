@@ -13,7 +13,7 @@
 
     function MainController($scope, values, modifyTree, workspace, makeRR) {
       $scope.main = values;
-            
+
       // for testing purposes
       $scope.callAdd = function() {
         var bigObject = {"sib": null,"parent": 8,"node": {"type": "literal", "body": "s"}};
