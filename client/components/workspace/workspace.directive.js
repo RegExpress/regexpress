@@ -22,7 +22,7 @@
           var node = lookUpNodeType(nodeToAddType);
           scope.main.nodeToAdd = node;
           scope.$apply(function(){
-            scope.main.info = "Drag your component to the black line until your target area turns pink";
+            scope.main.info = "Drag your library component to the black reailroad line until a target area turns pink";
           })
         })
 
