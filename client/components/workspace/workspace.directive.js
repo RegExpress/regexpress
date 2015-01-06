@@ -8,6 +8,7 @@
 
   function placeWorkspace(workspace) {
     return {
+
       restrict: "E",
       replace: false,
       templateUrl: 'components/workspace/workspace.template.html',
