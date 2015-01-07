@@ -5,7 +5,7 @@
     .factory('tooltipsFactory', tooltipsFactory);
 
     function tooltipsFactory(){
-      var tooltipTable = {
+      var infoTable = {
         'question-about': '<div class="tooltip"><p>Regexpress shows the user both the text and the visual diagram for any regular expression.' +
       'Hidden behind the scenes is a syntax tree that gets updated anytime the user changes the text in the input box, or ' +
       'drags a component onto or off of the visual diagram. Changes to the syntax tree flow back to both the text and the visual ' +
@@ -19,7 +19,30 @@
         'question-railroad': '<div class="tooltip"><p>This is the railroad! Your regular expressions entered above will be displayed here. ' +
       'Additionally, you can drag and drop components from the library below onto this workspace, as well as move components along '+
       'the railroad or remove them</p></div>'
-      }
+      };
+
+      var componentTable = {
+        'text': '',
+        'capture-group': '',
+        'start': '',
+        'end': '',
+        'digit': '',
+        'word': '',
+        'word-boundary': '',
+        'white-space': '',
+        'any-character': '',
+        'non-digit': '',
+        'non-word': '',
+        'non-word-boundary': '',
+        'non-white-space': '',
+        'optional': '',
+        'repeating': '',
+        'alternate': '',
+        'alternate-solo': ''
+      };
+
+      // For the sake of readability and organization, the info blocks and component tool tips are stored in separate objects. Extend is used to  combine the two into one object for easy lookup.
+      var tooltipTable = angular.extend(infoTable, componentTable);
 
       return {
         tooltipTable: tooltipTable
