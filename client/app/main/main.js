@@ -7,7 +7,8 @@
       'clickHelpers',
       'modifyTreeModule',
       'makeRRModule',
-      'workspaceModule'
+      'workspaceModule',
+      'tooltipsModule'
     ])
     .controller('MainController', [ '$scope','values', 'modifyTree', 'workspace', 'makeRR', MainController ]);
 
