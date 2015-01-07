@@ -10,13 +10,14 @@
 
     return {
       restrict: "E",
-      template: '<span class="question">?</span>',
+      template: '<div ng-transclude class="tip"></div>',
+      transclude: true,
       link: function(scope, element, attrs) {
         $(element).hover(function(){
           // The class of the tooltip element will determine what text is appended
-          var type = $(this).attr('class');
+          var type = $(this).children()[0].children[0].classList[1];
           // Finds the inner span class and appends the tooltip html
-          $($(this)[0].children[0]).append(tooltipsFactory.tooltipTable[type]);
+          $($(this)[0].children[0].children[0]).append(tooltipsFactory.tooltipTable[type]);
         }, function(){
           // Removes the tooltip once hover is ended
           $("div.tooltip").remove();

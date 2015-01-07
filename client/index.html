@@ -47,7 +47,8 @@
     <!-- input boxes allows the user to change $scope variables to make regex -->
     <form style="padding: 20px;">
       <div class="regex-input-container">
-        <tool-tip class="question-regexinput"></tool-tip>
+        <tool-tip id="question"><span class="question question-regexinput">?</span></tool-tip>
+
         <span class="regex-slash">/</span>
         <input placeholder="Write a regex or build a diagram below" class="regex-input regex" ng-model="main.regexBody"></input>
         <span class="regex-slash">/</span>
@@ -60,7 +61,7 @@
       </div>
     </form>
 
-    <tool-tip class="question-railroad"></tool-tip>
+    <tool-tip id="question"><span class="question question-railroad">?</span></tool-tip>
     <!-- Railroad directive. Most of the magic happens here -->
     <div class="railroad-directive">
       <railroad/>
@@ -75,7 +76,7 @@
     <!-- <div class="container"> -->
 
     <div class="library-header">
-        <tool-tip class="question-library"></tool-tip>
+        <tool-tip id="question"><span class="question question-library">?</span></tool-tip>
         <h3>Component Library</h3>
     </div>
     <div class="library-container">

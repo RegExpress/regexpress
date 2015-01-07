@@ -22,6 +22,7 @@
       };
 
       var componentTable = {
+        'default': 'Hover over a component to see what it does',
         'text': '',
         'capture-group': '',
         'start': '',
