@@ -22,24 +22,24 @@
       };
 
       var componentTable = {
-        'default': 'Hover over a component to see what it does',
-        'text': '',
-        'capture-group': '',
-        'start': '',
-        'end': '',
-        'digit': '',
-        'word': '',
-        'word-boundary': '',
-        'white-space': '',
-        'any-character': '',
-        'non-digit': '',
-        'non-word': '',
-        'non-word-boundary': '',
-        'non-white-space': '',
-        'optional': '',
-        'repeating': '',
-        'alternate': '',
-        'alternate-solo': ''
+        'default': 'Hover over a diagram component for more information',
+        'text': ['Any text within this node will be matched exactly', ''],
+        'capture-group': ['Place other components inside a capture component to group them together. A single capture group can be referenced with a back ref in the regex string; \\1 will refer to capture group 1', '(...)'],
+        'start': ['Matches the start of a line', '^'],
+        'end': ['Matches the end of a line', '$'],
+        'digit': ['Matches any digit', '\\d'],
+        'word': ['Matches any alphanumeric word character a-z (of either case) and 0-9 , as well as the underscore character','\\w'],
+        'word-boundary': ['Matches any word boundary', '\\b'],
+        'white-space': ['Matches any white space character', '\\s'],
+        'any-character': ['Matches any single character of any type', '.'],
+        'non-digit': ['Matches any non-digit character', '\\D'],
+        'non-word': ['Matches any non-word character', '\\W'],
+        'non-word-boundary': ['Matches anything that is not a word boundary', '\\B'],
+        'non-white-space': ['Matches any non-whitespace character', '\\S'],
+        'optional': ['Any elements within this capture group will be optional', '?'],
+        'repeating': ['Elements within this capture group will repeat 1 or more times. To specify more than one repeat, edit the regex string with {minRepeats, maxRepeats} ie, {1,3}', '+'],
+        'alternate': ['Regex will match any of the alternate choices provided within this capture group. Drag on additional alternate solo blocks to add more choices', '||'],
+        'alternate-solo': ['Drag these alternate solo blocks inside an alternate capture group to add more choices', '||'],
       };
 
       // For the sake of readability and organization, the info blocks and component tool tips are stored in separate objects. Extend is used to  combine the two into one object for easy lookup.
