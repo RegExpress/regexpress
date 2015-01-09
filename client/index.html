@@ -47,9 +47,10 @@
     <!-- input boxes allows the user to change $scope variables to make regex -->
     <form style="padding: 20px;">
       <div class="regex-input-container">
-        <span class="question question-regexinput">?</span>
+        <tool-tip id="question"><span class="question question-regexinput">?</span></tool-tip>
+
         <span class="regex-slash">/</span>
-        <input placeholder="Write a regex" class="regex-input regex" ng-model="main.regexBody"></input>
+        <input placeholder="Write a regex or build a diagram below" class="regex-input regex" ng-model="main.regexBody"></input>
         <span class="regex-slash">/</span>
         <input placeholder="flag" class="regex-input flag" ng-model="main.regexTags"></input>
         <br>
@@ -60,7 +61,7 @@
       </div>
     </form>
 
-    <span class="question question-railroad">?</span>
+    <tool-tip id="question"><span class="question question-railroad">?</span></tool-tip>
     <!-- Railroad directive. Most of the magic happens here -->
     <div class="railroad-directive">
       <railroad/>
@@ -75,8 +76,12 @@
     <!-- <div class="container"> -->
 
     <div class="library-header">
-        <span class="question question-library">?</span>
+      <div class="componentToolTips">{{ main.componentTip }}</div>
+      <div class="componentSymbol">{{ main.componentSymbol }}</div>
+      <div style="display: inline-block; float: left; margin-left: 10px">
+        <tool-tip id="question"><span class="question question-library">?</span></tool-tip>
         <h3>Component Library</h3>
+      </div>
     </div>
     <div class="library-container">
       <!-- Workspace directive -->
@@ -105,13 +110,14 @@
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
     <script src="components/railroad/railroad.service.js"></script>
+    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
-    <script src="components/aboutUs/informationDirective.directive.js"></script>
-    <script src="components/tool-tips/tooltips.js"></script>
+    <script src="components/tool-tips/tooltips.directive.js"></script>
+    <script src="components/tool-tips/tooltips.factory.js"></script>
+    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
-    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <!-- endinject -->
   </body>
   </html>

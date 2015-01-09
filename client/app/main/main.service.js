@@ -16,6 +16,8 @@
           savedRegexTrees = [],
           treeChanged = 0,
           info = 'Drag and drop elements from the library below to the railroad and build a regex diagram',
+          componentTip = 'Hover over a diagram component for more information',
+          componentSymbol = '',
           nodeToAdd;
 
 
@@ -29,6 +31,8 @@
         matches: matches,
         treeChanged: treeChanged,
         info: info,
+        componentTip: componentTip,
+        componentSymbol: componentSymbol,
         nodeToAdd: nodeToAdd
       };
     }
