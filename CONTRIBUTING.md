@@ -33,7 +33,7 @@
 Use github’s interface to make a fork of the repo, then add the repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/amber-storm/amber-storm.git
+git remote add upstream https://github.com/RegExpress/regexpress.git
 ```
 
 ### Cut a namespaced feature branch from master
@@ -70,7 +70,7 @@ changes.
 
 #### Commit Message Guidelines
 
-- Commit messages should be written in the present tense; e.g. "Fix continuous
+- Commit messages should be written in the present tense; e.g. "Fixes continuous
   integration script".
 - The first line of your commit message should be a brief summary of what the
   commit changes. Aim for about 70 characters max. Remember: This is a summary,
