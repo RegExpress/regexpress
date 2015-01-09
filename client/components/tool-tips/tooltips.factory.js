@@ -22,7 +22,7 @@
       };
 
       var componentTable = {
-        'default': 'Hover over a diagram component for more information',
+        'default': ['Hover over a diagram component for more information', ''],
         'text': ['Any text within this node will be matched exactly', ''],
         'capture-group': ['Place other components inside a capture component to group them together. A single capture group can be referenced with a back ref in the regex string; \\1 will refer to capture group 1', '(...)'],
         'start': ['Matches the start of a line', '^'],
@@ -36,7 +36,7 @@
         'non-word': ['Matches any non-word character', '\\W'],
         'non-word-boundary': ['Matches anything that is not a word boundary', '\\B'],
         'non-white-space': ['Matches any non-whitespace character', '\\S'],
-        'optional': ['Any elements within this capture group will be optional', '?'],
+        'optional': ['Any elements within this capture group will be optional in your regex pattern', '?'],
         'repeating': ['Elements within this capture group will repeat 1 or more times. To specify more than one repeat, edit the regex string with {minRepeats, maxRepeats} ie, {1,3}', '+'],
         'alternate': ['Regex will match any of the alternate choices provided within this capture group. Drag on additional alternate solo blocks to add more choices', '||'],
         'alternate-solo': ['Drag these alternate solo blocks inside an alternate capture group to add more choices', '||'],

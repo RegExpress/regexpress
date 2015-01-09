@@ -38,8 +38,8 @@
 
           // is scope.$apply expensive? I could put this in an if statement
           scope.$apply(function(){
-              scope.main.componentTip = tooltipsFactory.tooltipTable['default'];
-              scope.main.componentSymbol = '';
+              scope.main.componentTip = tooltipsFactory.tooltipTable['default'][0];
+              scope.main.componentSymbol = tooltipsFactory.tooltipTable['default'][1];
           });
         });
 
