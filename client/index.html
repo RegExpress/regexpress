@@ -29,7 +29,7 @@
   <a href="https://github.com/RegExpress/regexpress"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
 
   <div class="howDoesItWork hidden" id="howDoesItHidden">
-    <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of the library components.<center> Read about how RegExpress was built <a class="blog" href="http://www.techphrasis.com/planting-a-regex-tree-the-building-of-regexpress/">here</a><center></div>
+    <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" syntax diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of the library components.<br></br><center> Read about how RegExpress was built <a class="blog" href="http://www.techphrasis.com/planting-a-regex-tree-the-building-of-regexpress/">here</a><center></div>
 
     <div class="githublink"><a href="https://github.com/RegExpress/regexpress"><div id="contribute">Contribute to this open source project!</a></div><a href="https://github.com/RegExpress/regexpress"><img class="octocat" src="assets/octocat.png"></img></a></div>
   </div>
@@ -74,20 +74,18 @@
     <div><tree-to-input></div>
   </div>
 
-    <!-- <div class="container"> -->
+  <div class="library-header">
+    <div class="componentToolTips">{{ main.componentTip }}</div>
+    <div class="componentSymbol">{{ main.componentSymbol }}</div>
+    <div style="display: inline-block; float: left; margin-left: 10px">
+      <tool-tip id="question"><span class="question question-library">?</span></tool-tip>
+      <h3>Component Library</h3>
+    </div>
+  </div>
 
-    <div class="library-header">
-      <div class="componentToolTips">{{ main.componentTip }}</div>
-      <div class="componentSymbol">{{ main.componentSymbol }}</div>
-      <div style="display: inline-block; float: left; margin-left: 10px">
-        <tool-tip id="question"><span class="question question-library">?</span></tool-tip>
-        <h3>Component Library</h3>
-      </div>
-    </div>
-    <div class="library-container">
-      <!-- Workspace directive -->
-      <place-workspace></place-workspace>
-    </div>
+  <div class="library-container">
+    <!-- Workspace directive -->
+    <place-workspace></place-workspace>
   </div>
 
     <!-- build:js -->
