@@ -6,7 +6,7 @@
 
     function modifyTree(){
       /*
-      * Finds and returns a specific node in the tree, and it's parent
+      * Finds and returns a specific node in the tree, and its parent
       * id: the id of the node we want to find
       * node: the current node in the tree that we are evaluating
       * parent: the parent of the current node we are evaluating.
@@ -55,7 +55,7 @@
       * Removes all nodes with idToRemove from the regex tree. Returns an array of removed nodes
       * idToRemove: the id of the node we want to remove
       * regexTree: the regex tree
-      */ 
+      */
       function removeNode(idToRemove, regexTree) {
         var addToNodes = true; // remains true while we need to add the removed nodes to the array we will return
         var nodes = [];
@@ -83,7 +83,7 @@
               addToNodes = false;
               traverseTree(parent.idNum, regexTree);
             }
-            
+
             // if our match body is not empty, call the function again in case there are more literals with the same id
             if (parent.body.length) {
               traverseTree(idToRemove, regexTree);
@@ -119,7 +119,7 @@
               }
             }
           }
-          
+
         }
         traverseTree(idToRemove, regexTree);
         return nodes;
@@ -140,10 +140,10 @@
           sibling = siblingAndParent.node;
           parent = siblingAndParent.parent;
         } else {
-          parent = getNode(parentId, regexTree).node; 
+          parent = getNode(parentId, regexTree).node;
         }
 
-        if (parent.type === 'match') { 
+        if (parent.type === 'match') {
           //add the new node after the sibling, or at the beginning
           if (sibling !== undefined) {
             var indexOfSibling = parent.body.indexOf(sibling);
@@ -175,7 +175,7 @@
             // make parent .body into a capture group w/ the old body
             var oldBody = parent.body;
             parent.body = {type: 'capture-group', body: {type: 'match', body: [oldBody]}};
-            
+
             if (sibling !== undefined) {
               // parent -> capture group -> match -> match's body
               parent.body.body.body.push(nodeToAdd);
@@ -226,7 +226,7 @@
         if (parent.type === 'match') {
           var newBody = [];
 
-          // add all nodes that don't match nodeID to the new body. 
+          // add all nodes that don't match nodeID to the new body.
           // if the id equals nodeID, and newVal hasn't been added, add a node for each letter in newVal
           for (var j = 0; j < parent.body.length; j++) {
             if (parent.body[j].idNum !== nodeID) {
@@ -250,7 +250,7 @@
           if (newVal.length === 1) {
             parent.text = newVal + "?";
             parent.body = {type: "literal", offset: 0, text: newVal, body: newVal, escaped: false};
-          } 
+          }
           // if newVal is more than one character, set the parent body to a capture group -> match -> literal
           if (newVal.length > 1) {
             var newText = "("  + newVal + ")?";
@@ -262,7 +262,7 @@
             // -999 is used for the id because regular nodes in the tree can only have positive id's,
             // so there's no possibility of accidentally editing the wrong node. this node will be removed,
             // so it's ok that it has a negative id
-            editText(-999, newVal, regexTree); 
+            editText(-999, newVal, regexTree);
           }
         }
       }

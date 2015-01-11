@@ -12,6 +12,8 @@
       replace: false,
       template: '<div></div>',
       link: function(scope, element, attrs) {
+        // some of this is for elements that have been removed.
+        // this is basically a blatant misuse of a directive.
 
         var currentWidth;
 
