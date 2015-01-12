@@ -5,13 +5,14 @@
   <title>RegExpress</title>
   <!-- build:css -->
   <!-- bower:css -->
-  <link rel='stylesheet' href='bower_components/jquery-highlighttextarea/jquery.highlighttextarea.css' />
+  <link rel="stylesheet" href="bower_components/jquery-highlighttextarea/jquery.highlighttextarea.css" />
   <!-- endbower -->
   <!-- endbuild -->
   <!-- styles:css -->
   <link rel="stylesheet" href="styles/app.css">
   <!-- endinject -->
   <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" href="assets/favicon.ico">
 
 </head>
 <!-- Main controller controls body of page -->
@@ -25,7 +26,7 @@
     <h4 class="sublogo">Demystifying regular expressions</h4>
   </div>
 
-  <a href="https://github.com/you"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+  <a href="https://github.com/RegExpress/regexpress"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/82b228a3648bf44fc1163ef44c62fcc60081495e/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
 
   <div class="howDoesItWork hidden" id="howDoesItHidden">
     <div id="explanation">Welcome to RegExpress, a tool that lets you build regexes by creating a syntax diagram instead of having to memorize countless esoteric symbols.<br><br>RegExpress will show you the text and the "regex railroad" diagram for any regular expression. Type in a regex to see the diagram it creates, or build your own out of the library components.<center> Read about how RegExpress was built <a class="blog" href="http://www.techphrasis.com/planting-a-regex-tree-the-building-of-regexpress/">here</a><center></div>
@@ -106,18 +107,30 @@
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
     <script src="components/matches/matches.directive.js"></script>
-    <script src="components/modify-tree/modify-tree.factory.js"></script>
+    <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
     <script src="components/railroad/railroad.service.js"></script>
-    <script src="components/aboutUs/informationDirective.directive.js"></script>
+    <script src="components/modify-tree/modify-tree.factory.js"></script>
     <script src="components/regex/regex.directive.js"></script>
     <script src="components/test-string/test-string.directive.js"></script>
     <script src="components/tool-tips/tooltips.directive.js"></script>
     <script src="components/tool-tips/tooltips.factory.js"></script>
-    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <script src="components/workspace/workspace.directive.js"></script>
     <script src="components/workspace/workspace.factory.js"></script>
+    <script src="components/tree-to-input/treeToInput.directive.js"></script>
     <!-- endinject -->
+
+    <!-- start Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-57356435-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <!-- end Google Analytics -->
   </body>
   </html>

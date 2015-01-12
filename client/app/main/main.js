@@ -32,14 +32,6 @@
           console.log("no tree yo");
         }
       };
-
-      // console.log($scope.main.regexTree);
-      // $scope.callRemove = function(targetId) {
-      //   var toRemoveInt = parseInt(targetId);
-      //   console.log('now removing', targetId)
-      //   modifyTree.removeNode(toRemoveInt, $scope.main.regexTree);
-      //   $scope.main.treeChanged++;
-      // };
     }
 
 })();

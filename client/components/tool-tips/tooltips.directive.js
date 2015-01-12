@@ -36,10 +36,10 @@
           // Removes the tooltip once hover is ended
           $("div.tooltip").remove();
 
-          // is scope.$apply expensive? I could put this in an if statement
+          // This could go in an if statement if scope.$apply expensive. TODO: figure that out
           scope.$apply(function(){
-              scope.main.componentTip = tooltipsFactory.tooltipTable['default'];
-              scope.main.componentSymbol = '';
+              scope.main.componentTip = tooltipsFactory.tooltipTable['default'][0];
+              scope.main.componentSymbol = tooltipsFactory.tooltipTable['default'][1];
           });
         });
 
