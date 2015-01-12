@@ -12,12 +12,19 @@
             added = 0,
             matches = {};
 
-        // calls regex.exec repeatedly to find all matches in a string
-        while (match = regex.exec(string) !-) {
-          matches[match.index] = match[0];
+        if (regex.global) {
+          while (match = regex.exec(string)) {
+            matches[match.index] = match[0];
+            console.log('oops');
+          }
+        } else {
+           if (match = regex.exec(string)) {
+             matches[match.index] = match[0];
+           }
         }
 
-        indexes = Object.keys(matches);
+        // indexes must be sorted in ascending order
+        indexes = Object.keys(matches)//.sort(function(a,b){ return a-b });
 
         // loop through indexes and wrap string in span tags
         string = string.split('');
