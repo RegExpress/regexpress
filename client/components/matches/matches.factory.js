@@ -7,11 +7,30 @@
     function makeMatches() {
 
       function getMatchHTML(string, regex) {
-        // returns a string with all matches inside span tags
-        var result = string.match(regex).join();
-        return result;
-        // return 'abc <span class="hilight">123</span>';
+        var match,
+            indexes,
+            added = 0,
+            matches = {};
+
+        // calls regex.exec repeatedly to find all matches in a string
+        while (match = regex.exec(string) !-) {
+          matches[match.index] = match[0];
+        }
+
+        indexes = Object.keys(matches);
+
+        // loop through indexes and wrap string in span tags
+        string = string.split('');
+
+        for (var i = 0; i < indexes.length; i++ ) {
+          string.splice(parseInt(indexes[i])+added, 0, '<span class="hilight">') + string;
+          string.splice(parseInt(indexes[i])+matches[indexes[i]].length+added+1, 0, '</span>') + string;
+          added += 2;
+        }
+
+        return string.join('');
       }
+
 
       return {
         getMatchHTML: getMatchHTML
