@@ -12,21 +12,21 @@
             added = 0,
             matches = {};
 
+        // The nature of .exec() requires that a while loop not be used unless the global tag is present
         if (regex.global) {
           while (match = regex.exec(string)) {
             matches[match.index] = match[0];
-            console.log('oops');
           }
         } else {
            if (match = regex.exec(string)) {
              matches[match.index] = match[0];
            }
-        }
+        };
 
         // indexes must be sorted in ascending order
-        indexes = Object.keys(matches)//.sort(function(a,b){ return a-b });
+        indexes = Object.keys(matches).sort(function(a,b){ return a-b });
 
-        // loop through indexes and wrap string in span tags
+        // loop through indexes and wrap matches in span tags
         string = string.split('');
 
         for (var i = 0; i < indexes.length; i++ ) {
