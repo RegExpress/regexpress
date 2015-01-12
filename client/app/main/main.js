@@ -8,7 +8,8 @@
       'modifyTreeModule',
       'makeRRModule',
       'workspaceModule',
-      'tooltipsModule'
+      'tooltipsModule',
+      'matchesFactory'
     ])
     .controller('MainController', [ '$scope','values', 'modifyTree', 'workspace', 'makeRR', MainController ]);
 

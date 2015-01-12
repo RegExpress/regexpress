@@ -35,9 +35,6 @@
   </div>
   <div class="howDoesItWork" id="howClick">What is this?</div>
 
-  <!-- updates the regexp model  -->
- <div><track-matches/></div>
-
   <!-- regex directive -->
   <div><track-regex/></div>
 
@@ -54,13 +51,11 @@
         <input placeholder="Write a regex or build a diagram below" class="regex-input regex" ng-model="main.regexBody"></input>
         <span class="regex-slash">/</span>
         <input placeholder="flag" class="regex-input flag" ng-model="main.regexTags"></input>
-        <br>
-        <!-- <center>
-        <span class="question question-regextest">?</span>
-        <textarea testString label="Test String" class="test-text" ng-model="main.string" placeholder="Write your test string here"></textarea>
-        </center> -->
       </div>
     </form>
+    <!-- <span class="question question-regextest">?</span> -->
+    <!-- begin matches directive -->
+    <center><track-matches></track-matches></center>
 
     <tool-tip id="question"><span class="question question-railroad">?</span></tool-tip>
     <!-- Railroad directive. Most of the magic happens here -->
@@ -105,6 +100,7 @@
     <script src="app/main/main.js"></script>
     <script src="app/main/main.service.js"></script>
     <script src="components/matches/matches.directive.js"></script>
+    <script src="components/matches/matches.factory.js"></script>
     <script src="components/aboutUs/informationDirective.directive.js"></script>
     <script src="components/railroad/railroad.click-helpers.factory.js"></script>
     <script src="components/railroad/railroad.directive.js"></script>
