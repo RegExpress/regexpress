@@ -7,6 +7,9 @@
     function matchHelpers() {
 
       function getMatchHTML(string, regex) {
+
+        regex = regex || /.+/;
+
         var match,
             indexes,
             added = 0,
