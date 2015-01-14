@@ -3,7 +3,7 @@ describe('matches', function() {
   beforeEach(module('baseApp')); // the specific module
   beforeEach(inject(function($injector) {
 
-    makeMatches = $injector.get('makeMatches');
+    makeMatches = $injector.get('matchHelpers');
 
   }));
 

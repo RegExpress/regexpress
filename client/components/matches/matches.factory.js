@@ -2,9 +2,9 @@
   'use strict';
 
   angular.module('matchesFactory', [])
-    .factory('makeMatches', makeMatches);
+    .factory('matchHelpers', matchHelpers);
 
-    function makeMatches() {
+    function matchHelpers() {
 
       function getMatchHTML(string, regex) {
         var match,
@@ -22,7 +22,6 @@
              matches[match.index] = match[0];
            }
         };
-
         // indexes must be sorted in ascending order
         indexes = Object.keys(matches).sort(function(a,b){ return a-b });
 
@@ -34,13 +33,24 @@
           string.splice(parseInt(indexes[i])+matches[indexes[i]].length+added+1, 0, '</span>') + string;
           added += 2;
         }
-
         return string.join('');
       }
 
+      // Sets caret to the end of the contenteditable div
+      function setCaret() {
+          var el = $('#matches')[0];
+          var range = document.createRange();
+          var selectedEl = window.getSelection();
+          range.setStart(el, el.childNodes.length);
+          range.collapse(true);
+          selectedEl.removeAllRanges();
+          selectedEl.addRange(range);
+          el.focus();
+      }
 
       return {
-        getMatchHTML: getMatchHTML
+        getMatchHTML: getMatchHTML,
+        setCaret: setCaret
       };
     }
 
