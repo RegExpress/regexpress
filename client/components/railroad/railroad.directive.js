@@ -44,7 +44,7 @@
         * re-render the diagram once at the end of the tree change, and therefore a counter is $watched instead.
         */
         scope.$watch('main.treeChanged', function(newVal, oldVal, scope){
-          console.log('tree has changed', scope.main.regexTree);
+          // console.log('tree has changed', scope.main.regexTree);
 
           var newRR = makeRR.createRailroad(scope.main.regexTree);
           element.empty();
