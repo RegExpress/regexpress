@@ -9,7 +9,7 @@
 
     return {
       restrict: "E",
-      template: '<div id="matches" contenteditable></div>',
+      template: '<div id="matches" contenteditable>Write text here!</div>',
       link: function(scope, element, attrs) {
 
         scope.$watch('main.regexp', function(newVal, oldVal, scope){

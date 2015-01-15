@@ -40,7 +40,6 @@ a
 a.blog
   text-decoration underline
 
-
 .header
   display inline-block
 
@@ -203,8 +202,7 @@ h3
 .components
   cursor pointer
   display inline-table
-  // max-height 30
-  max-width 85px
+  max-width 200px
   display inline-table
 
 #capture-group, #alternate, #repeating, #optional
@@ -323,11 +321,11 @@ div.tooltip p
   margin-right 0px
   height 80%
   margin-top 14%
-  font-size 12pt
+  font-size 13pt
   text-align left
   width 450px
   display none
-  line-height: 19px
+  line-height: 22px
 
 #contribute
   display inline-block
@@ -344,3 +342,65 @@ div.tooltip p
 
 .svg-hover
   cursor pointer
+
+// Eventually this will get factored out into a partial
+
+span.title
+  color tan
+  padding 5px
+  font-size 10pt
+
+#text
+  height 40px
+#capture-group
+  width 200px
+  height 90px
+
+#digit
+  width 80px
+  padding 6px
+
+span#one
+  width 200px
+  padding-left 40px
+  padding-top 0px
+
+span#two
+  width 200px
+  padding-top 20px
+
+span#three
+  width 200px
+
+span#four
+  width 50%
+  margin-right 0px
+
+#optional
+  width 80
+  margin-left 20px
+
+#alternate
+  width 130px
+
+#repeating
+  width 170px
+
+#alternate-solo
+  width 170px
+
+#start
+  width 75px
+  height 35px
+  padding 2px
+
+#end
+  width 75px
+  padding 2px
+  height 37px
+
+#text
+  width 150px
+
+#white-space, #word-boundary, #word, #non-white-space, #non-word-boundary, #non-word, #non-digit, #any-character
+  width 150px

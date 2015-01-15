@@ -1,13 +1,15 @@
 <div class="library">
   <span class="cell" id="one">
-    <br>
     <tool-tip><img class="components" id="text" draggable="false" src="assets/elements/text.png"></img></tool-tip>
     <tool-tip><img class="components" id="capture-group" draggable="false" src="assets/elements/capture.png"></img></tool-tip>
-    <tool-tip><img class="components" id="start" draggable="false" src="assets/elements/start.png"></img></tool-tip>
-    <tool-tip><img class="components" id="end" draggable="false" src="assets/elements/end.png"></img></tool-tip>
+    <div style="display: inline-block">
+      <tool-tip><img class="components" id="start" draggable="false" src="assets/elements/start.png"></img></tool-tip>
+    </div>
+    <div style="display: inline-block; padding-bottom: 20px">
+      <tool-tip><img class="components" id="end" draggable="false" src="assets/elements/end.png"></img></tool-tip>
+    </div>
   </span>
   <span class="cell" id="two">
-    <br>
     <tool-tip><img class="components" id="digit" draggable="false" src="assets/elements/digit.png"></img></tool-tip>
     <tool-tip><img class="components" id="word" draggable="false" src="assets/elements/word_character.png"></img></tool-tip>
     <tool-tip><img class="components" id="word-boundary" draggable="false" src="assets/elements/word_boundary.png"></img></tool-tip>
@@ -15,7 +17,6 @@
     <tool-tip><img class="components" id="any-character" draggable="false" src="assets/elements/any_character.png"></img></tool-tip>
   </span>
   <span class="cell" id="three">
-    <br>
     <tool-tip><img class="components" id="non-digit" draggable="false" src="assets/elements/non_digit.png"></img></tool-tip>
       <tool-tip><img class="components" id="non-word" draggable="false" src="assets/elements/non_word_character.png"></img></tool-tip>
       <tool-tip><img class="components" id="non-word-boundary" draggable="false" src="assets/elements/non_word_boundary.png"></img></tool-tip>
@@ -23,9 +24,29 @@
   </span>
   <span class="cell" id="four">
     <br>
-    <tool-tip><img class="components" id="optional" draggable="false" src="assets/elements/optional.png"></img></tool-tip>
-    <tool-tip><img class="components" id="repeating" draggable="false" src="assets/elements/repeating.png"></img></tool-tip>
-    <tool-tip><img class="components" id="alternate" draggable="false" src="assets/elements/or.png"></img></tool-tip>
-    <tool-tip><img class="components" id="alternate-solo" draggable="false" src="assets/elements/temp_alternate-solo.png"></img></tool-tip>
+    <div>
+      <div style="display: inline-block">
+        <tool-tip><img class="components" id="optional" draggable="false" src="assets/elements/optional.png"></img></tool-tip>
+        <span class="title">Optional block</span>
+      </div>
+      <div style="display: inline-block">
+        <tool-tip><img class="components" id="repeating" draggable="false" src="assets/elements/repeating.png"></img></tool-tip>
+        <span class="title">Repeating block</span>
+      </div>
+      <div style="display: inline-block">
+        <tool-tip><img class="components" id="alternate" draggable="false" src="assets/elements/or_capture.png"></img></tool-tip>
+        <span class="title">alternative block</span>
+      </div>
+      <div style="display: inline-block">
+        <tool-tip><img class="components" id="alternate-solo" draggable="false" src="assets/elements/or_solo.png"></img></tool-tip>
+        <span class="title">extra alternatives</span>
+      </div>
+    </div>
   </span>
 </div>
+
+
+
+
+
+
