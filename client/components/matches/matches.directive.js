@@ -3,40 +3,36 @@
 
   angular
     .module('baseApp')
-    .directive('trackMatches', trackMatches);
+    .directive('trackMatches', [ 'matchHelpers', trackMatches]);
 
-  function trackMatches() {
+  function trackMatches(matchHelpers) {
 
     return {
       restrict: "E",
-      template: '<div>matches</div>',
+      template: '<div id="matches" contenteditable>Write text here!</div>',
       link: function(scope, element, attrs) {
-        // watches for changes in regex, creates matched string and appends to DOM
 
-        scope.$watchGroup(['main.regexp', 'main.string'], function(newVal, oldVal){
-          var $textarea = $('.test-text');
-
-          scope.$emit('matched changed');
-          try {
-            scope.main.matches = scope.main.string.match(scope.main.regexp);
-            element.empty();
-            // element.append('<p>' + scope.main.matches + '</p>');
-            var wordMatches = scope.main.matches[0].split(' ')
-            var test = ["word", "stuff", "w"]
-            scope.$broadcast('matched changed');
-            // console.log(scope.main.regexp)
-            var regex = [];
-            regex.push('"' + scope.main.regexp + '"')
-            // console.log(regex)
-            // $textarea.highlightTextarea({
-            //   color: "#96BD4F",
-            //   words: wordMatches
-            // })
-            console.log(wordMatches);
-          } catch (err) {
-            // console.log(err)
-          }
+        scope.$watch('main.regexp', function(newVal, oldVal, scope){
+          // really janky fix
+          setTimeout(getAllMatches,5);
         });
+
+        // on keypress, obliterate and recreate the span structure inside of the content editable string. too slow? WE'LL FIND OUT.
+        $(element).on('keypress', function(){
+          getAllMatches();
+          // set the caret to the end of the line
+          matchHelpers.setCaret();
+        })
+
+        var getAllMatches = function(){
+           // Find text in content editable div
+          var text = $(element.children()[0]).text();
+          // Throw matched elements into hilighted spans TODO take out hardwired regex
+          var matchHTML = matchHelpers.getMatchHTML(text, scope.main.regexp);
+          // set the HTML of the content editable div
+          $(element.children()[0]).html(matchHTML);
+        }
+
       }
     }
   }

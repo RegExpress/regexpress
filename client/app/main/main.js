@@ -8,7 +8,8 @@
       'modifyTreeModule',
       'makeRRModule',
       'workspaceModule',
-      'tooltipsModule'
+      'tooltipsModule',
+      'matchesFactory'
     ])
     .controller('MainController', [ '$scope','values', 'modifyTree', 'workspace', 'makeRR', MainController ]);
 
@@ -24,9 +25,9 @@
 
       $scope.undoTree = function() {
         if ($scope.main.savedRegexTrees.length > 0) {
-          console.log($scope.main.savedRegexTrees);
+          // console.log($scope.main.savedRegexTrees);
           $scope.main.regexTree = JSON.parse($scope.main.savedRegexTrees.pop());
-          console.log($scope.main.savedRegexTrees);
+          // console.log($scope.main.savedRegexTrees);
           $scope.main.treeChanged++;
         } else {
           console.log("no tree yo");
