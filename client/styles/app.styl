@@ -37,6 +37,10 @@ a
   text-decoration none
   color color2
 
+a.blog
+  text-decoration underline
+
+
 .header
   display inline-block
 
@@ -167,12 +171,18 @@ p.instruct
 .railroad-directive
   display inline-block
 
-.library-container
-  border-radius 10px
-  margin 10px
+.library-header
+  border-radius 10px 10px  0px 0px
+  margin 0px 10px 5px 10px
   padding-top 5px
   background-color #292929
-  text-align center
+  height 70px
+
+.library-container
+  border-radius 0px 0px 10px 10px
+  margin 0px 10px 0px 10px
+  padding-top 5px
+  background-color #292929
 
 h3
   display inline-block
@@ -205,10 +215,13 @@ h3
 #trash
   display inline-block
   border-radius 10px
-  &:hover
-    background-color #E45F56
 
-span.question
+#question // blatant misuse of IDs here
+  display: inline-block;
+  padding-left 1px
+  position: relative;
+
+.question
   cursor: pointer;
   display: inline-block;
   width: 20px;
@@ -244,6 +257,25 @@ span.question.question-regextest
 span.question.question-railroad
   top -25px
 
+div.componentToolTips
+  float left
+  margin 1px 1px 1px 20px
+  height 75%
+  width: 450px
+  font-size 9pt
+  color #808080
+  display flex
+  justify-content center
+  align-content center
+  flex-direction column
+
+div.componentSymbol
+  float left
+  color #808080
+  font-size 18pt
+  margin 20px
+  width 70px
+
 div.tooltip p
   margin: 10px;
   color: White;
@@ -278,11 +310,11 @@ div.tooltip p
   margin-right 0px
   height 80%
   margin-top 14%
-  font-size 10pt
+  font-size 12pt
   text-align left
   width 450px
   display none
-  line-height: 16px
+  line-height: 19px
 
 #contribute
   display inline-block
@@ -297,6 +329,5 @@ div.tooltip p
   margin auto
   padding: 20px
 
- 
 .svg-hover
   cursor pointer

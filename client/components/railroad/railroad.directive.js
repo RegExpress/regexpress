@@ -12,8 +12,23 @@
       replace: true,
       template: '<div class="RR-dir"></div>',
       link: function(scope, element, attrs) {
-        // comment all of these
-        var item, itemID, location, oldClass, copy, top, left, text, nodeID, saveTree;
+        // item is the captured node
+        var item,
+
+        // itemID is the ID of the captured node
+        itemID,
+
+        // Saves an old class for use in the really dumb class switcheroo on ln 90
+        oldClass,
+
+        // respresents the copy of the node created by clone(). Copy is the draggable version
+        copy,
+
+        top,
+        left,
+        text,
+        nodeID,
+        saveTree;
 
         /*
         * Watches the regexp model and re-renders the tree whenever the regexp changes. The scope.main.treeChanged model is incremented to indicate a finished tree change, since the tree itself cannot be watched easily.
@@ -260,7 +275,7 @@
             class: $(overElem).attr('class'),
             id: $(overElem).attr('id')
           }
-          // bug: if user clicks on node for text to edit, it removes the whole selected node. Re assign item better.  
+          // bug: if user clicks on node for text to edit, it removes the whole selected node. Re assign item better.
           var overSelf = handlerHelpers.isOverSelf(event, itemID); // true if you are over the selected node, or next to it on the railroad (NOT 100% WORKING)
           var overValidTarget = true; // TODO set up a checkIfOverValid target setup, possibly in tandem with findRelatives
 
@@ -268,15 +283,15 @@
           if (over.id === 'trash') {
             scope.main.savedRegexTrees.push(JSON.stringify(scope.main.regexTree));
             callRemoveNode(intID);
-            
-          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'ng-pristine ng-valid' || 
-            over.class === 'question question-regextest' || over.class === 'question question-railroad' || 
+
+          } else if ( (!scope.main.nodeToAdd && overSelf) || over.class === 'ng-pristine ng-valid' ||
+            over.class === 'question question-regextest' || over.class === 'question question-railroad' ||
             over.class === 'question question-regexinput' || over.class === 'test-text ng-pristine ng-untouched ng-valid' ||
-            over.class === 'regex-input regex ng-pristine ng-untouched ng-valid' || 
+            over.class === 'regex-input regex ng-pristine ng-untouched ng-valid' ||
             over.class === 'regex-input flag ng-pristine ng-untouched ng-valid' ||
             over.class === 'regex-slash' || over.class === 'start' || over.class === 'end' ||
             over.class === 'RR' || over.class === 'railroad-diagram' || over.class === 'work') {
-            // if we drop the item anywhere in the workspace that's not the trashcan or railroad, put the selected item back in it's original spot
+            // if we drop the item anywhere in the workspace that's not the trashcan or railroad, put the selected item back in its original spot
             $('g.ghost rect').css('stroke', 'black');
             $(item).attr('class', oldClass);
 

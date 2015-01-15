@@ -27,9 +27,9 @@
         'word-boundary': '{"type": "word-boundary"}',
         'non-word-boundary': '{"type": "non-word-boundary"}',
         'text': text,
-        // 'testText': testText,
         'capture-group': '{"type": "capture-group", "body":' + text + '}',
         'alternate': '{"type": "capture-group", "body": {"type": "alternate", "left":' + text + ', "right":' + text + '}}',
+        'alternate-solo': '{"type": "alternate", "left":' + text + ', "right":' + text + '}',
         'optional': '{"type": "quantified", "body": {"type": "capture-group", "body":' + text + '}, "quantifier": {"min": 0, "max": 1}}',
         'repeating': '{"type": "quantified", "body": {"type": "capture-group", "body":' + text + '}, "quantifier": {"min": 1, "max": null}}'
       };
