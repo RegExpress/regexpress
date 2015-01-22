@@ -21,7 +21,7 @@
         // Saves an old class for use in the really dumb class switcheroo on ln 90
         oldClass,
 
-        // respresents the copy of the node created by clone(). Copy is the draggable version
+        // represents the copy of the node created by clone(). Copy is the draggable version
         copy,
 
         top,
