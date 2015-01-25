@@ -17,7 +17,7 @@
           setTimeout(getAllMatches,5);
         });
 
-        // on keypress, obliterate and recreate the span structure inside of the content editable string. too slow? WE'LL FIND OUT.
+        // on keypress, obliterate and recreate the span structure inside of the content editable string.
         $(element).on('keypress', function(){
           getAllMatches();
           // set the caret to the end of the line
